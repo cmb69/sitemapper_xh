@@ -2,9 +2,9 @@
 
 /**
  * Back-end functionality of Sitemapper_XH.
- * Copyright (c) 2011 Christoph M. Becker (see license.txt)
+ * Copyright (c) 2011-2012 Christoph M. Becker (see license.txt)
  */
- 
+
 
 // utf-8 marker: äöüß
 
@@ -15,7 +15,7 @@ if (!defined('CMSIMPLE_XH_VERSION')) {
 }
 
 
-define('SITEMAPPER_VERSION', '1rc1');
+define('SITEMAPPER_VERSION', '1');
 
 
 /**
@@ -26,7 +26,7 @@ define('SITEMAPPER_VERSION', '1rc1');
 function sitemapper_version() {
     return '<h1>Sitemapper_XH</h1>'."\n"
 	    .'<p>Version: '.SITEMAPPER_VERSION.'</p>'."\n"
-	    .'<p>Copyright &copy; 2011 Christoph M. Becker</p>'."\n"
+	    .'<p>Copyright &copy; 2011-2012 Christoph M. Becker</p>'."\n"
 	    .'<p style="text-align: justify">This program is free software: you can redistribute it and/or modify'
 	    .' it under the terms of the GNU General Public License as published by'
 	    .' the Free Software Foundation, either version 3 of the License, or'
@@ -100,7 +100,7 @@ function sitemapper_date($timestamp) {
  */
 function sitemapper_installed_subsites() {
     global $pth, $cf;
-    
+
     $res = array($cf['language']['default']);
     $dir = $pth['folder']['base'];
     $dh = opendir($dir);
@@ -152,9 +152,9 @@ function sitemapper_sitemap_index() {
  */
 function sitemapper_subsite_sitemap() {
     global $pth, $u, $pd_router, $plugin_cf, $sl, $c, $function, $s, $text;
-    
+
     $sitemapper_cf =& $plugin_cf['sitemapper'];
-    
+
     $res = '<?xml version="1.0" encoding="UTF-8"?>'."\n"
 	    .'<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"'."\n"
 	    .'    xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9'
@@ -203,7 +203,7 @@ function sitemapper_subsite_sitemap() {
  */
 function sitemapper_write_sitemap($ss = NULL) {
     global $pth;
-    
+
     $suffix = isset($ss) ? '-'.$ss : '';
     $fn = $pth['folder']['base'].'sitemap'.$suffix.'.xml';
     $sitemap = (isset($ss)) ? sitemapper_subsite_sitemap() : sitemapper_sitemap_index();
@@ -265,9 +265,9 @@ if ($function == 'save'								// changes from the editor
 if (isset($sitemapper)) {
     initvar('admin');
     initvar('action');
-    
+
     $o .= print_plugin_admin('on');
-    
+
     switch ($admin) {
 	case '':
 	    $o .= sitemapper_version().sitemapper_system_check();

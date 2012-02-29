@@ -2,9 +2,9 @@
 
 /**
  * Pagedata view of Sitemapper_XH.
- * Copyright (c) 2011 Christoph M. Becker (see license.txt)
+ * Copyright (c) 2011-2012 Christoph M. Becker (see license.txt)
  */
- 
+
 
 // utf-8-marker: äöüß
 
@@ -23,12 +23,12 @@ if (!defined('CMSIMPLE_XH_VERSION')) {
  */
 function sitemapper_view($page) {
     global $tx, $sn, $su, $pth, $plugin_tx;
-    
+
     $sitemapper_tx =& $plugin_tx['sitemapper'];
     $help_icon = tag('image src="'.$pth['folder']['plugins'].'sitemapper/images/help.png " alt="help"');
     $res = '<form id="sitemapper" action="'.$sn.'?'.$su.'" method="post">'."\n"
 	    .'<p><strong>Sitemap</strong></p>'."\n";
-	    
+
     $res .= '<a class="pl_tooltip" href="javascript:return false">'.$help_icon.'<span>'.$sitemapper_tx['cf_changefreq'].'</span></a>&nbsp;'
 	    .'<label for="sitemapper_changefreq"><span>Changefreq:</span></label>'.tag('br')."\n";
     $res .= '<select id="sitemapper_changefreq" name="sitemapper_changefreq" style="width: 10em;">'."\n";
@@ -42,7 +42,7 @@ function sitemapper_view($page) {
 	.'<label for="sitemapper_priority"><span>Priority:</span></label>'.tag('br')."\n";
     $res .= tag('input type="text" id="sitemapper_priority" name="sitemapper_priority" size="16"'
 	    .' value="'.$page['sitemapper_priority'].'"').tag('br')."\n";
-    
+
     $res .= tag('input type="hidden" name="save_page_data"')."\n"
 	    .'<div style="text-align: right">'."\n"
 	    .tag('input type="submit" value="'.ucfirst($tx['action']['save']).'"')."\n"
