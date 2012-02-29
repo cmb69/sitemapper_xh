@@ -1,3 +1,8 @@
+Version 1 - released 2012-02-29
+cmb	added plugin icon
+cmb	extended copyright to 2012
+cmb	added czech and polish translations (contributed by oldnema and learnandcode)
+
 Version 1rc1 - released 2011-12-15
 cmb	made minor cosmetic changes
 cmb	added translation hints
