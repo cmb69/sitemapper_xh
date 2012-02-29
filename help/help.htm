@@ -1,0 +1,129 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+    "http://www.w3.org/TR/html4/loose.dtd">
+<!-- utf-8-marker: äöü -->
+<html>
+
+<head>
+<meta http-equiv="content-type" content="text/html;charset=utf-8">
+<meta name="content-language" content="de">
+<title>Sitemapper_XH - Manual</title>
+<link rel="stylesheet" type="text/css" href="./stylesheet.css">
+</head>
+
+<body>
+
+<h1>Sitemapper_XH - a CMSimple_XH Plugin</h1>
+<p>Sitemapper_XH automatically creates an XML-Sitemap of your CMSimple_XH installation.
+For detailed information about Sitemaps see
+<a href="http://www.sitemaps.org/">sitemaps.org</a>.</p>
+
+<ul id="nav">
+<li><a href="#notice">Important Notice</a></li>
+<li><a href="#requirements">Requirements</a></li>
+<li><a href="#installation">Installation</a></li>
+<li><a href="#settings">Settings</a></li>
+<li><a href="#usage">Usage</a></li>
+<li><a href="#limitations">Limitations</a></li>
+<li><a href="#license">License</a></li>
+<li><a href="#credits">Credits</a></li>
+</ul>
+
+<div id="body">
+
+<p><strong>Please do read this documentation! Support might not be given otherwise.
+It's generally a good idea to read the documentation,
+<em>before</em> you encounter any problems!</strong></p>
+
+<h2><a name="notice">Important Notice</a></h2>
+<p><strong>The current version is a so called release candidate. Use with caution!</strong></p>
+<div class="toplink"><a href="#">back to top</a></div>
+
+<h2><a name="requirements">Requirements</a></h2>
+<p>Sitemapper_XH is a plugin for CMSimple_XH.
+It requires an UTF-8 encoded version.</p>
+<div class="toplink"><a href="#">back to top</a></div>
+
+<h2><a name="installation">Installation</a></h2>
+<p>The installation is done as with many other CMSimple_XH plugins.
+See the <a href="http://www.cmsimple-xh.com/wiki/doku.php/manuals:users_manual:plugins:installation">
+CMSimple_XH wiki</a> for further details.</p>
+<ol>
+<li><strong>Backup the data on your server.</strong></li>
+<li>Unzip the distribution on your computer.</li>
+<li>Upload the whole directory sitemapper/ to your server into the CMSimple_XH plugins directory.</li>
+<li>Set write permissions for the subdirectories config/ und languages/.
+The Sitemap files will be created in the CMSimple root directory.
+So it's has to be writable too.
+Alternatively it's possible to create the Sitemap files manually,
+and set write permissions for them.</li>
+<li><strong>Switch to Sitemapper in the back-end to check if all requirements are fulfilled.</strong></li>
+</ol>
+<div class="toplink"><a href="#">back to top</a></div>
+
+<h2><a name="settings">Settings</a></h2>
+<p>The plugin's configuration is done as with many other
+CMSimple_XH plugins in the website's back-end.
+Select Sitemapper from "Plugins".</p>
+<p>You can change the default settings of Sitemapper_XH in "Plugin Config".
+Hints for the options will be displayed
+when hovering over the help icons with your mouse.
+The most important setting is <em>canonical hostname</em>.
+You should enter the prefered way of calling your domain,
+i.e. www.example.com vs. example.com.</p>
+<p>Localization is done in "Plugin Language".
+You can translate the character strings to your own language
+or customize them according to your needs.</p>
+<p>You can check the generated Sitemaps in "Sitemaps".
+If the Sitemap for the current language or the Sitemap index is missing,
+they will be created automatically, before the list of Sitemaps is shown.</p>
+<div class="toplink"><a href="#">back to top</a></div>
+
+<h2><a name="usage">Usage</a></h2>
+<p>Sitemapper_XH creates and updates Sitemaps for your website:
+a Sitemap index file will be put to the root directory of CMSimple_XH,
+and an additional Sitemap file will be created for each installed language.
+All published pages that are not hidden will be included to the Sitemap.
+Additionally hidden pages will be included when "ignore hidden pages" is set to "0".</p>
+<p>The Sitemap files will be updated automatically every time you make changes
+in the editor, one of the pagedata tabs above the editor,
+in Menumanager or Pagemanager_XH.</p>
+<p>The simplest way too make the Sitemap available to search engines
+is to put the following line to your robots.txt:</p>
+<pre>Sitemap: http://www.example.com/sitemap.xml</pre>
+<p>Of course you have to adjust this to your domain name.
+Another possibility is to submit your Sitemap to the search engines directly.</p>
+<p>It is possible to override the default settings of <em>changefreq</em>
+and <em>priority</em>, which are defined in the plugin config,
+for each page in the pagedata tab "Sitemap" above the editor.
+For details on this settings, see
+<a href="http://www.sitemaps.org/protocol.php#xmlTagDefinitions">XML tag definitions</a>.</p>
+<div class="toplink"><a href="#">back to top</a></div>
+
+<h2><a name="limitations">Limitations</a></h2>
+<p>Sitemapper_XH will only list the actual pages of CMSimple_XH's content.
+Additional content that is managed by plugins, e.g. forums or blogs,
+will not be included to the Sitemap file.</p>
+<div class="toplink"><a href="#">back to top</a></div>
+
+<h2><a name="license">License</a></h2>
+<p>Sitemapper_XH is licensed under
+<a href="http://www.gnu.org/licenses/gpl.html">GPLv3</a>.</p>
+<p>&copy; 2011 Christoph M. Becker</p>
+<div class="toplink"><a href="#">back to top</a></div>
+
+<h2><a name="credits">Credits</a></h2>
+<p>Sitemapper_XH was inspired by Simmyne.</p>
+<p>This plugin uses free applications icons from <a href="http://www.aha-soft.com/">Aha-Soft</a>.
+Many thanks for making these icons freely available.</p>
+<p>Many thanks to the community at the <a href="http://www.cmsimpleforum.com">CMSimple forum</a>
+for tips, suggestions and testing.
+Particularly I want to thank Ulrich for being the first beta tester of Sitemapper_XH.</p>
+<p>And many thanks to all developers of <a href="http://www.cmsimple-xh.com">
+CMSimple_XH</a> without whom this amazing CMS wouldn't exist.</p>
+<div class="toplink"><a href="#">back to top</a></div>
+
+</div>
+
+</body>
+
+</html>

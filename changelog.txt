@@ -1,0 +1,33 @@
+TODO
+check and document cz.php
+check and document pl.php
+
+Version 1rc1 - released 2011-12-15
+cmb	made minor cosmetic changes
+cmb	added translation hints
+cmb	added default config for CMSimple_XH 1.5
+
+Version 1beta5 - released 2011-10-26
+cmb	made minor improvements
+cmb	changed boolean config options from yes/no to 1/0 for easier i18n
+cmb	changed from implicit requirements testing to explicit system check (inspired by Holger)
+cmb	added support for subsites (CMSimple_XH 1.5)
+cmb	updated manuals accordingly
+cmb	added default.php
+
+Version 1beta4 - released 2011-08-24
+cmb	added config option ignore_hidden_pages (suggested by Maartin, Martin and Gert)
+
+Version 1beta3 - released 2011-08-22
+cmb	changed requirements check for UTF-8 to be case-insensitive (bug reported by svasti)
+cmb	added automatic update of the current languages sitemap when "View Sitemaps" is called (inspired by enviro)
+cmb	updated manual
+
+Version 1beta2 - released 2011-08-18
+cmb	added "View Sitemaps" (inspired by Ulrich)
+cmb	changed input of changefreq to selectbox in pagedata tab (suggested by Ulrich)
+cmb	added help tooltips to the pagedata tab
+cmb	added german translation
+
+Version 1beta1 - released 2011-08-17
+cmb	initial release
