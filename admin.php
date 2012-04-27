@@ -15,7 +15,7 @@ if (!defined('CMSIMPLE_XH_VERSION')) {
 }
 
 
-define('SITEMAPPER_VERSION', '1');
+define('SITEMAPPER_VERSION', '1pl1');
 
 
 /**
@@ -50,7 +50,7 @@ function sitemapper_system_check() { // RELEASE-TODO
     global $pth, $tx, $plugin_tx;
 
     define('SITEMAPPER_PHP_VERSION', '4.0.7');
-    $ptx =& $plugin_tx['sitemapper'];
+    $ptx = $plugin_tx['sitemapper'];
     $imgdir = $pth['folder']['plugins'].'sitemapper/images/';
     $ok = tag('img src="'.$imgdir.'ok.png" alt="ok"');
     $warn = tag('img src="'.$imgdir.'warn.png" alt="warning"');
@@ -151,9 +151,9 @@ function sitemapper_sitemap_index() {
  * @return string
  */
 function sitemapper_subsite_sitemap() {
-    global $pth, $u, $pd_router, $plugin_cf, $sl, $c, $function, $s, $text;
+    global $pth, $u, $pd_router, $plugin_cf, $sl, $c, $function, $s, $text, $sn;
 
-    $sitemapper_cf =& $plugin_cf['sitemapper'];
+    $sitemapper_cf = $plugin_cf['sitemapper'];
 
     $res = '<?xml version="1.0" encoding="UTF-8"?>'."\n"
 	    .'<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"'."\n"
@@ -163,6 +163,7 @@ function sitemapper_subsite_sitemap() {
     $host = empty($plugin_cf['sitemapper']['canonical_hostname'])
 	    ? $_SERVER['SERVER_NAME']
 	    : $plugin_cf['sitemapper']['canonical_hostname'];
+    $dir = preg_replace('/index.php$/i', '', $sn);
     $pd = $pd_router->find_all();
     foreach ($pd as $i => $page) {
 	$cnt = $function == 'save' && $i == $s ? $text : $c[$i];
@@ -177,7 +178,7 @@ function sitemapper_subsite_sitemap() {
 		    ? $page['sitemapper_priority']
 		    : $sitemapper_cf['priority'];
 	    $res .= '  <url>'."\n"
-		    .'    <loc>'.htmlspecialchars('http://'.$host.CMSIMPLE_ROOT.'?'.$u[$i]).'</loc>'."\n";
+		    .'    <loc>'.htmlspecialchars('http://'.$host.$dir.'?'.$u[$i]).'</loc>'."\n";
 	    if (!empty($last_edit)) {
 		$res .= '    <lastmod>'.sitemapper_date($last_edit).'</lastmod>'."\n";
 	    }

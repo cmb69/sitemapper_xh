@@ -1,3 +1,9 @@
+Version 1pl1 - released TODO
+cmb	fixed bug: links to subsites/second languages skipped language folder (reported by sareide)
+cmb	added slovak translation (contributed by Tata)
+cmb	added czech translation (contributed by oldnema)
+cmb	updated manuals
+
 Version 1 - released 2012-02-29
 cmb	added plugin icon
 cmb	extended copyright to 2012
