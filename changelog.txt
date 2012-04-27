@@ -1,4 +1,4 @@
-Version 1pl1 - released TODO
+Version 1pl1 - released 2012-04-27
 cmb	fixed bug: links to subsites/second languages skipped language folder (reported by sareide)
 cmb	added slovak translation (contributed by Tata)
 cmb	added czech translation (contributed by oldnema)
