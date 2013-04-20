@@ -31,9 +31,9 @@ define('SITEMAPPER_VERSION', '2alpha1');
  */
 function Sitemapper_date($timestamp)
 {
-    $res = date('Y-m-d\TH:i:sO', $timestamp);
-    $res = substr($res, 0, strlen($res)-2) . ':' . substr($res, -2);
-    return $res;
+    $o = date('Y-m-d\TH:i:sO', $timestamp);
+    $o = substr($o, 0, strlen($o)-2) . ':' . substr($o, -2);
+    return $o;
 }
 
 
@@ -107,8 +107,7 @@ function Sitemapper_subsiteSitemap()
 {
     global $pth, $u, $pd_router, $plugin_cf, $sl, $c, $function, $s, $text, $sn;
 
-    $sitemapper_cf = $plugin_cf['sitemapper'];
-
+    $pcf = $plugin_cf['sitemapper'];
     $res = '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL
         . '<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"' . PHP_EOL
         . '    xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9'
@@ -123,16 +122,16 @@ function Sitemapper_subsiteSitemap()
 	$cnt = $function == 'save' && $i == $s ? $text : $c[$i];
         // TODO: remove is already removed ;)
 	if ($page['published'] != '0' && !cmscript('remove', $cnt)
-            && !$sitemapper_cf['ignore_hidden_pages']
+            && !$pcf['ignore_hidden_pages']
             || $page['linked_to_menu'] != '0' && !cmscript('hide', $cnt))
         {
 	    $last_edit = $page['last_edit'];
 	    $changefreq = !empty($page['sitemapper_changefreq'])
                 ? $page['sitemapper_changefreq']
-                : $sitemapper_cf['changefreq'];
+                : $pcf['changefreq'];
 	    $priority = !empty($page['sitemapper_priority']) // TODO: '0' is empty!
                 ? $page['sitemapper_priority']
-                : $sitemapper_cf['priority'];
+                : $pcf['priority'];
             $loc = 'http://' . $host . $dir . '?' . $u[$i];
 	    $res .= '  <url>' . PHP_EOL
 		.'    <loc>' . htmlspecialchars($loc) . '</loc>' . PHP_EOL;

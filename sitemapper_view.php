@@ -27,33 +27,33 @@ function Sitemapper_view($page)
 {
     global $tx, $sn, $su, $pth, $plugin_tx;
 
-    $sitemapper_tx =& $plugin_tx['sitemapper']; // TODO: $ptx
+    $ptx = $plugin_tx['sitemapper'];
     $help_icon = tag('image src="' . $pth['folder']['plugins']
 		     . 'sitemapper/images/help.png " alt="help"');
-    $res = '<form id="sitemapper" action="' . $sn . '?' . $su . '" method="post">' . PHP_EOL
+    $o = '<form id="sitemapper" action="' . $sn . '?' . $su . '" method="post">' . PHP_EOL
 	. '<p><strong>Sitemap</strong></p>' . PHP_EOL; // TODO: i18n
-    $res .= '<a class="pl_tooltip" href="javascript:return false">' . $help_icon
-	. '<span>' . $sitemapper_tx['cf_changefreq'] . '</span></a>&nbsp;'
+    $o .= '<a class="pl_tooltip" href="javascript:return false">' . $help_icon
+	. '<span>' . $ptx['cf_changefreq'] . '</span></a>&nbsp;'
 	. '<label for="sitemapper_changefreq"><span>Changefreq:</span></label>'
 	. tag('br') . PHP_EOL;
-    $res .= '<select id="sitemapper_changefreq" name="sitemapper_changefreq" style="width: 10em;">' . PHP_EOL;
+    $o .= '<select id="sitemapper_changefreq" name="sitemapper_changefreq" style="width: 10em;">' . PHP_EOL;
     foreach (array('', 'always', 'hourly', 'daily', 'weekly', 'monthly', 'yearly', 'never') as $opt) {
 	$sel = $page['sitemapper_changefreq'] == $opt
 	    ? ' selected="selected"'
 	    : '';
-	$res .= '<option' . $sel . '>' . $opt . '</option>' . PHP_EOL;
+	$o .= '<option' . $sel . '>' . $opt . '</option>' . PHP_EOL;
     }
-    $res .= '</select>' . tag('br') . tag('hr style="margin: 6px 0; visibility: hidden"') . PHP_EOL;
-    $res .= '<a class="pl_tooltip" href="javascript:return false">' . $help_icon
-	. '<span>' . $sitemapper_tx['cf_priority'] . '</span></a>&nbsp;'
+    $o .= '</select>' . tag('br') . tag('hr style="margin: 6px 0; visibility: hidden"') . PHP_EOL;
+    $o .= '<a class="pl_tooltip" href="javascript:return false">' . $help_icon
+	. '<span>' . $ptx['cf_priority'] . '</span></a>&nbsp;'
 	. '<label for="sitemapper_priority"><span>Priority:</span></label>' . tag('br') . PHP_EOL;
-    $res .= tag('input type="text" id="sitemapper_priority" name="sitemapper_priority" size="16"'
+    $o .= tag('input type="text" id="sitemapper_priority" name="sitemapper_priority" size="16"'
 	. ' value="' . $page['sitemapper_priority'] . '"') . tag('br') . PHP_EOL;
-    $res .= tag('input type="hidden" name="save_page_data"') . PHP_EOL
+    $o .= tag('input type="hidden" name="save_page_data"') . PHP_EOL
 	. '<div style="text-align: right">' . PHP_EOL
 	. tag('input type="submit" value="' . ucfirst($tx['action']['save']) . '"') . PHP_EOL // TODO: ucfirst
 	. '</div></form>' . PHP_EOL;
-    return $res;
+    return $o;
 }
 
 ?>
