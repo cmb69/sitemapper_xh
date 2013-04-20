@@ -105,8 +105,11 @@ function sitemapper_installed_subsites() {
     $dir = $pth['folder']['base'];
     $dh = opendir($dir);
     while (($fn = readdir($dh)) !== FALSE) {
-	if (strlen($fn) == 2 && $fn != '..'
-		|| $fn != '2site' && is_dir($dir.$fn) && file_exists($dir.$fn.'/cmsimplesubsite.htm')) {
+	if ($fn[0] != '.'
+	    && (strlen($fn) == 2
+		|| ($fn != '2site' && is_dir($dir . $fn)
+		    && file_exists($dir . $fn . '/cmsimplesubsite.htm'))))
+	{
 	    $res[] = $fn;
 	}
     }
