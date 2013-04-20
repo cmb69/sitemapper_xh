@@ -74,18 +74,22 @@ function Sitemapper_admin()
 {
     global $cf, $plugin_tx, $pth, $sl;
 
-    $res = '<h1>' . $plugin_tx['sitemapper']['menu_main'] . '</h1>' . PHP_EOL
-	. '<ul>' . PHP_EOL
-	. '<li><a href="' . CMSIMPLE_ROOT
-	. '?sitemapper_index" target="_blank">index</a></li>' . PHP_EOL;
+    $title = $plugin_tx['sitemapper']['menu_main'];
+    $sitemap = array(
+	'name' => 'index',
+	'href' => CMSIMPLE_ROOT . '?sitemapper_index'
+    );
+    $sitemaps = array($sitemap);
     foreach (Sitemapper_installedSubsites() as $ss) {
-	$res .= '<li><a href="' . CMSIMPLE_ROOT
-	    . ($ss != $cf['language']['default'] ? $ss.'/' : '')
-	    . '?sitemapper_sitemap" target="_blank">'
-	    . $ss . '</a></li>' . PHP_EOL;
+	$subdir = $ss != $cf['language']['default'] ? $ss.'/' : '';
+	$sitemap = array(
+	    'name' => $ss,
+	    'href' => CMSIMPLE_ROOT . $subdir . '?sitemapper_sitemap'
+	);
+	$sitemaps[] = $sitemap;
     }
-    $res .= '</ul>' . PHP_EOL;
-    return $res;
+    $bag = array('title' => $title, 'sitemaps' => $sitemaps);
+    return Sitemapper_render('admin', $bag);
 }
 
 

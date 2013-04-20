@@ -1,0 +1,9 @@
+<!-- Sitemapper_XH: administration -->
+<h1><?php echo $title;?></h1>
+<ul>
+<?php foreach ($sitemaps as $sitemap):?>
+    <li>
+        <a href="<?php echo $sitemap['href'];?>" target="_blank"><?php echo $sitemap['name'];?></a>
+    </li>
+<?php endforeach;?>
+</ul>
