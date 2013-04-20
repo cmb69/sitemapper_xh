@@ -156,6 +156,33 @@ function Sitemapper_subsiteSitemap()
 
 
 /**
+ * Renders a template.
+ *
+ * @global array  The paths of system files and folders.
+ * @global array  The configuration of the core.
+ * @param  string  $_template  The name of the template.
+ * @param  string  $_bag  Variables available in the template.
+ * @return string
+ */
+function Sitemapper_render($_template, $_bag)
+{
+    global $pth, $cf;
+
+    $_template = "{$pth['folder']['plugins']}sitemapper/views/$_template.htm";
+    $_xhtml = $cf['xhtml']['endtags'];
+    unset($pth, $cf);
+    extract($_bag);
+    ob_start();
+    include $_template;
+    $o = ob_get_clean();
+    if (!$_xhtml) {
+	$o = str_replace('/>', '>', $o);
+    }
+    return $o;
+}
+
+
+/**
  * Handles sitemap requests.
  *
  * @return void

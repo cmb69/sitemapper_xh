@@ -18,59 +18,50 @@ if (!defined('CMSIMPLE_XH_VERSION')) {
 
 
 /**
- * Returns plugin version information.
+ * Returns the plugin information view.
  *
+ * @global array  The paths of system files and folders.
+ * @global array  The localization of the core.
+ * @global array  The localization of the plugins.
  * @return string  The (X)HTML.
  */
-function Sitemapper_version()
-{
-    return '<h1>Sitemapper_XH</h1>' . PHP_EOL
-	. '<p>Version: ' . SITEMAPPER_VERSION . '</p>' . PHP_EOL
-	. '<p>Copyright &copy; 2011-2013 Christoph M. Becker</p>' . PHP_EOL
-	. '<p style="text-align: justify">This program is free software: you can redistribute it and/or modify'
-	. ' it under the terms of the GNU General Public License as published by'
-	. ' the Free Software Foundation, either version 3 of the License, or'
-	. ' (at your option) any later version.</p>' . PHP_EOL
-	. '<p style="text-align: justify">This program is distributed in the hope that it will be useful,'
-	. ' but WITHOUT ANY WARRANTY; without even the implied warranty of'
-	. ' MERCHAN&shy;TABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the'
-	. ' GNU General Public License for more details.</p>' . PHP_EOL
-	. '<p style="text-align: justify">You should have received a copy of the GNU General Public License'
-	. ' along with this program.  If not, see'
-	. ' <a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>.</p>' . PHP_EOL;
-}
-
-
-/**
- * Returns requirements information.
- *
- * @return string  The (X)HTML
- */
-function Sitemapper_systemCheck() // RELEASE-TODO
+function Sitemapper_info() // RELEASE-TODO
 {
     global $pth, $tx, $plugin_tx;
 
-    define('SITEMAPPER_PHP_VERSION', '4.0.7');
     $ptx = $plugin_tx['sitemapper'];
-    $imgdir = $pth['folder']['plugins'] . 'sitemapper/images/';
-    $ok = tag('img src="' . $imgdir . 'ok.png" alt="ok"');
-    $warn = tag('img src="' . $imgdir . 'warn.png" alt="warning"');
-    $fail = tag('img src="' . $imgdir . 'fail.png" alt="failure"');
-    $htm = tag('hr') . '<h4>' . $ptx['syscheck_title'] . '</h4>'
-	. (version_compare(PHP_VERSION, SITEMAPPER_PHP_VERSION) >= 0 ? $ok : $fail)
-	. '&nbsp;&nbsp;' . sprintf($ptx['syscheck_phpversion'], SITEMAPPER_PHP_VERSION)
-	. tag('br') . tag('br') . PHP_EOL;
-    foreach (array('date') as $ext) {
-	$htm .= (extension_loaded($ext) ? $ok : $fail)
-	    . '&nbsp;&nbsp;' . sprintf($ptx['syscheck_extension'], $ext) . tag('br') . PHP_EOL;
+    $labels = array(
+	'syscheck' => $ptx['syscheck_title'],
+	'about' => $ptx['about']
+    );
+    $phpVersion = '4.0.7';
+    foreach (array('ok', 'warn', 'fail') as $state) {
+        $images[$state] = $pth['folder']['plugins']
+	    . "sitemapper/images/$state.png";
     }
-    $htm .= (!get_magic_quotes_runtime() ? $ok : $fail)
-	. '&nbsp;&nbsp;' . $ptx['syscheck_magic_quotes'] . tag('br') . PHP_EOL;
-    $htm .= (strtoupper($tx['meta']['codepage']) == 'UTF-8' ? $ok : $warn)
-	. '&nbsp;&nbsp;' . $ptx['syscheck_encoding'] . tag('br') . tag('br') . PHP_EOL;
-    $sss = array_merge(array(''), Sitemapper_installedSubsites());
-    // TODO: check folders writable
-    return $htm;
+    $checks = array();
+    $checks[sprintf($ptx['syscheck_phpversion'], $phpVersion)] =
+        version_compare(PHP_VERSION, $phpVersion) >= 0 ? 'ok' : 'fail';
+    foreach (array('date') as $ext) {
+	$checks[sprintf($ptx['syscheck_extension'], $ext)] =
+	    extension_loaded($ext) ? 'ok' : 'fail';
+    }
+    $checks[$ptx['syscheck_magic_quotes']] =
+        !get_magic_quotes_runtime() ? 'ok' : 'fail';
+    $checks[$ptx['syscheck_encoding']] =
+        strtoupper($tx['meta']['codepage']) == 'UTF-8' ? 'ok' : 'warn';
+    $folders = array();
+    foreach (array('config/', 'languages/') as $folder) {
+	$folders[] = $pth['folder']['plugins'] . 'sitemapper/' . $folder;
+    }
+    foreach ($folders as $folder) {
+	$checks[sprintf($ptx['syscheck_writable'], $folder)] =
+            is_writable($folder) ? 'ok' : 'warn';
+    }
+    $icon = $pth['folder']['plugins'] . 'sitemapper/sitemapper.png';
+    $version = SITEMAPPER_VERSION;
+    $bag = compact('labels', 'images', 'checks', 'icon', 'version');
+    return Sitemapper_render('info', $bag);
 }
 
 
@@ -114,7 +105,7 @@ if (isset($sitemapper) && $sitemapper == 'true') {
     $o .= print_plugin_admin('on');
     switch ($admin) {
     case '':
-	$o .= Sitemapper_version().Sitemapper_systemCheck();
+	$o .= Sitemapper_info();
 	break;
     case 'plugin_main':
 	$o .= Sitemapper_admin();
