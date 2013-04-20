@@ -2,7 +2,7 @@
 
 /**
  * Back-end functionality of Sitemapper_XH.
- * Copyright (c) 2011-2012 Christoph M. Becker (see license.txt)
+ * Copyright (c) 2011-2013 Christoph M. Becker (see license.txt)
  */
 
 
@@ -26,7 +26,7 @@ define('SITEMAPPER_VERSION', '1pl1');
 function sitemapper_version() {
     return '<h1>Sitemapper_XH</h1>'."\n"
 	    .'<p>Version: '.SITEMAPPER_VERSION.'</p>'."\n"
-	    .'<p>Copyright &copy; 2011-2012 Christoph M. Becker</p>'."\n"
+	    .'<p>Copyright &copy; 2011-2013 Christoph M. Becker</p>'."\n"
 	    .'<p style="text-align: justify">This program is free software: you can redistribute it and/or modify'
 	    .' it under the terms of the GNU General Public License as published by'
 	    .' the Free Software Foundation, either version 3 of the License, or'
