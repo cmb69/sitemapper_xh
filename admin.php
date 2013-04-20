@@ -15,7 +15,7 @@ if (!defined('CMSIMPLE_XH_VERSION')) {
 }
 
 
-define('SITEMAPPER_VERSION', '1pl1');
+define('SITEMAPPER_VERSION', '1pl2');
 
 
 /**
