@@ -1,11 +1,9 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
-<!-- utf-8-marker: äöü -->
-<html>
+<html lang="de">
 
 <head>
 <meta http-equiv="content-type" content="text/html;charset=utf-8">
-<meta name="content-language" content="de">
 <title>Sitemapper_XH - Handbuch</title>
 <link rel="stylesheet" type="text/css" href="./stylesheet.css">
 </head>
@@ -13,7 +11,7 @@
 <body>
 
 <h1>Sitemapper_XH - ein CMSimple_XH Plugin</h1>
-<div style="float:left; margin-right: 20px"><img src="../sitemapper.png" alt="plugin icon"></div>
+<div style="float:left; margin-right: 20px"><img src="../sitemapper.png" alt="Plugin-Icon"></div>
 <p>Sitemapper_XH erzeugt automatisch eine XML-Sitemap Ihrer CMSimple_XH Installation.
 Ausführliche Information über Sitemaps erhalten Sie unter
 <a href="http://www.sitemaps.org/">sitemaps.org</a>.</p>
@@ -31,8 +29,7 @@ Ausführliche Information über Sitemaps erhalten Sie unter
 
 <div id="body">
 
-<p><strong>Bitte lesen Sie diese Dokumentation!
-Es ist grundsätzlich eine gute Idee, die Dokumentation zu lesen,
+<p><strong>Bitte lesen Sie diese Dokumentation,
 <em>bevor</em> Sie auf Probleme stoßen!</strong></p>
 
 <!--<h2><a name="notice">Wichtiger Hinweis</a></h2>
@@ -45,7 +42,7 @@ Es benötigt eine UTF-8 kodierte Version.</p>
 
 <h2><a name="installation">Installation</a></h2>
 <p>Die Installation erfolgt wie bei vielen anderen CMSimple_XH-Plugins auch.
-Im <a href="http://www.cmsimple-xh.de/dokuwiki/doku.php/anwenderdokumentation:plugins:installation">
+Im <a href="http://www.cmsimple-xh.org/wiki/doku.php/de:installation">
 CMSimple_XH Wiki</a> finden sie ausführliche Hinweise.</p>
 <ol>
 <li><strong>Sichern Sie die Daten auf Ihrem Server.</strong></li>
@@ -55,7 +52,7 @@ CMSimple_XH Wiki</a> finden sie ausführliche Hinweise.</p>
 Die Sitemap-Dateien werden im CMSimple Wurzelverzeichnis angelegt.
 Daher muss dieses ebenfalls beschreibbar sein.
 Alternativ ist es möglich die Sitemap-Dateien manuell anzulegen,
-und Schreibrechte für diese zu vergeben.</li>
+und Schreibrechte nur für diese zu vergeben.</li>
 <li><strong>Wählen Sie "Sitemapper" im Administrationsbereich,
 um zu prüfen, ob alle Voraussetzungen erfüllt sind.</strong></li>
 </ol>
@@ -65,17 +62,14 @@ um zu prüfen, ob alle Voraussetzungen erfüllt sind.</strong></li>
 <p>Die Konfiguration des Plugins erfolgt wie bei vielen anderen CMSimple_XH-Plugins
 auch im Administrationsbereich der Homepage. Wählen Sie unter "Plugins"
 "Sitemapper" aus.</p>
-<p>Sie können die Original-Einstellungen von Sitemapper_XH in der Plugin-Konfiguration ändern.
+<p>Sie können die Voreinstellungen von Sitemapper_XH in der Plugin-Konfiguration ändern.
 Beim Überfahren der Hilfe-Icons mit der Maus werden Hinweise zu den Einstellungen angezeigt.
 Die wichtigste Einstellung ist <em>canonical hostname</em>.
 Sie sollten den bevorzugten Aufruf Ihrer Domain eingeben,
 also www.example.com oder example.com</p>
 <p>Die Lokalisierung wird unter Plugin-Sprache vorgenommen.
-Sie können die Zeichenketten in Ihre eigene Sprache übersetzen,
+Sie können die Sprachtexte in Ihre eigene Sprache übersetzen,
 oder sie entsprechend Ihren Anforderungen anpassen.</p>
-<p>Sie können die erzeugten Sitemaps unter "Sitemaps" überprüfen.
-Sollten die Sitemap der aktuellen Sprache oder der Sitemap-Index noch nicht existieren,
-werden sie automatisch angelegt, bevor die Liste der Sitemaps angezeigt wird.</p>
 <div class="toplink"><a href="#">back to top</a></div>
 
 <h2><a name="usage">Verwendung</a></h2>
@@ -87,6 +81,7 @@ Darüberhinaus werden verstecke Seiten aufgeführt, wenn "ignore hidden pages" a
 <p>Die Sitemap-Dateien werden jedes mal wenn Sie Änderungen im Editor,
 einer der Pagedata Registerkarten oberhalb des Editors,
 in Menumanager oder Pagemanager_XH vornehmen, automatisch aktualisiert.</p>
+<p>Sie können die erzeugten Sitemaps unter "Sitemaps" überprüfen.</p>
 <p>Die einfachste Möglichkeit die Sitemap Suchmaschinen zur Verfügung zu stellen,
 ist die folgende Zeile in Ihre robots.txt zu schreiben:
 <pre>Sitemap: http://www.example.com/sitemap.xml</pre>
@@ -108,6 +103,12 @@ sind die erzeugten Sitemap-Dateien nicht korrekt
 solange bis der Content erneut gespeichert wird.
 Als Workaround speichern Sie die Seite direkt noch ein weiteres mal
 nachdem Sie eine Seite hinzugefügt oder gelöscht haben.</p>
+<p>Seiten, die per #CMSimple hide# (oder durch ein Plugin wie beispielsweise <a
+href="http://frankziesing.de/cmsimple/?Welcome:Memberpages">Memberpages_XH</a>
+or <a href="http://3-magi.net/de/?CMSimple_XH/Register_XH">Register_XH</a>, das #CMSimple hide# dynamisch auf einigen Seiten einfügt) versteckt werden, werden niemals von der Sitemap ausgeschlossen,
+es sei denn Sie rufen "Sitemaps" aus der Administration des Plugins auf.
+Als Workaround sollten Sie dies immer tun, bevor Sie sich abmelden.
+Für mehrsprachige Websites, müssen Sie dies für jede Sprache tun.</p>
 <div class="toplink"><a href="#">back to top</a></div>
 
 <h2><a name="license">Lizenz</a></h2>
@@ -125,13 +126,13 @@ Slovakische Übersetzung &copy; 2012 Dr. Martin Sereday</p>
 Vielen Dank für die Veröffentlichung als Freeware.</p>
 <p>Dieses Plugin verwendet "free application icons" von <a href="http://www.aha-soft.com/">Aha-Soft</a>.
 Vielen Dank für die freie Verwendbarkeit dieser Icons.</p>
-<p>Vielen Dank an die Gemeinschaft im <a href="http://www.cmsimpleforum.com">CMSimple-Forum</a>
+<p>Vielen Dank an die Community im <a href="http://www.cmsimpleforum.com/">CMSimple_XH-Forum</a>
 für Tipps, Anregungen und das Testen.
 Besonders möchte ich Ulrich danken, dass er der erste Beta-Tester von Sitemapper_XH war.
 Und vielen Dank an sareide, der einen schweren Fehler bezüglich der URLs
 von Subsite/Zweitsprachen-Seiten entdeckt hat.</p>
-<p>Zu guter letzt vielen Dank an <a href="http://www.harteg.dk">Peter Harteg</a>
-und allen Entwicklern von <a href="http://www.cmsimple-xh.de">CMSimple_XH</a>,
+<p>Zu guter letzt vielen Dank an <a href="http://www.harteg.dk/">Peter Harteg</a>
+und alle Entwickler von <a href="http://www.cmsimple-xh.org/">CMSimple_XH</a>,
 ohne die dieses fantastische CMS nicht existieren würde.</p>
 <div class="toplink"><a href="#">back to top</a></div>
 

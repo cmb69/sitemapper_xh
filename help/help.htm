@@ -1,11 +1,9 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
-<!-- utf-8-marker: äöü -->
-<html>
+<html lang="en">
 
 <head>
 <meta http-equiv="content-type" content="text/html;charset=utf-8">
-<meta name="content-language" content="de">
 <title>Sitemapper_XH - Manual</title>
 <link rel="stylesheet" type="text/css" href="./stylesheet.css">
 </head>
@@ -13,7 +11,7 @@
 <body>
 
 <h1>Sitemapper_XH - a CMSimple_XH Plugin</h1>
-<div style="float:left; margin-right: 20px"><img src="../sitemapper.png" alt="plugin icon"></div>
+<div style="float:left; margin-right: 20px"><img src="../sitemapper.png" alt="Plugin Icon"></div>
 <p>Sitemapper_XH automatically creates an XML-Sitemap of your CMSimple_XH installation.
 For detailed information about Sitemaps see
 <a href="http://www.sitemaps.org/">sitemaps.org</a>.</p>
@@ -31,8 +29,7 @@ For detailed information about Sitemaps see
 
 <div id="body">
 
-<p><strong>Please do read this documentation!
-It's generally a good idea to read the documentation,
+<p><strong>Please do read this documentation,
 <em>before</em> you encounter any problems!</strong></p>
 
 <!--<h2><a name="notice">Important Notice</a></h2>
@@ -45,7 +42,7 @@ It requires a UTF-8 encoded version.</p>
 
 <h2><a name="installation">Installation</a></h2>
 <p>The installation is done as with many other CMSimple_XH plugins.
-See the <a href="http://www.cmsimple-xh.com/wiki/doku.php/manuals:users_manual:plugins:installation">
+See the <a href="http://www.cmsimple-xh.org/wiki/doku.php/installation">
 CMSimple_XH wiki</a> for further details.</p>
 <ol>
 <li><strong>Backup the data on your server.</strong></li>
@@ -55,7 +52,7 @@ CMSimple_XH wiki</a> for further details.</p>
 The Sitemap files will be created in the CMSimple root directory,
 so it's has to be writable too.
 Alternatively it's possible to create the Sitemap files manually,
-and set write permissions for them.</li>
+and set write permissions only for these.</li>
 <li><strong>Switch to "Sitemapper" in the back-end to check if all requirements are fulfilled.</strong></li>
 </ol>
 <div class="toplink"><a href="#">back to top</a></div>
@@ -64,18 +61,15 @@ and set write permissions for them.</li>
 <p>The plugin's configuration is done as with many other
 CMSimple_XH plugins in the website's back-end.
 Select "Sitemapper" from "Plugins".</p>
-<p>You can change the default settings of Sitemapper_XH in "Plugin Config".
+<p>You can change the default settings of Sitemapper_XH in "Config".
 Hints for the options will be displayed
 when hovering over the help icons with your mouse.
 The most important setting is <em>canonical hostname</em>.
 You should enter the preferred way of calling your domain,
 i.e. www.example.com or example.com.</p>
-<p>Localization is done in "Plugin Language".
+<p>Localization is done in "Language".
 You can translate the character strings to your own language
 or customize them according to your needs.</p>
-<p>You can check the generated Sitemaps in "Sitemaps".
-If the Sitemap for the current language or the Sitemap index is missing,
-they will be created automatically, before the list of Sitemaps is shown.</p>
 <div class="toplink"><a href="#">back to top</a></div>
 
 <h2><a name="usage">Usage</a></h2>
@@ -87,6 +81,7 @@ Additionally hidden pages will be included when "ignore hidden pages" is set to 
 <p>The Sitemap files will be updated automatically every time you make changes
 in the editor, one of the pagedata tabs above the editor,
 in Menumanager or Pagemanager_XH.</p>
+<p>You can check the generated Sitemaps in the plugin administration in "Sitemaps".</p>
 <p>The simplest way too make the Sitemap available to search engines
 is to put the following line to your robots.txt:</p>
 <pre>Sitemap: http://www.example.com/sitemap.xml</pre>
@@ -107,6 +102,13 @@ will not be included to the Sitemap file.</p>
 the generated sitemap files are not correct,
 unless the content is saved again from the editor.
 As workaround just save the page again directly after adding or deleting a page.</p>
+<p>Pages hidden with #CMSimple hide# (or by a plugin such as <a
+href="http://frankziesing.de/cmsimple/en/?Welcome:Memberpages">Memberpages_XH</a>
+or <a href="http://3-magi.net/?CMSimple_XH/Register_XH">Register_XH</a> that
+will dynamically insert #CMSimple hide# for some pages) will never be excluded
+from the Sitemap, except when you call "Sitemaps" from the plugin's
+administration. As workaround you should always do this, before you logout. For
+multilingual sites, you have to do it for each language.</p>
 <div class="toplink"><a href="#">back to top</a></div>
 
 <h2><a name="license">License</a></h2>
@@ -124,13 +126,13 @@ Slovak translation &copy; 2012 Dr. Martin Sereday</p>
 Many thanks for publishing this icon as freeware.</p>
 <p>This plugin uses free applications icons from <a href="http://www.aha-soft.com/">Aha-Soft</a>.
 Many thanks for making these icons freely available.</p>
-<p>Many thanks to the community at the <a href="http://www.cmsimpleforum.com">CMSimple forum</a>
+<p>Many thanks to the community at the <a href="http://www.cmsimpleforum.com/">CMSimple_XH-Forum</a>
 for tips, suggestions and testing.
 Particularly I want to thank Ulrich for being the first beta tester of Sitemapper_XH.
 And many thanks to sareide, who detected a severe bug
 regarding the URLs of subsite/second language pages.</p>
-<p>Last but not least many thanks to <a href="http://www.harteg.dk">Peter Harteg</a>,
-the "father" of CMSimple, and all developers of <a href="http://www.cmsimple-xh.com">
+<p>Last but not least many thanks to <a href="http://www.harteg.dk/">Peter Harteg</a>,
+the "father" of CMSimple, and all developers of <a href="http://www.cmsimple-xh.org/">
 CMSimple_XH</a>, without whom this amazing CMS wouldn't exist.</p>
 <div class="toplink"><a href="#">back to top</a></div>
 
