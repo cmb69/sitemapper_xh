@@ -28,32 +28,25 @@ function Sitemapper_view($page)
     global $tx, $sn, $su, $pth, $plugin_tx;
 
     $ptx = $plugin_tx['sitemapper'];
-    $help_icon = tag('image src="' . $pth['folder']['plugins']
-		     . 'sitemapper/images/help.png " alt="help"');
-    $o = '<form id="sitemapper" action="' . $sn . '?' . $su . '" method="post">' . PHP_EOL
-	. '<p><strong>Sitemap</strong></p>' . PHP_EOL; // TODO: i18n
-    $o .= '<a class="pl_tooltip" href="javascript:return false">' . $help_icon
-	. '<span>' . $ptx['cf_changefreq'] . '</span></a>&nbsp;'
-	. '<label for="sitemapper_changefreq"><span>Changefreq:</span></label>'
-	. tag('br') . PHP_EOL;
-    $o .= '<select id="sitemapper_changefreq" name="sitemapper_changefreq" style="width: 10em;">' . PHP_EOL;
-    foreach (array('', 'always', 'hourly', 'daily', 'weekly', 'monthly', 'yearly', 'never') as $opt) {
-	$sel = $page['sitemapper_changefreq'] == $opt
-	    ? ' selected="selected"'
-	    : '';
-	$o .= '<option' . $sel . '>' . $opt . '</option>' . PHP_EOL;
+    $action = "{$pth['folder']['base']}?$su";
+    $help = array(
+	'changefreq' => $ptx['cf_changefreq'],
+	'priority' => $ptx['cf_priority']
+    );
+    $changefreqs = array('', 'always', 'hourly', 'daily', 'weekly', 'monthly', 'yearly', 'never');
+    $changefreqs = array_flip($changefreqs);
+    foreach ($changefreqs as $opt => $dummy) {
+	$changefreqs[$opt] = $page['sitemapper_changefreq'] == $opt;
     }
-    $o .= '</select>' . tag('br') . tag('hr style="margin: 6px 0; visibility: hidden"') . PHP_EOL;
-    $o .= '<a class="pl_tooltip" href="javascript:return false">' . $help_icon
-	. '<span>' . $ptx['cf_priority'] . '</span></a>&nbsp;'
-	. '<label for="sitemapper_priority"><span>Priority:</span></label>' . tag('br') . PHP_EOL;
-    $o .= tag('input type="text" id="sitemapper_priority" name="sitemapper_priority" size="16"'
-	. ' value="' . $page['sitemapper_priority'] . '"') . tag('br') . PHP_EOL;
-    $o .= tag('input type="hidden" name="save_page_data"') . PHP_EOL
-	. '<div style="text-align: right">' . PHP_EOL
-	. tag('input type="submit" value="' . ucfirst($tx['action']['save']) . '"') . PHP_EOL // TODO: ucfirst
-	. '</div></form>' . PHP_EOL;
-    return $o;
+    $priority = $page['sitemapper_priority'];
+    $bag = array(
+	'action' => $action,
+	'helpIcon' => $pth['folder']['plugins'] . 'sitemapper/images/help.png',
+	'help' => $help,
+	'changefreqOptions' => $changefreqs,
+	'priority' => $priority
+    );
+    return Sitemapper_render('pdtab', $bag);
 }
 
 ?>
