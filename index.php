@@ -23,44 +23,12 @@ if (!defined('CMSIMPLE_XH_VERSION')) {
 define('SITEMAPPER_VERSION', '2alpha1');
 
 
-/**
- * Returns sitemap conforming timestamp.
- *
- * @param  int $timestamp
- * @return string
- */
-function Sitemapper_date($timestamp)
-{
-    $o = date('Y-m-d\TH:i:sO', $timestamp);
-    $o = substr($o, 0, strlen($o)-2) . ':' . substr($o, -2);
-    return $o;
-}
+require_once $pth['folder']['plugin_classes'] . 'model.php';
 
 
-/**
- * Returns all installed subsites (incl. languages).
- *
- * @return array
- */
-function Sitemapper_installedSubsites()
-{
-    global $pth, $cf;
-
-    $res = array($cf['language']['default']);
-    $dir = $pth['folder']['base'];
-    $dh = opendir($dir);
-    while (($fn = readdir($dh)) !== false) {
-	if ($fn[0] != '.'
-	    && (strlen($fn) == 2
-		|| ($fn != '2site' && is_dir($dir . $fn)
-		    && file_exists($dir . $fn . '/cmsimplesubsite.htm'))))
-	{
-	    $res[] = $fn;
-	}
-    }
-    closedir($dh);
-    return $res;
-}
+$_Sitemapper = new Sitemapper_Model($cf['language']['default'],
+				    $pth['folder']['base'],
+				    $c, $pd_router->find_all());
 
 
 /**
@@ -70,22 +38,18 @@ function Sitemapper_installedSubsites()
  */
 function Sitemapper_sitemapIndex()
 {
-    global $pth, $plugin_cf, $cf;
+    global $pth, $plugin_cf, $cf, $_Sitemapper;
 
     $host = empty($plugin_cf['sitemapper']['canonical_hostname'])
 	    ? $_SERVER['SERVER_NAME']
 	    : $plugin_cf['sitemapper']['canonical_hostname'];
     $sitemaps = array();
-    foreach (Sitemapper_installedSubsites() as $ss) {
-        $folder = './' . ($ss != $cf['language']['default'] ? "$ss/" : '')
-            . 'content/';
-        $time = max(filemtime("${folder}content.htm"),
-                    filemtime("${folder}pagedata.php"));
+    foreach ($_Sitemapper->installedSubsites() as $ss) {
+	$time = $_Sitemapper->subsiteLastMod($ss);
         $loc = 'http://' . $host . CMSIMPLE_ROOT
             . ($ss != $cf['language']['default'] ? $ss.'/' : '')
             . '?sitemapper_sitemap';
 	$loc = htmlspecialchars($loc);
-	$time = Sitemapper_date($time);
 	$sitemap = array('loc' => $loc, 'time' => $time);
 	$sitemaps[] = $sitemap;
     }

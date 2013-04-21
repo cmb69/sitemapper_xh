@@ -72,7 +72,7 @@ function Sitemapper_info() // RELEASE-TODO
  */
 function Sitemapper_admin()
 {
-    global $cf, $plugin_tx, $pth, $sl;
+    global $cf, $plugin_tx, $pth, $sl, $_Sitemapper;
 
     $title = $plugin_tx['sitemapper']['menu_main'];
     $sitemap = array(
@@ -80,7 +80,7 @@ function Sitemapper_admin()
 	'href' => CMSIMPLE_ROOT . '?sitemapper_index'
     );
     $sitemaps = array($sitemap);
-    foreach (Sitemapper_installedSubsites() as $ss) {
+    foreach ($_Sitemapper->installedSubsites() as $ss) {
 	$subdir = $ss != $cf['language']['default'] ? $ss.'/' : '';
 	$sitemap = array(
 	    'name' => $ss,
