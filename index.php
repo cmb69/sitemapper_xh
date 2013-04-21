@@ -72,14 +72,10 @@ function Sitemapper_sitemapIndex()
 {
     global $pth, $plugin_cf, $cf;
 
-    $res = '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL
-        .'<sitemapindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"' . PHP_EOL
-        .'    xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9'
-        .' http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd"' . PHP_EOL
-        .'    xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . PHP_EOL;
     $host = empty($plugin_cf['sitemapper']['canonical_hostname'])
 	    ? $_SERVER['SERVER_NAME']
 	    : $plugin_cf['sitemapper']['canonical_hostname'];
+    $sitemaps = array();
     foreach (Sitemapper_installedSubsites() as $ss) {
         $folder = './' . ($ss != $cf['language']['default'] ? "$ss/" : '')
             . 'content/';
@@ -88,13 +84,13 @@ function Sitemapper_sitemapIndex()
         $loc = 'http://' . $host . CMSIMPLE_ROOT
             . ($ss != $cf['language']['default'] ? $ss.'/' : '')
             . '?sitemapper_sitemap';
-        $res .= '  <sitemap>' . PHP_EOL
-            .'    <loc>' . htmlspecialchars($loc) . '</loc>' . PHP_EOL
-            . '    <lastmod>' . sitemapper_date($time) . '</lastmod>' . PHP_EOL // TODO: fix time
-            . '  </sitemap>' . PHP_EOL;
+	$loc = htmlspecialchars($loc);
+	$time = Sitemapper_date($time);
+	$sitemap = array('loc' => $loc, 'time' => $time);
+	$sitemaps[] = $sitemap;
     }
-    $res .= '</sitemapindex>' . PHP_EOL;
-    return $res;
+    return '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL
+	. Sitemapper_renderXML('index', array('sitemaps' => $sitemaps));
 }
 
 
@@ -182,6 +178,20 @@ function Sitemapper_render($_template, $_bag)
 }
 
 
+function Sitemapper_renderXML($_template, $_bag)
+{
+    global $pth;
+
+    $_template = "{$pth['folder']['plugins']}sitemapper/views/$_template.xml";
+    unset($pth, $cf);
+    extract($_bag);
+    ob_start();
+    include $_template;
+    $o = ob_get_clean();
+    return $o;
+}
+
+
 /**
  * Handles sitemap requests.
  *
@@ -192,6 +202,7 @@ function sitemapper()
     global $cf, $sl;
 
     if (isset($_GET['sitemapper_index']) && $sl == $cf['language']['default']) {
+	header('HTTP/1.0 200 OK');
         header('Content-Type: application/xml');
         echo Sitemapper_sitemapIndex();
         exit;
