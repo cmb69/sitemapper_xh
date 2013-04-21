@@ -1,0 +1,17 @@
+<!-- Sitemapper_XH: sitemap -->
+<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd"
+        xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<?php foreach ($urls as $url):?>
+    <url>
+        <loc><?php echo $url['loc'];?></loc>
+        <lastmod><?php echo $url['lastmod'];?></lastmod>
+<?php if (!empty($url['changefreq'])):?>
+        <changefreq><?php echo $url['changefreq'];?></changefreq>
+<?php endif;?>
+<?php if (!empty($url['priority'])):?>
+        <priority><?php echo $url['priority'];?></priority>
+<?php endif;?>
+    </url>
+<?php endforeach;?>
+</urlset>

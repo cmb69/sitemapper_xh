@@ -103,22 +103,18 @@ function Sitemapper_subsiteSitemap()
 {
     global $pth, $u, $pd_router, $plugin_cf, $sl, $c, $function, $s, $text, $sn;
 
+    $urls = array();
     $pcf = $plugin_cf['sitemapper'];
-    $res = '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL
-        . '<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"' . PHP_EOL
-        . '    xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9'
-        . ' http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd"' . PHP_EOL
-        . '    xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . PHP_EOL;
     $host = empty($plugin_cf['sitemapper']['canonical_hostname'])
 	    ? $_SERVER['SERVER_NAME']
 	    : $plugin_cf['sitemapper']['canonical_hostname'];
     $dir = preg_replace('/index.php$/i', '', $sn);
     $pd = $pd_router->find_all();
     foreach ($pd as $i => $page) {
-	$cnt = $function == 'save' && $i == $s ? $text : $c[$i];
+	$cnt = $function == 'save' && $i == $s ? $text : $c[$i]; // TODO
         // TODO: remove is already removed ;)
 	if ($page['published'] != '0' && !cmscript('remove', $cnt)
-            && !$pcf['ignore_hidden_pages']
+            && !$pcf['ignore_hidden_pages'] // TODO: bugfix, as ( ) is missing!!!
             || $page['linked_to_menu'] != '0' && !cmscript('hide', $cnt))
         {
 	    $last_edit = $page['last_edit'];
@@ -129,25 +125,17 @@ function Sitemapper_subsiteSitemap()
                 ? $page['sitemapper_priority']
                 : $pcf['priority'];
             $loc = 'http://' . $host . $dir . '?' . $u[$i];
-	    $res .= '  <url>' . PHP_EOL
-		.'    <loc>' . htmlspecialchars($loc) . '</loc>' . PHP_EOL;
-	    if (!empty($last_edit)) {
-		$res .= '    <lastmod>' . sitemapper_date($last_edit)
-                    . '</lastmod>' . PHP_EOL;
-	    }
-	    if (!empty($changefreq)) {
-		$res .= '    <changefreq>' . htmlspecialchars($changefreq)
-                    . '</changefreq>' . PHP_EOL;
-	    }
-	    if (!empty($priority)) { // TODO: '0' is empty!
-		$res .= '    <priority>' . htmlspecialchars($priority)
-                    . '</priority>' . PHP_EOL;
-	    }
-	    $res .= '  </url>' . PHP_EOL;
+	    $url = array(
+		'loc' => htmlspecialchars($loc),
+		'lastmod' => sitemapper_date($last_edit),
+		'changefreq' => htmlspecialchars($changefreq),
+		'priority' => htmlspecialchars($priority)
+	    );
+	    $urls[] = $url;
 	}
     }
-    $res .= '</urlset>' . PHP_EOL;
-    return $res;
+    return '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL
+	. Sitemapper_renderXML('sitemap', array('urls' => $urls));
 }
 
 
@@ -207,6 +195,7 @@ function sitemapper()
         echo Sitemapper_sitemapIndex();
         exit;
     } elseif (isset($_GET['sitemapper_sitemap'])) {
+	header('HTTP/1.0 200 OK');
         header('Content-Type: application/xml');
         echo Sitemapper_subsiteSitemap();
         exit;
