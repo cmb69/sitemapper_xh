@@ -44,22 +44,22 @@ class ModelTest extends PHPUnit_Framework_TestCase
         $content = array(
             'Lorem ipsum',
             'Lorem ipsum',
-            'Lorem #cmsimple hide# ipsum'
+            'Lorem #cmsimple hide# ipsum',
+            'Lorem ipsum',
+            '#cmsimple hide#'
         );
         $c = $content;
         $pagedata = array(
-            array(
-                'last_edit' => '0'
-            ),
+            array('last_edit' => '0'),
             array(
                 'last_edit' => '1366639458',
                 'linked_to_menu' => '0',
                 'sitemapper_changefreq' => 'daily',
                 'sitemapper_priority' => '0.3'
             ),
-            array(
-
-            )
+            array(),
+            array('published' => '0'),
+            array()
         );
         $this->sitemapper = new Sitemapper_Model(
             'en', './tests/data/', $content, $pagedata, true, 'monthly', '0.5'
@@ -142,7 +142,9 @@ class ModelTest extends PHPUnit_Framework_TestCase
         return array(
             array(0, false),
             array(1, true),
-            array(2, true)
+            array(2, true),
+            array(3, true),
+            array(4, true)
         );
     }
 
@@ -164,9 +166,6 @@ class ModelTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /**
-     * @todo: improve test case; currently too volatile.
-     */
     public function testSubsiteLastMod()
     {
         $expected = '2013-04-21T17:10:10Z';
