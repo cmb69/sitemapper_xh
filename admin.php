@@ -20,20 +20,37 @@ if (!defined('CMSIMPLE_XH_VERSION')) {
 /**
  * Returns the plugin information view.
  *
+ * @global string  The script name.
  * @global array  The paths of system files and folders.
+ * @global array  The configuration of the core.
  * @global array  The localization of the core.
  * @global array  The localization of the plugins.
+ * @global object  The sitemap model.
  * @return string  The (X)HTML.
  */
 function Sitemapper_info() // RELEASE-TODO
 {
-    global $pth, $tx, $plugin_tx;
+    global $sn, $pth, $cf, $tx, $plugin_tx, $_Sitemapper;
 
     $ptx = $plugin_tx['sitemapper'];
     $labels = array(
+	'sitemaps' => $ptx['menu_main'],
 	'syscheck' => $ptx['syscheck_title'],
 	'about' => $ptx['about']
     );
+    $sitemap = array(
+	'name' => 'index',
+	'href' => $sn . '?sitemapper_index'
+    );
+    $sitemaps = array($sitemap);
+    foreach ($_Sitemapper->installedSubsites() as $ss) {
+	$subdir = $ss != $cf['language']['default'] ? $ss.'/' : '';
+	$sitemap = array(
+	    'name' => $ss,
+	    'href' => CMSIMPLE_ROOT . $subdir . '?sitemapper_sitemap'
+	);
+	$sitemaps[] = $sitemap;
+    }
     $phpVersion = '4.3.10';
     foreach (array('ok', 'warn', 'fail') as $state) {
         $images[$state] = $pth['folder']['plugins']
@@ -60,39 +77,8 @@ function Sitemapper_info() // RELEASE-TODO
     }
     $icon = $pth['folder']['plugins'] . 'sitemapper/sitemapper.png';
     $version = SITEMAPPER_VERSION;
-    $bag = compact('labels', 'images', 'checks', 'icon', 'version');
+    $bag = compact('labels', 'sitemaps', 'images', 'checks', 'icon', 'version');
     return Sitemapper_render('info', $bag);
-}
-
-
-/**
- * Returns the list of all sitemaps.
- *
- * @global string  The script name.
- * @global array  The localization of the plugins.
- * @global object  The sitemapper model.
- * @return string
- */
-function Sitemapper_admin()
-{
-    global $sn, $cf, $plugin_tx, $_Sitemapper;
-
-    $title = $plugin_tx['sitemapper']['menu_main'];
-    $sitemap = array(
-	'name' => 'index',
-	'href' => $sn . '?sitemapper_index'
-    );
-    $sitemaps = array($sitemap);
-    foreach ($_Sitemapper->installedSubsites() as $ss) {
-	$subdir = $ss != $cf['language']['default'] ? $ss.'/' : '';
-	$sitemap = array(
-	    'name' => $ss,
-	    'href' => CMSIMPLE_ROOT . $subdir . '?sitemapper_sitemap'
-	);
-	$sitemaps[] = $sitemap;
-    }
-    $bag = array('title' => $title, 'sitemaps' => $sitemaps);
-    return Sitemapper_render('admin', $bag);
 }
 
 
@@ -109,13 +95,10 @@ $pd_router->add_tab('Sitemap', // TODO i18n
  * Handle plugin administration
  */
 if (isset($sitemapper) && $sitemapper == 'true') {
-    $o .= print_plugin_admin('on');
+    $o .= print_plugin_admin('off');
     switch ($admin) {
     case '':
 	$o .= Sitemapper_info();
-	break;
-    case 'plugin_main':
-	$o .= Sitemapper_admin();
 	break;
     default:
 	$o .= plugin_admin_common($action, $admin, $plugin);
