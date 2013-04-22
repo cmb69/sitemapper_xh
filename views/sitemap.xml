@@ -6,12 +6,8 @@
     <url>
         <loc><?php echo $url['loc'];?></loc>
         <lastmod><?php echo $url['lastmod'];?></lastmod>
-<?php if (!empty($url['changefreq'])):?>
         <changefreq><?php echo $url['changefreq'];?></changefreq>
-<?php endif;?>
-<?php if (!empty($url['priority'])):?>
         <priority><?php echo $url['priority'];?></priority>
-<?php endif;?>
     </url>
 <?php endforeach;?>
 </urlset>
