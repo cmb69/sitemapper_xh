@@ -20,6 +20,10 @@ if (!defined('CMSIMPLE_XH_VERSION')) {
 /**
  * Returns the pagedata form.
  *
+ * @global string
+ * @global array  The paths of system files and folders.
+ * @global array  The localization of the plugins.
+ * @global object  The sitemapper model.
  * @param  array $page	The page's data.
  * @return string  The (X)HTML.
  */

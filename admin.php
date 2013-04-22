@@ -68,6 +68,9 @@ function Sitemapper_info() // RELEASE-TODO
 /**
  * Returns the list of all sitemaps.
  *
+ * @global string  The script name.
+ * @global array  The localization of the plugins.
+ * @global object  The sitemapper model.
  * @return string
  */
 function Sitemapper_admin()

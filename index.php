@@ -11,13 +11,13 @@
  */
 
 
-// TODO: htmlspecialchars(..., , UTF_8)
-
-
 if (!defined('CMSIMPLE_XH_VERSION')) {
     header('HTTP/1.0 403 Forbidden');
     exit;
 }
+
+
+require_once $pth['folder']['plugin_classes'] . 'model.php';
 
 
 /**
@@ -26,6 +26,9 @@ if (!defined('CMSIMPLE_XH_VERSION')) {
 define('SITEMAPPER_VERSION', '2alpha1');
 
 
+/**
+ * The fully qualified absolute URL to the current (sub)site.
+ */
 define('SITEMAPPER_URL', 'http'
     . (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 's' : '')
     . '://'
@@ -34,17 +37,6 @@ define('SITEMAPPER_URL', 'http'
 	: $plugin_cf['sitemapper']['canonical_hostname'])
     . ($_SERVER['SERVER_PORT'] < 1024 ? '' : ':' . $_SERVER['SERVER_PORT'])
     . preg_replace('/index.php$/', '', $_SERVER['SCRIPT_NAME']));
-
-
-/**
- *
- */
-require_once $pth['folder']['plugin_classes'] . 'model.php';
-
-
-$_Sitemapper = new Sitemapper_Model($cf['language']['default'],
-				    $pth['folder']['base'],
-				    $c, $pd_router->find_all());
 
 
 /**
@@ -62,6 +54,8 @@ function Sitemapper_hsc($str)
 /**
  * Returns sitemap index.
  *
+ * @global array  The configuration of the core.
+ * @global object  The sitemapper model.
  * @return string  The XML.
  */
 function Sitemapper_sitemapIndex()
@@ -89,6 +83,9 @@ function Sitemapper_sitemapIndex()
 /**
  * Returns sitemap of current subsite/language.
  *
+ * @global array  The "urls" of the pages.
+ * @global int  The number of pages.
+ * @global object  The sitemapper model.
  * @return string  The XML.
  */
 function Sitemapper_subsiteSitemap()
@@ -118,8 +115,8 @@ function Sitemapper_subsiteSitemap()
  *
  * @global array  The paths of system files and folders.
  * @global array  The configuration of the core.
- * @param  string  $_template  The name of the template.
- * @param  string  $_bag  Variables available in the template.
+ * @param  string $_template  The name of the template.
+ * @param  array $_bag  Variables available in the template.
  * @return string
  */
 function Sitemapper_render($_template, $_bag)
@@ -140,6 +137,14 @@ function Sitemapper_render($_template, $_bag)
 }
 
 
+/**
+ * Renders an XML template.
+ *
+ * @global array  The paths of system files and folders.
+ * @param string $_template  The name of the template.
+ * @param array $_bag  Variables available in the template.
+ * @retun string
+ */
 function Sitemapper_renderXML($_template, $_bag)
 {
     global $pth;
@@ -157,6 +162,7 @@ function Sitemapper_renderXML($_template, $_bag)
 /**
  * Handles sitemap requests.
  *
+ * @global array $cf  The configuration of the core.
  * @return void
  */
 function sitemapper()
@@ -175,5 +181,13 @@ function sitemapper()
         exit;
     }
 }
+
+
+/*
+ * Create model object.
+ */
+$_Sitemapper = new Sitemapper_Model($cf['language']['default'],
+				    $pth['folder']['base'],
+				    $c, $pd_router->find_all());
 
 ?>
