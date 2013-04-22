@@ -7,7 +7,6 @@
  * License.
  */
 
-$plugin_tx['sitemapper']['utf-8-marker']="żółć";
 $plugin_tx['sitemapper']['menu_main']="Mapa Strony";
 $plugin_tx['sitemapper']['syscheck_title']="Test systemu";
 $plugin_tx['sitemapper']['syscheck_phpversion']="Wersja PHP ≥ %s";
@@ -15,7 +14,6 @@ $plugin_tx['sitemapper']['syscheck_extension']="Wtyczka '%s' wczytana poprawnie"
 $plugin_tx['sitemapper']['syscheck_magic_quotes']="magic_quotes_runtime off";
 $plugin_tx['sitemapper']['syscheck_encoding']="Kodowanie 'UTF-8' skonfigurowano poprawnie";
 $plugin_tx['sitemapper']['syscheck_writable']="'%s' ma prawa zapisu";
-$plugin_tx['sitemapper']['cf_utf-8-marker']="Do użytku wewnętrznego. <strong>Nie zmieniać!</strong>";
 $plugin_tx['sitemapper']['cf_canonical_hostname']="Nazwa hosta, która powinna zostać użyta w plikach mapy strony n.p.  \"www.przyklad.pl\" lub \"przyklad.pl\".";
 $plugin_tx['sitemapper']['cf_changefreq']="Informacja dla wyszukiwarek internetowych o częstotliwości zmian na stronie. Poprawne wartości to: \"always\"(zawsze), \"hourly\"(godzinne), \"daily\"(dzienne), \"weekly\"(tygodniowe), \"monthly\"(miesięczne), \"yearly\"(roczne) and \"never\"(brak zmian). Określa to częstotliwość odwiedzania strony przez roboty wyszukiwarek.";
 $plugin_tx['sitemapper']['cf_priority']="Priorytet tego linka w odniesieniu do innych na twojej stronie. Poprawne wartości z zakresu 0.0 do 1.0";

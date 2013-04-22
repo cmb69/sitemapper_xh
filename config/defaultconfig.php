@@ -1,6 +1,5 @@
 <?php
 
-	$plugin_cf['sitemapper']['utf-8-marker']="äöüß";
 	$plugin_cf['sitemapper']['canonical_hostname']="";
 	$plugin_cf['sitemapper']['changefreq']="monthly";
 	$plugin_cf['sitemapper']['priority']="0.5";
