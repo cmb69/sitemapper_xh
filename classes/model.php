@@ -19,6 +19,15 @@
 class Sitemapper_Model
 {
     /**
+     *
+     * @access public
+     *
+     * @var array
+     */
+    var $changefreqs = array('always', 'hourly', 'daily', 'weekly', 'monthly',
+                         'yearly', 'never');
+
+    /**
      * The default language of CMSimple_XH.
      *
      * @access private

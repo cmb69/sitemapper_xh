@@ -25,7 +25,7 @@ if (!defined('CMSIMPLE_XH_VERSION')) {
  */
 function Sitemapper_view($page)
 {
-    global $su, $pth, $plugin_tx;
+    global $su, $pth, $plugin_tx, $_Sitemapper;
 
     $ptx = $plugin_tx['sitemapper'];
     $action = $pth['folder']['base'] . '?' . $su;
@@ -33,7 +33,8 @@ function Sitemapper_view($page)
 	'changefreq' => $ptx['cf_changefreq'],
 	'priority' => $ptx['cf_priority']
     );
-    $changefreqs = array('', 'always', 'hourly', 'daily', 'weekly', 'monthly', 'yearly', 'never');
+    $changefreqs = $_Sitemapper->changefreqs;
+    array_unshift($changefreqs, '');
     $changefreqs = array_flip($changefreqs);
     foreach ($changefreqs as $opt => $dummy) {
 	$changefreqs[$opt] = $page['sitemapper_changefreq'] == $opt;
