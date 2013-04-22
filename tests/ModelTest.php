@@ -61,8 +61,9 @@ class ModelTest extends PHPUnit_Framework_TestCase
 
             )
         );
-        $this->sitemapper = new Sitemapper_Model('en', './tests/data/',
-                                                 $content, $pagedata);
+        $this->sitemapper = new Sitemapper_Model(
+            'en', './tests/data/', $content, $pagedata, true, 'monthly', '0.5'
+        );
     }
 
     /**

@@ -63,11 +63,32 @@ class Sitemapper_Model
      */
     var $pagedata;
 
-    var $excludeHidden = true; // TODO: config option
+    /**
+     * Whether hidden pages shall be excluded from the sitemap.
+     *
+     * @access private
+     *
+     * @var bool
+     */
+    var $excludeHidden;
 
-    var $defaultChangefreq = 'monthly'; // TODO: config option
+    /**
+     * The default sitemap changefreq.
+     *
+     * @access private
+     *
+     * @var string
+     */
+    var $defaultChangefreq;
 
-    var $defaultPriority = 0.5; // TODO: config option
+    /**
+     * The default sitemap priority.
+     *
+     * @access private
+     *
+     * @var float
+     */
+    var $defaultPriority;
 
     /**
      * Constructs a sitemapper model object.
@@ -80,12 +101,16 @@ class Sitemapper_Model
      * @param  array $pagedata
      * @return void
      */
-    function Sitemapper_Model($defaultLang, $baseFolder, $content, $pagedata)
-    {
+    function Sitemapper_Model($defaultLang, $baseFolder, $content, $pagedata,
+        $excludeHidden, $defaultChangefreq, $defaultPriority
+    ) {
         $this->defaultLang = $defaultLang;
         $this->baseFolder = $baseFolder;
         $this->content = $content;
         $this->pagedata = $pagedata;
+        $this->excludeHidden = $excludeHidden;
+        $this->defaultChangefreq = $defaultChangefreq;
+        $this->defaultPriority = $defaultPriority;
     }
 
     /**

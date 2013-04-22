@@ -27,7 +27,7 @@ define('SITEMAPPER_VERSION', '2alpha1');
 
 
 /**
- * The fully qualified absolute URL to the current (sub)site.
+ * The fully qualified absolute URL of the current (sub)site.
  */
 define('SITEMAPPER_URL', 'http'
     . (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 's' : '')
@@ -186,8 +186,12 @@ function sitemapper()
 /*
  * Create model object.
  */
-$_Sitemapper = new Sitemapper_Model($cf['language']['default'],
-				    $pth['folder']['base'],
-				    $c, $pd_router->find_all());
+$_Sitemapper = new Sitemapper_Model(
+    $cf['language']['default'], $pth['folder']['base'],
+    $c, $pd_router->find_all(),
+    $plugin_cf['sitemapper']['ignore_hidden_pages'],
+    $plugin_cf['sitemapper']['changefreq'],
+    $plugin_cf['sitemapper']['priority']
+);
 
 ?>
