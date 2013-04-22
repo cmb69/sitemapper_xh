@@ -1,3 +1,9 @@
+Version 2alpha1 - internally released 2013-04-23
+cmb     refactored to create sitemaps on the fly
+cmb     made minor changes to the language files
+cmb     refactored out model and views
+cmb     added test suite
+
 Version 1pl2 - released 2013-04-20
 cmb     fixed bug, where self and parent directory were probed for being a subsite directory
 cmb     revised user manuals
