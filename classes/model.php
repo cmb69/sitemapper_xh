@@ -34,7 +34,7 @@ class Sitemapper_Model
      *
      * @var string
      */
-    var $defaultLang;
+    var $_defaultLang;
 
     /**
      * The path of the root folder of the CMSimple_XH installation.
@@ -43,7 +43,7 @@ class Sitemapper_Model
      *
      * @var string
      */
-    var $baseFolder;
+    var $_baseFolder;
 
     /**
      * The content array.
@@ -52,7 +52,7 @@ class Sitemapper_Model
      *
      * @var array
      */
-    var $content;
+    var $_content;
 
     /**
      * The pagedata array.
@@ -61,7 +61,7 @@ class Sitemapper_Model
      *
      * @var array
      */
-    var $pagedata;
+    var $_pagedata;
 
     /**
      * Whether hidden pages shall be excluded from the sitemap.
@@ -70,7 +70,7 @@ class Sitemapper_Model
      *
      * @var bool
      */
-    var $excludeHidden;
+    var $_excludeHidden;
 
     /**
      * The default sitemap changefreq.
@@ -79,7 +79,7 @@ class Sitemapper_Model
      *
      * @var string
      */
-    var $defaultChangefreq;
+    var $_defaultChangefreq;
 
     /**
      * The default sitemap priority.
@@ -88,7 +88,7 @@ class Sitemapper_Model
      *
      * @var float
      */
-    var $defaultPriority;
+    var $_defaultPriority;
 
     /**
      * Constructs a sitemapper model object.
@@ -104,13 +104,13 @@ class Sitemapper_Model
     function Sitemapper_Model($defaultLang, $baseFolder, $content, $pagedata,
         $excludeHidden, $defaultChangefreq, $defaultPriority
     ) {
-        $this->defaultLang = $defaultLang;
-        $this->baseFolder = $baseFolder;
-        $this->content = $content;
-        $this->pagedata = $pagedata;
-        $this->excludeHidden = $excludeHidden;
-        $this->defaultChangefreq = $defaultChangefreq;
-        $this->defaultPriority = $defaultPriority;
+        $this->_defaultLang = $defaultLang;
+        $this->_baseFolder = $baseFolder;
+        $this->_content = $content;
+        $this->_pagedata = $pagedata;
+        $this->_excludeHidden = $excludeHidden;
+        $this->_defaultChangefreq = $defaultChangefreq;
+        $this->_defaultPriority = $defaultPriority;
     }
 
     /**
@@ -135,8 +135,8 @@ class Sitemapper_Model
      */
     function _subsiteContentFolder($subsite)
     {
-        $res = $this->baseFolder;
-        if ($subsite != $this->defaultLang) {
+        $res = $this->_baseFolder;
+        if ($subsite != $this->_defaultLang) {
             $res .= $subsite . '/';
         }
         $res .= 'content/';
@@ -153,7 +153,7 @@ class Sitemapper_Model
      */
     function _isPageHidden($index)
     {
-        $pagedata = $this->pagedata[$index];
+        $pagedata = $this->_pagedata[$index];
         $res = (isset($pagedata['linked_to_menu'])
                 && $pagedata['linked_to_menu'] == '0')
             || hide($index);
@@ -170,9 +170,9 @@ class Sitemapper_Model
      */
     function _isPagePublished($index)
     {
-        $pagedata = $this->pagedata[$index];
+        $pagedata = $this->_pagedata[$index];
         $res = (!isset($pagedata['published']) || $pagedata['published'] != '0')
-            && $this->content[$index] != '#CMSimple hide#';
+            && $this->_content[$index] != '#CMSimple hide#';
         return $res;
     }
 
@@ -188,7 +188,7 @@ class Sitemapper_Model
     function isPageExcluded($index)
     {
         $res = !$this->_isPagePublished($index)
-            || $this->excludeHidden && $this->_isPageHidden($index);
+            || $this->_excludeHidden && $this->_isPageHidden($index);
         return $res;
     }
 
@@ -202,7 +202,7 @@ class Sitemapper_Model
      */
     function pageLastMod($index)
     {
-        $res = $this->pagedata[$index]['last_edit'];
+        $res = $this->_pagedata[$index]['last_edit'];
         $res = $this->_sitemapDate($res);
         return $res;
     }
@@ -217,10 +217,10 @@ class Sitemapper_Model
      */
     function pageChangefreq($index)
     {
-        $pagedata = $this->pagedata[$index];
+        $pagedata = $this->_pagedata[$index];
         $res = !empty($pagedata['sitemapper_changefreq'])
             ? $pagedata['sitemapper_changefreq']
-            : $this->defaultChangefreq;
+            : $this->_defaultChangefreq;
         return $res;
     }
 
@@ -234,11 +234,11 @@ class Sitemapper_Model
      */
     function pagePriority($index)
     {
-        $pagedata = $this->pagedata[$index];
+        $pagedata = $this->_pagedata[$index];
         $res = isset($pagedata['sitemapper_priority'])
             && $pagedata['sitemapper_priority'] != ''
             ? $pagedata['sitemapper_priority']
-            : $this->defaultPriority;
+            : $this->_defaultPriority;
         return floatval($res);
     }
 
@@ -285,8 +285,8 @@ class Sitemapper_Model
      */
     function installedSubsites()
     {
-        $res = array($this->defaultLang);
-        $dir = $this->baseFolder;
+        $res = array($this->_defaultLang);
+        $dir = $this->_baseFolder;
         $dh = opendir($dir);
         while (($fn = readdir($dh)) !== false) {
             if ($fn[0] != '.' && $this->_isSubsite($dir . $fn)) {
