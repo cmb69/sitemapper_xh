@@ -32,6 +32,18 @@ $_Sitemapper = new Sitemapper_Model($cf['language']['default'],
 
 
 /**
+ * Returns a string with special HTML characters escaped.
+ *
+ * @param  string $str
+ * @return string
+ */
+function Sitemapper_hsc($str)
+{
+    return htmlspecialchars($str, ENT_COMPAT, 'UTF_8');
+}
+
+
+/**
  * Returns sitemap index.
  *
  * @return string  The XML.
@@ -49,8 +61,8 @@ function Sitemapper_sitemapIndex()
         $loc = 'http://' . $host . CMSIMPLE_ROOT
             . ($ss != $cf['language']['default'] ? $ss.'/' : '')
             . '?sitemapper_sitemap';
-	$loc = htmlspecialchars($loc);
 	$sitemap = array('loc' => $loc, 'time' => $time);
+	array_walk($sitemap, 'Sitemapper_hsc');
 	$sitemaps[] = $sitemap;
     }
     return '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL
