@@ -176,7 +176,7 @@ function sitemapper()
     }
     if (isset($body)) {
 	header('HTTP/1.0 200 OK');
-        header('Content-Type: application/xml');
+        header('Content-Type: application/xml; charset=utf-8');
         echo $body;
         exit;
     }
@@ -184,7 +184,7 @@ function sitemapper()
 
 
 /*
- * Create model object.
+ * Create the model object.
  */
 $_Sitemapper = new Sitemapper_Model(
     $cf['language']['default'], $pth['folder']['base'],
