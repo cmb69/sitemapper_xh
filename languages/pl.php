@@ -7,7 +7,6 @@
  * License.
  */
 
-$plugin_tx['sitemapper']['menu_main']="Mapa Strony";
 $plugin_tx['sitemapper']['syscheck_title']="Test systemu";
 $plugin_tx['sitemapper']['syscheck_phpversion']="Wersja PHP ≥ %s";
 $plugin_tx['sitemapper']['syscheck_extension']="Wtyczka '%s' wczytana poprawnie";

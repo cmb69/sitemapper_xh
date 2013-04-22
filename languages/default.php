@@ -1,6 +1,6 @@
 <?php
 
-$plugin_tx['sitemapper']['menu_main']="Sitemaps";
+$plugin_tx['sitemapper']['sitemaps']="Available Sitemaps";
 
 $plugin_tx['sitemapper']['syscheck_title']="System check";
 $plugin_tx['sitemapper']['syscheck_phpversion']="PHP version ≥ %s";

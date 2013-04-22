@@ -7,7 +7,6 @@
  * License.
  */
 
-$plugin_tx['sitemapper']['menu_main']="Mapy stránok";
 $plugin_tx['sitemapper']['syscheck_title']="Kontrola systému";
 $plugin_tx['sitemapper']['syscheck_phpversion']="PHP verzia ≥ %s";
 $plugin_tx['sitemapper']['syscheck_extension']="Rozšírenie '%s' načítané";

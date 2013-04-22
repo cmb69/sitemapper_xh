@@ -1,6 +1,5 @@
 <?php
 
-$plugin_tx['sitemapper']['menu_main']="Sitemaps";
 $plugin_tx['sitemapper']['syscheck_title']="Kontrola systému";
 $plugin_tx['sitemapper']['syscheck_phpversion']="PHP verze ≥ %s";
 $plugin_tx['sitemapper']['syscheck_extension']="Rozšíření '%s' spuštěno";

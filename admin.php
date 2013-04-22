@@ -34,7 +34,7 @@ function Sitemapper_info() // RELEASE-TODO
 
     $ptx = $plugin_tx['sitemapper'];
     $labels = array(
-	'sitemaps' => $ptx['menu_main'],
+	'sitemaps' => $ptx['sitemaps'],
 	'syscheck' => $ptx['syscheck_title'],
 	'about' => $ptx['about']
     );
