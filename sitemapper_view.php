@@ -25,10 +25,10 @@ if (!defined('CMSIMPLE_XH_VERSION')) {
  */
 function Sitemapper_view($page)
 {
-    global $tx, $sn, $su, $pth, $plugin_tx;
+    global $su, $pth, $plugin_tx;
 
     $ptx = $plugin_tx['sitemapper'];
-    $action = "{$pth['folder']['base']}?$su";
+    $action = $pth['folder']['base'] . '?' . $su;
     $help = array(
 	'changefreq' => $ptx['cf_changefreq'],
 	'priority' => $ptx['cf_priority']

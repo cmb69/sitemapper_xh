@@ -20,9 +20,25 @@ if (!defined('CMSIMPLE_XH_VERSION')) {
 }
 
 
+/**
+ * The version string.
+ */
 define('SITEMAPPER_VERSION', '2alpha1');
 
 
+define('SITEMAPPER_URL', 'http'
+    . (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 's' : '')
+    . '://'
+    . (empty($plugin_cf['sitemapper']['canonical_hostname'])
+	? $_SERVER['SERVER_NAME']
+	: $plugin_cf['sitemapper']['canonical_hostname'])
+    . ($_SERVER['SERVER_PORT'] < 1024 ? '' : ':' . $_SERVER['SERVER_PORT'])
+    . preg_replace('/index.php$/', '', $_SERVER['SCRIPT_NAME']));
+
+
+/**
+ *
+ */
 require_once $pth['folder']['plugin_classes'] . 'model.php';
 
 
@@ -50,18 +66,18 @@ function Sitemapper_hsc($str)
  */
 function Sitemapper_sitemapIndex()
 {
-    global $pth, $plugin_cf, $cf, $_Sitemapper;
+    global $cf, $_Sitemapper;
 
-    $host = empty($plugin_cf['sitemapper']['canonical_hostname'])
-	    ? $_SERVER['SERVER_NAME']
-	    : $plugin_cf['sitemapper']['canonical_hostname'];
     $sitemaps = array();
     foreach ($_Sitemapper->installedSubsites() as $ss) {
-	$time = $_Sitemapper->subsiteLastMod($ss);
-        $loc = 'http://' . $host . CMSIMPLE_ROOT
-            . ($ss != $cf['language']['default'] ? $ss.'/' : '')
-            . '?sitemapper_sitemap';
-	$sitemap = array('loc' => $loc, 'time' => $time);
+	$base = SITEMAPPER_URL;
+	if ($ss != $cf['language']['default']) {
+	    $base .= $ss . '/';
+	}
+	$sitemap = array(
+	    'loc' => $base . '?sitemapper_sitemap',
+	    'time' => $_Sitemapper->subsiteLastMod($ss)
+	);
 	array_walk($sitemap, 'Sitemapper_hsc');
 	$sitemaps[] = $sitemap;
     }
@@ -77,36 +93,18 @@ function Sitemapper_sitemapIndex()
  */
 function Sitemapper_subsiteSitemap()
 {
-    global $pth, $u, $pd_router, $plugin_cf, $sl, $c, $function, $s, $text, $sn;
+    global $u, $cl, $_Sitemapper;
 
     $urls = array();
-    $pcf = $plugin_cf['sitemapper'];
-    $host = empty($plugin_cf['sitemapper']['canonical_hostname'])
-	    ? $_SERVER['SERVER_NAME']
-	    : $plugin_cf['sitemapper']['canonical_hostname'];
-    $dir = preg_replace('/index.php$/i', '', $sn);
-    $pd = $pd_router->find_all();
-    foreach ($pd as $i => $page) {
-	$cnt = $function == 'save' && $i == $s ? $text : $c[$i]; // TODO
-        // TODO: remove is already removed ;)
-	if ($page['published'] != '0' && !cmscript('remove', $cnt)
-            && !$pcf['ignore_hidden_pages'] // TODO: bugfix, as ( ) is missing!!!
-            || $page['linked_to_menu'] != '0' && !cmscript('hide', $cnt))
-        {
-	    $last_edit = $page['last_edit'];
-	    $changefreq = !empty($page['sitemapper_changefreq'])
-                ? $page['sitemapper_changefreq']
-                : $pcf['changefreq'];
-	    $priority = !empty($page['sitemapper_priority']) // TODO: '0' is empty!
-                ? $page['sitemapper_priority']
-                : $pcf['priority'];
-            $loc = 'http://' . $host . $dir . '?' . $u[$i];
+    for ($i = 0; $i < $cl; $i++) {
+	if (!$_Sitemapper->isPageExcluded($i)) {
 	    $url = array(
-		'loc' => htmlspecialchars($loc),
-		'lastmod' => sitemapper_date($last_edit),
-		'changefreq' => htmlspecialchars($changefreq),
-		'priority' => htmlspecialchars($priority)
+		'loc' => SITEMAPPER_URL . '?' . $u[$i],
+		'lastmod' => $_Sitemapper->pageLastMod($i),
+		'changefreq' => $_Sitemapper->pageChangefreq($i),
+		'priority' => $_Sitemapper->pagePriority($i)
 	    );
+	    array_walk($url, 'Sitemapper_hsc');
 	    $urls[] = $url;
 	}
     }
@@ -166,14 +164,14 @@ function sitemapper()
     global $cf, $sl;
 
     if (isset($_GET['sitemapper_index']) && $sl == $cf['language']['default']) {
-	header('HTTP/1.0 200 OK');
-        header('Content-Type: application/xml');
-        echo Sitemapper_sitemapIndex();
-        exit;
+        $body = Sitemapper_sitemapIndex();
     } elseif (isset($_GET['sitemapper_sitemap'])) {
+        $body = Sitemapper_subsiteSitemap();
+    }
+    if (isset($body)) {
 	header('HTTP/1.0 200 OK');
         header('Content-Type: application/xml');
-        echo Sitemapper_subsiteSitemap();
+        echo $body;
         exit;
     }
 }

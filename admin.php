@@ -34,7 +34,7 @@ function Sitemapper_info() // RELEASE-TODO
 	'syscheck' => $ptx['syscheck_title'],
 	'about' => $ptx['about']
     );
-    $phpVersion = '4.0.7';
+    $phpVersion = '4.3.10';
     foreach (array('ok', 'warn', 'fail') as $state) {
         $images[$state] = $pth['folder']['plugins']
 	    . "sitemapper/images/$state.png";
@@ -42,7 +42,7 @@ function Sitemapper_info() // RELEASE-TODO
     $checks = array();
     $checks[sprintf($ptx['syscheck_phpversion'], $phpVersion)] =
         version_compare(PHP_VERSION, $phpVersion) >= 0 ? 'ok' : 'fail';
-    foreach (array('date') as $ext) {
+    foreach (array('date', 'pcre') as $ext) {
 	$checks[sprintf($ptx['syscheck_extension'], $ext)] =
 	    extension_loaded($ext) ? 'ok' : 'fail';
     }
@@ -72,12 +72,12 @@ function Sitemapper_info() // RELEASE-TODO
  */
 function Sitemapper_admin()
 {
-    global $cf, $plugin_tx, $pth, $sl, $_Sitemapper;
+    global $sn, $cf, $plugin_tx, $_Sitemapper;
 
     $title = $plugin_tx['sitemapper']['menu_main'];
     $sitemap = array(
 	'name' => 'index',
-	'href' => CMSIMPLE_ROOT . '?sitemapper_index'
+	'href' => $sn . '?sitemapper_index'
     );
     $sitemaps = array($sitemap);
     foreach ($_Sitemapper->installedSubsites() as $ss) {
