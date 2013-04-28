@@ -1,5 +1,7 @@
 <?php
 
+$plugin_tx['sitemapper']['tab']="Sitemap";
+
 $plugin_tx['sitemapper']['sitemaps']="Available Sitemaps";
 
 $plugin_tx['sitemapper']['syscheck_title']="System check";

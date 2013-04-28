@@ -329,13 +329,13 @@ class Sitemapper_Controller
      */
     function init()
     {
-        global $adm, $pth, $pd_router;
+        global $adm, $pth, $plugin_tx, $pd_router;
 
         $pd_router->add_interest('sitemapper_changefreq');
         $pd_router->add_interest('sitemapper_priority');
         if ($adm) {
             $pd_router->add_tab(
-                'Sitemap', // TODO i18n
+                $plugin_tx['sitemapper']['tab'],
 		$pth['folder']['plugins'] . 'sitemapper/sitemapper_view.php'
             );
         }
