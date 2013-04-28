@@ -25,7 +25,7 @@ function sitemapper_view($page) {
     global $tx, $sn, $su, $pth, $plugin_tx;
 
     $sitemapper_tx =& $plugin_tx['sitemapper'];
-    $help_icon = tag('image src="'.$pth['folder']['plugins'].'sitemapper/images/help.png " alt="help"');
+    $help_icon = tag('img src="'.$pth['folder']['plugins'].'sitemapper/images/help.png " alt="help"');
     $res = '<form id="sitemapper" action="'.$sn.'?'.$su.'" method="post">'."\n"
 	    .'<p><strong>Sitemap</strong></p>'."\n";
 
