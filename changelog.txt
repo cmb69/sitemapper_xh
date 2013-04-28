@@ -1,3 +1,7 @@
+Version 1pl3 - released 2013-04-28
+cmb     fixed bug, where unpublished pages were shown in sitemap, if sitemapper was loaded before page_params
+cmb     fixed minor bug, where element name "image" was used instead of "img" in the page data tab
+
 Version 1pl2 - released 2013-04-20
 cmb     fixed bug, where self and parent directory were probed for being a subsite directory
 cmb     revised user manuals
