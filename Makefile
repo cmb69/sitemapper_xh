@@ -4,11 +4,11 @@ SVN=svn
 
 .PHONY: tests
 tests:
-	$(PHPUNIT) --colors tests/
+	cd tests/; $(PHPUNIT) --colors .; cd ..
 
 .PHONY: coverage
 coverage:
-	$(PHPUNIT) --coverage-html tests/coverage/ tests/
+	cd tests/; $(PHPUNIT) --coverage-html coverage/ .; cd ..
 
 .PHONY: pci
 pci:
