@@ -42,6 +42,8 @@ class Sitemapper_Controller
 
     /**
      *
+     * Constructs a controller.
+     *
      * @access public
      *
      * @global array  The content of the pages.
@@ -164,9 +166,8 @@ class Sitemapper_Controller
      *
      * @access private
      *
-     * @global array  The "urls" of the pages.
+     * @global array  The "URLs" of the pages.
      * @global int  The number of pages.
-     * @global object  The sitemapper model.
      * @return string  The XML.
      */
     function _subsiteSitemap()
@@ -306,7 +307,17 @@ class Sitemapper_Controller
     }
 
     /**
+     * Dispatches on Sitemapper related requests.
+     *
      * @access private
+     *
+     * @global bool  Whether the user is logged in as admin.
+     * @global string  The value of the "admin" GET or POST parameter.
+     * @global string  The value of the "action" GET or POST parameter.
+     * @global string  The name of the plugin.
+     * @global string  The (X)HTML to be placed in the contents area.
+     * @global string  Whether the plugin administration is requested.
+     * @return void
      */
     function _dispatch()
     {
@@ -325,7 +336,15 @@ class Sitemapper_Controller
     }
 
     /**
+     * Initializes the controller object.
+     *
      * @access public
+     *
+     * @global bool  Whether the user is logged in as admin.
+     * @global array  The paths of system files and folders.
+     * @global array  The localization of the plugins.
+     * @global object  The page data router.
+     * @return void
      */
     function init()
     {
@@ -343,9 +362,11 @@ class Sitemapper_Controller
     }
 
     /**
+     * Returns the page data tab view.
+     *
      * @access public
      *
-     * @global string
+     * @global string  The "URL" of the currently selected page.
      * @global array  The paths of system files and folders.
      * @global array  The localization of the plugins.
      * @param  array $page  The page's data.
@@ -377,10 +398,13 @@ class Sitemapper_Controller
     }
 
     /**
+     * Dispatches to sitemap requests.
+     *
      * @access public
      *
      * @global string  The current language.
      * @global array $cf  The configuration of the core.
+     * @return void
      */
     function dispatchAfterPluginLoading()
     {
