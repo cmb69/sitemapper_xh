@@ -170,9 +170,10 @@ function sitemapper_subsite_sitemap() {
     $pd = $pd_router->find_all();
     foreach ($pd as $i => $page) {
 	$cnt = $function == 'save' && $i == $s ? $text : $c[$i];
-	if ($page['published'] != '0' && !cmscript('remove', $cnt)
-		&& !$sitemapper_cf['ignore_hidden_pages']
-		|| $page['linked_to_menu'] != '0' && !cmscript('hide', $cnt)) {
+	if ($page['published'] !== '0' && !cmscript('remove', $cnt)
+		&& (!$sitemapper_cf['ignore_hidden_pages']
+		    || $page['linked_to_menu'] !== '0' && !cmscript('hide', $cnt)))
+	{
 	    $last_edit = $page['last_edit'];
 	    $changefreq = !empty($page['sitemapper_changefreq'])
 		    ? $page['sitemapper_changefreq']
