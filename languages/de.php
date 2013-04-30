@@ -16,5 +16,6 @@ $plugin_tx['sitemapper']['cf_canonical_hostname']="Der Hostname, der in den Site
 $plugin_tx['sitemapper']['cf_changefreq']="Wie häufig die Seite vermutlich geändert wird. Dieser Wert liefert Suchmaschinen allgemeine Informationen und hängt nicht unbeding damit zusammen, wie oft sie die Seite durchsuchen. Gültige Werte: \"always\" (immer), \"hourly\" (stündlich), \"daily\" (täglich), \"weekly\" (wöchentlich), \"monthly\" (monatlich), \"yearly\" (jährlich) und \"never\" (niemals).";
 $plugin_tx['sitemapper']['cf_priority']="Die Priorität dieser URL relativ zu anderen URLS auf Ihrer Homepage. Gültige Werte liegen zwischen \"0.0\" und \"1.0\".";
 $plugin_tx['sitemapper']['cf_ignore_hidden_pages']="Versteckte Seiten von der Sitemap ausschließen? \"1\" (bedeutet ja) oder \"0\" (bedeutet nein)";
+$plugin_tx['sitemapper']['cf_clean_urls']="Ob clean URLs in der Sitemap verwendet werden sollen: \"1\" (ja) oder \"0\" (nein).";
 
 ?>

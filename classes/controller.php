@@ -168,17 +168,19 @@ class Sitemapper_Controller
      *
      * @global array  The "URLs" of the pages.
      * @global int  The number of pages.
+     * @global array  The configuration of the plugins.
      * @return string  The XML.
      */
     function _subsiteSitemap()
     {
-        global $u, $cl;
+        global $u, $cl, $plugin_cf;
 
         $urls = array();
         for ($i = 0; $i < $cl; $i++) {
             if (!$this->_model->isPageExcluded($i)) {
+		$seperator = $plugin_cf['sitemapper']['clean_urls'] ? '' : '?';
                 $url = array(
-                    'loc' => SITEMAPPER_URL . '?' . $u[$i],
+                    'loc' => SITEMAPPER_URL . $seperator . $u[$i],
                     'lastmod' => $this->_model->pageLastMod($i),
                     'changefreq' => $this->_model->pageChangefreq($i),
                     'priority' => $this->_model->pagePriority($i)
