@@ -50,7 +50,7 @@ class ModelTest extends PHPUnit_Framework_TestCase
         );
         $c = $content;
         $pagedata = array(
-            array('last_edit' => '0'),
+            array('last_edit' => ''),
             array(
                 'last_edit' => '1366639458',
                 'linked_to_menu' => '0',
@@ -74,7 +74,7 @@ class ModelTest extends PHPUnit_Framework_TestCase
     public function dataForTestPageLastMod()
     {
         return array(
-            array(0, '1970-01-01T00:00:00Z'),
+            array(0, false),
             array(1, '2013-04-22T14:04:18Z')
         );
     }

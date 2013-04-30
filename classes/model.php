@@ -194,6 +194,7 @@ class Sitemapper_Model
 
     /**
      * Returns the sitemap.xml timestamp of the last modification of a page.
+     * Returns false, if the last modification time is not available.
      *
      * @access public
      *
@@ -203,7 +204,7 @@ class Sitemapper_Model
     function pageLastMod($index)
     {
         $res = $this->_pagedata[$index]['last_edit'];
-        $res = $this->_sitemapDate($res);
+        $res = !empty($res) ? $this->_sitemapDate($res) : false;
         return $res;
     }
 

@@ -5,7 +5,9 @@
 <?php foreach ($urls as $url):?>
     <url>
         <loc><?php echo $url['loc'];?></loc>
+<?php if (!empty($url['lastmod'])):?>
         <lastmod><?php echo $url['lastmod'];?></lastmod>
+<?php endif;?>
         <changefreq><?php echo $url['changefreq'];?></changefreq>
         <priority><?php echo $url['priority'];?></priority>
     </url>
