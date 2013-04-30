@@ -1,4 +1,4 @@
-Version 2beta1 - released 2013-04-30
+Version 2beta2 - released 2013-04-30
 cmb     fixed bug where empty last_edit was not properly handled
 cmb     added config option "clean_urls"
 cmb     added version.nfo
