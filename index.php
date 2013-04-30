@@ -23,7 +23,7 @@ if (!defined('CMSIMPLE_XH_VERSION')) {
 /**
  * The version string.
  */
-define('SITEMAPPER_VERSION', '2beta1');
+define('SITEMAPPER_VERSION', '2beta2');
 
 
 /**
