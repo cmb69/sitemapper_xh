@@ -23,7 +23,25 @@
     </target>
 
     <target name="build">
+        <fail unless="version" message="version is not defined!"/>
         <svnexport revision="" repositoryurl="." todir="dist"/>
+        <move todir="temp">
+            <fileset dir="dist">
+                <include name="index.php"/>
+                <include name="version.nfo"/>
+            </fileset>
+            <filterchain>
+                <replacetokens>
+                    <token key="SITEMAPPER_VERSION" value="${version}"/>
+                </replacetokens>
+            </filterchain>
+        </move>
+        <move todir="dist">
+            <fileset dir="temp">
+                <include name="index.php"/>
+                <include name="version.nfo"/>
+            </fileset>
+        </move>
         <delete>
             <fileset dir="dist">
                 <include name="sitemapper.komodoproject"/>
@@ -34,6 +52,9 @@
         <delete dir="dist/tests" quiet="true" includeemptydirs="true"/>
         <copy file="dist/config/config.php" tofile="dist/config/defaultconfig.php"/>
         <copy file="dist/languages/en.php" tofile="dist/languages/default.php"/>
+    </target>
+
+    <target name="test">
     </target>
 
 </project>
