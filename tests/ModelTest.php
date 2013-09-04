@@ -10,7 +10,7 @@
  */
 
 
-require '../classes/model.php';
+require './classes/model.php';
 
 
 /*
@@ -62,7 +62,7 @@ class ModelTest extends PHPUnit_Framework_TestCase
             array()
         );
         $this->sitemapper = new Sitemapper_Model(
-            'en', './data/', $content, $pagedata, true, 'monthly', '0.5'
+            'en', './tests/data/', $content, $pagedata, true, 'monthly', '0.5'
         );
     }
 
@@ -168,7 +168,7 @@ class ModelTest extends PHPUnit_Framework_TestCase
 
     public function testSubsiteLastMod()
     {
-        $filename = './data/de/content/pagedata.php';
+        $filename = './tests/data/de/content/pagedata.php';
         touch($filename);
         $timestamp = filemtime($filename);
         $expected = gmdate('Y-m-d\TH:i:s\Z', $timestamp);
