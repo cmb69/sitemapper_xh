@@ -36,12 +36,12 @@
                 </replacetokens>
             </filterchain>
         </move>
-        <move todir="dist">
+        <copy todir="dist">
             <fileset dir="temp">
                 <include name="index.php"/>
                 <include name="version.nfo"/>
             </fileset>
-        </move>
+        </copy>
         <delete>
             <fileset dir="dist">
                 <include name="sitemapper.komodoproject"/>
@@ -50,11 +50,11 @@
             </fileset>
         </delete>
         <delete dir="dist/tests" quiet="true" includeemptydirs="true"/>
+        <delete dir="temp" quiet="true"/>
         <copy file="dist/config/config.php" tofile="dist/config/defaultconfig.php"/>
         <copy file="dist/languages/en.php" tofile="dist/languages/default.php"/>
-    </target>
-
-    <target name="test">
+        <zip destfile="Sitemapper_XH-${version}.zip" basedir="dist"/>
+        <delete dir="dist" quiet="true"/>
     </target>
 
 </project>
