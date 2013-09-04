@@ -376,10 +376,10 @@ class Sitemapper_Controller
      */
     function pageDataTab($pageData)
     {
-        global $su, $pth, $plugin_tx;
+        global $sn, $su, $pth, $plugin_tx;
 
         $ptx = $plugin_tx['sitemapper'];
-        $action = $pth['folder']['base'] . '?' . $su;
+        $action = $sn . '?' . $su;
         $help = array(
             'changefreq' => $ptx['cf_changefreq'],
             'priority' => $ptx['cf_priority']
