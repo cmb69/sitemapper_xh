@@ -2,6 +2,17 @@
 
 <project name="Sitemapper" default="none">
 
+    <fileset id="php-sources" dir=".">
+        <include name="*.php"/>
+        <include name="classes/*.php"/>
+    </fileset>
+
+    <target name="sniff">
+        <phpcodesniffer standard="PEAR">
+            <fileset refid="php-sources"/>
+        </phpcodesniffer>
+    </target>
+
     <target name="compat">
         <exec command="pci --dir . --ignore-dirs pcidirs.txt --tab 12,12,20 --summarize"
               logoutput="true"/>
