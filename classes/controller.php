@@ -3,31 +3,40 @@
 /**
  * Controller of Sitemapper_XH.
  *
- * @package    Sitemapper
- * @copyright  Copyright (c) 2011-2013 Christoph M. Becker <http://3-magi.net/>
- * @license    http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @version    $Id$
- * @link       http://3-magi.net/?CMSimple_XH/Sitemapper_XH
+ * PHP versions 4 and 5
+ *
+ * @category  CMSimple_XH
+ * @package   Sitemapper
+ * @author    Christoph M. Becker <cmbecker69@gmx.de>
+ * @copyright 2011-2013 Christoph M. Becker <http://3-magi.net/>
+ * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
+ * @version   SVN: $Id$
+ * @link      http://3-magi.net/?CMSimple_XH/Sitemapper_XH
  */
-
 
 /**
  * The fully qualified absolute URL of the current (sub)site.
  */
-define('SITEMAPPER_URL', 'http'
+define(
+    'SITEMAPPER_URL',
+    'http'
     . (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 's' : '')
     . '://'
     . (empty($plugin_cf['sitemapper']['canonical_hostname'])
-	? $_SERVER['HTTP_HOST']
-	: $plugin_cf['sitemapper']['canonical_hostname']
-	. ($_SERVER['SERVER_PORT'] < 1024 ? '' : ':' . $_SERVER['SERVER_PORT']))
-    . preg_replace('/index.php$/', '', $sn));
-
+        ? $_SERVER['HTTP_HOST']
+        : $plugin_cf['sitemapper']['canonical_hostname']
+        . ($_SERVER['SERVER_PORT'] < 1024 ? '' : ':' . $_SERVER['SERVER_PORT']))
+    . preg_replace('/index.php$/', '', $sn)
+);
 
 /**
  * The controller class.
  *
- * @package Sitemapper
+ * @category CMSimple_XH
+ * @package  Sitemapper
+ * @author   Christoph M. Becker <cmbecker69@gmx.de>
+ * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
+ * @link     http://3-magi.net/?CMSimple_XH/Sitemapper_XH
  */
 class Sitemapper_Controller
 {
@@ -41,16 +50,15 @@ class Sitemapper_Controller
     var $_model;
 
     /**
+     * Initializes a controller.
      *
-     * Constructs a controller.
+     * @global array The content of the pages.
+     * @global array The paths of system files and folders.
+     * @global array The configuration of the core.
+     * @global array The configuration of the plugins.
+     * @global array The page data router.
      *
      * @access public
-     *
-     * @global array  The content of the pages.
-     * @global array  The paths of system files and folders.
-     * @global array  The configuration of the core.
-     * @global array  The configuration of the plugins.
-     * @global array  The page data router.
      */
     function Sitemapper_Controller()
     {
@@ -63,16 +71,16 @@ class Sitemapper_Controller
             $plugin_cf['sitemapper']['changefreq'],
             $plugin_cf['sitemapper']['priority']
         );
-
     }
 
     /**
      * Returns a string with special HTML characters escaped.
      *
-     * @access private
+     * @param string $str A string.
      *
-     * @param  string $str
      * @return string
+     *
+     * @access private
      */
     function _hsc($str)
     {
@@ -82,13 +90,15 @@ class Sitemapper_Controller
     /**
      * Renders a template.
      *
-     * @access private
+     * @param string $_template The name of the template.
+     * @param array  $_bag      Variables available in the template.
      *
-     * @global array  The paths of system files and folders.
-     * @global array  The configuration of the core.
-     * @param  string $_template  The name of the template.
-     * @param  array $_bag  Variables available in the template.
      * @return string
+     *
+     * @global array The paths of system files and folders.
+     * @global array The configuration of the core.
+     *
+     * @access private
      */
     function _render($_template, $_bag)
     {
@@ -111,12 +121,14 @@ class Sitemapper_Controller
     /**
      * Renders an XML template.
      *
-     * @access private
+     * @param string $_template The name of the template.
+     * @param array  $_bag      Variables available in the template.
      *
-     * @global array  The paths of system files and folders.
-     * @param  string $_template  The name of the template.
-     * @param  array $_bag  Variables available in the template.
      * @return string
+     *
+     * @global array The paths of system files and folders.
+     *
+     * @access private
      */
     function _renderXML($_template, $_bag)
     {
@@ -135,10 +147,11 @@ class Sitemapper_Controller
     /**
      * Returns the sitemap index.
      *
-     * @access private
+     * @return string XML.
      *
-     * @global array  The configuration of the core.
-     * @return string  The XML.
+     * @global array The configuration of the core.
+     *
+     * @access private
      */
     function _sitemapIndex()
     {
@@ -164,12 +177,13 @@ class Sitemapper_Controller
     /**
      * Returns the sitemap of the current subsite/language.
      *
-     * @access private
+     * @return string XML.
      *
-     * @global array  The "URLs" of the pages.
-     * @global int  The number of pages.
-     * @global array  The configuration of the plugins.
-     * @return string  The XML.
+     * @global array The "URLs" of the pages.
+     * @global int   The number of pages.
+     * @global array The configuration of the plugins.
+     *
+     * @access private
      */
     function _subsiteSitemap()
     {
@@ -178,7 +192,7 @@ class Sitemapper_Controller
         $urls = array();
         for ($i = 0; $i < $cl; $i++) {
             if (!$this->_model->isPageExcluded($i)) {
-		$seperator = $plugin_cf['sitemapper']['clean_urls'] ? '' : '?';
+                $seperator = $plugin_cf['sitemapper']['clean_urls'] ? '' : '?';
                 $url = array(
                     'loc' => SITEMAPPER_URL . $seperator . $u[$i],
                     'lastmod' => $this->_model->pageLastMod($i),
@@ -196,11 +210,12 @@ class Sitemapper_Controller
     /**
      * Returns the sitemaps.
      *
-     * @access private
-     *
-     * @global array  The script name.
-     * @global array  The configuration of the core.
      * @return array
+     *
+     * @global array The script name.
+     * @global array The configuration of the core.
+     *
+     * @access private
      */
     function _sitemaps()
     {
@@ -225,12 +240,13 @@ class Sitemapper_Controller
     /**
      * Returns the system checks.
      *
-     * @access private
-     *
-     * @global array  The paths of system files and folders.
-     * @global array  The localization of the core.
-     * @global array  The localization of the plugins.
      * @return array
+     *
+     * @global array The paths of system files and folders.
+     * @global array The localization of the core.
+     * @global array The localization of the plugins.
+     *
+     * @access private
      */
     function _systemChecks() // RELEASE-TODO
     {
@@ -239,23 +255,23 @@ class Sitemapper_Controller
         $ptx = $plugin_tx['sitemapper'];
         $phpVersion = '4.3.10';
         $checks = array();
-        $checks[sprintf($ptx['syscheck_phpversion'], $phpVersion)] =
-            version_compare(PHP_VERSION, $phpVersion) >= 0 ? 'ok' : 'fail';
+        $checks[sprintf($ptx['syscheck_phpversion'], $phpVersion)]
+            = version_compare(PHP_VERSION, $phpVersion) >= 0 ? 'ok' : 'fail';
         foreach (array('date', 'pcre') as $ext) {
-            $checks[sprintf($ptx['syscheck_extension'], $ext)] =
-                extension_loaded($ext) ? 'ok' : 'fail';
+            $checks[sprintf($ptx['syscheck_extension'], $ext)]
+                = extension_loaded($ext) ? 'ok' : 'fail';
         }
-        $checks[$ptx['syscheck_magic_quotes']] =
-            !get_magic_quotes_runtime() ? 'ok' : 'fail';
-        $checks[$ptx['syscheck_encoding']] =
-            strtoupper($tx['meta']['codepage']) == 'UTF-8' ? 'ok' : 'warn';
+        $checks[$ptx['syscheck_magic_quotes']]
+            = !get_magic_quotes_runtime() ? 'ok' : 'fail';
+        $checks[$ptx['syscheck_encoding']]
+            = strtoupper($tx['meta']['codepage']) == 'UTF-8' ? 'ok' : 'warn';
         $folders = array();
         foreach (array('config/', 'languages/') as $folder) {
             $folders[] = $pth['folder']['plugins'] . 'sitemapper/' . $folder;
         }
         foreach ($folders as $folder) {
-            $checks[sprintf($ptx['syscheck_writable'], $folder)] =
-                is_writable($folder) ? 'ok' : 'warn';
+            $checks[sprintf($ptx['syscheck_writable'], $folder)]
+                = is_writable($folder) ? 'ok' : 'warn';
         }
         return $checks;
     }
@@ -263,11 +279,12 @@ class Sitemapper_Controller
     /**
      * Returns the plugin information view.
      *
-     * @access private
+     * @return string (X)HTML.
      *
-     * @global array  The paths of system files and folders.
-     * @global array  The localization of the plugins.
-     * @return string  The (X)HTML.
+     * @global array The paths of system files and folders.
+     * @global array The localization of the plugins.
+     *
+     * @access private
      */
     function _info()
     {
@@ -296,13 +313,15 @@ class Sitemapper_Controller
     /**
      * Sends a sitemap as HTTP response.
      *
-     * @access private
+     * @param string $body The response body.
      *
-     * @param  string $body
+     * @return void
+     *
+     * @access private
      */
     function _respondWithSitemap($body)
     {
-	header('HTTP/1.0 200 OK');
+        header('HTTP/1.0 200 OK');
         header('Content-Type: application/xml; charset=utf-8');
         echo $body;
         exit;
@@ -311,15 +330,16 @@ class Sitemapper_Controller
     /**
      * Dispatches on Sitemapper related requests.
      *
-     * @access private
-     *
-     * @global bool  Whether the user is logged in as admin.
-     * @global string  The value of the "admin" GET or POST parameter.
-     * @global string  The value of the "action" GET or POST parameter.
-     * @global string  The name of the plugin.
-     * @global string  The (X)HTML to be placed in the contents area.
-     * @global string  Whether the plugin administration is requested.
      * @return void
+     *
+     * @global bool   Whether the user is logged in as admin.
+     * @global string The value of the "admin" GET or POST parameter.
+     * @global string The value of the "action" GET or POST parameter.
+     * @global string The name of the plugin.
+     * @global string The (X)HTML to be placed in the contents area.
+     * @global string Whether the plugin administration is requested.
+     *
+     * @access private
      */
     function _dispatch()
     {
@@ -340,13 +360,14 @@ class Sitemapper_Controller
     /**
      * Initializes the controller object.
      *
-     * @access public
+     * @return void
      *
-     * @global bool  Whether the user is logged in as admin.
+     * @global bool   Whether the user is logged in as admin.
      * @global array  The paths of system files and folders.
      * @global array  The localization of the plugins.
-     * @global object  The page data router.
-     * @return void
+     * @global object The page data router.
+     *
+     * @access public
      */
     function init()
     {
@@ -357,7 +378,7 @@ class Sitemapper_Controller
         if ($adm) {
             $pd_router->add_tab(
                 $plugin_tx['sitemapper']['tab'],
-		$pth['folder']['plugins'] . 'sitemapper/sitemapper_view.php'
+                $pth['folder']['plugins'] . 'sitemapper/sitemapper_view.php'
             );
         }
         $this->_dispatch();
@@ -366,13 +387,15 @@ class Sitemapper_Controller
     /**
      * Returns the page data tab view.
      *
-     * @access public
+     * @param array $pageData The page's data.
      *
-     * @global string  The "URL" of the currently selected page.
+     * @return string (X)HTML.
+     *
+     * @global string The "URL" of the currently selected page.
      * @global array  The paths of system files and folders.
      * @global array  The localization of the plugins.
-     * @param  array $page  The page's data.
-     * @return string  The (X)HTML.
+     *
+     * @access public
      */
     function pageDataTab($pageData)
     {
@@ -389,8 +412,8 @@ class Sitemapper_Controller
         array_unshift($changefreqOptions, '');
         $changefreqOptions = array_flip($changefreqOptions);
         foreach ($changefreqOptions as $opt => $dummy) {
-            $changefreqOptions[$opt] =
-                $pageData['sitemapper_changefreq'] == $opt;
+            $changefreqOptions[$opt]
+                = $pageData['sitemapper_changefreq'] == $opt;
         }
         $priority = $pageData['sitemapper_priority'];
         $bag = compact(
@@ -402,11 +425,12 @@ class Sitemapper_Controller
     /**
      * Dispatches to sitemap requests.
      *
-     * @access public
-     *
-     * @global string  The current language.
-     * @global array $cf  The configuration of the core.
      * @return void
+     *
+     * @global string The current language.
+     * @global array  The configuration of the core.
+     *
+     * @access public
      */
     function dispatchAfterPluginLoading()
     {

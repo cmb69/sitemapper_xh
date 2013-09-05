@@ -3,18 +3,25 @@
 /**
  * Model of Sitemapper_XH.
  *
- * @package	Sitemapper
- * @copyright	Copyright (c) 2011-2013 Christoph M. Becker <http://3-magi.net/>
- * @license	http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @version     $Id$
- * @link	http://3-magi.net/?CMSimple_XH/Sitemapper_XH
+ * PHP versions 4 and 5
+ *
+ * @category  CMSimple_XH
+ * @package   Sitemapper
+ * @author    Christoph M. Becker <cmbecker69@gmx.de>
+ * @copyright 2011-2013 Christoph M. Becker <http://3-magi.net/>
+ * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
+ * @version   SVN: $Id$
+ * @link      http://3-magi.net/?CMSimple_XH/Sitemapper_XH
  */
-
 
 /**
  * The model class.
  *
- * @package Sitemapper
+ * @category CMSimple_XH
+ * @package  Sitemapper
+ * @author   Christoph M. Becker <cmbecker69@gmx.de>
+ * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
+ * @link     http://3-magi.net/?CMSimple_XH/Sitemapper_XH
  */
 class Sitemapper_Model
 {
@@ -24,8 +31,9 @@ class Sitemapper_Model
      *
      * @var array
      */
-    var $changefreqs = array('always', 'hourly', 'daily', 'weekly', 'monthly',
-                         'yearly', 'never');
+    var $changefreqs = array(
+        'always', 'hourly', 'daily', 'weekly', 'monthly', 'yearly', 'never'
+    );
 
     /**
      * The default language of CMSimple_XH.
@@ -93,13 +101,17 @@ class Sitemapper_Model
     /**
      * Constructs a sitemapper model object.
      *
-     * @access public
+     * @param string $defaultLang       Default language.
+     * @param string $baseFolder        Path of the root folder.
+     * @param array  $content           The content of the pages.
+     * @param array  $pagedata          The pagedata of the pages.
+     * @param bool   $excludeHidden     Whether to exclude hidden pages.
+     * @param string $defaultChangefreq Default sitemap changefreq.
+     * @param float  $defaultPriority   Default sitemap priority.
      *
-     * @param  string $defaultLang
-     * @param  string $baseFolder
-     * @param  array $content
-     * @param  array $pagedata
      * @return void
+     *
+     * @access public
      */
     function Sitemapper_Model($defaultLang, $baseFolder, $content, $pagedata,
         $excludeHidden, $defaultChangefreq, $defaultPriority
@@ -116,7 +128,8 @@ class Sitemapper_Model
     /**
      * Returns a sitemap.xml conforming timestamp.
      *
-     * @param  int $timestamp
+     * @param int $timestamp A UNIX timestamp.
+     *
      * @return string
      */
     function _sitemapDate($timestamp)
@@ -128,10 +141,11 @@ class Sitemapper_Model
     /**
      * Returns the path of a subsites' content folder.
      *
-     * @access private
+     * @param string $subsite Name of a subsite.
      *
-     * @param  string $subsite
      * @return string
+     *
+     * @access private
      */
     function _subsiteContentFolder($subsite)
     {
@@ -146,10 +160,11 @@ class Sitemapper_Model
     /**
      * Returns whether a page is hidden.
      *
-     * @access private
+     * @param int $index The numeric index of the page.
      *
-     * @param  int $index  The numeric index of the page.
      * @return bool
+     *
+     * @access private
      */
     function _isPageHidden($index)
     {
@@ -163,10 +178,11 @@ class Sitemapper_Model
     /**
      * Returns whether a page is published.
      *
-     * @access private
+     * @param int $index The numeric index of the page.
      *
-     * @param  int $index  The numeric index of the page.
-     * @return bool.
+     * @return bool
+     *
+     * @access private
      */
     function _isPagePublished($index)
     {
@@ -181,9 +197,11 @@ class Sitemapper_Model
      * either because it is unpublished, or because it is hidden
      * and hidden pages shall be excluded.
      *
-     * @access public
+     * @param int $index The numeric index of the page.
      *
-     * @param  int $index  The numeric index of the page.
+     * @return bool
+     *
+     * @access public
      */
     function isPageExcluded($index)
     {
@@ -196,10 +214,11 @@ class Sitemapper_Model
      * Returns the sitemap.xml timestamp of the last modification of a page.
      * Returns false, if the last modification time is not available.
      *
-     * @access public
+     * @param int $index The numeric index of the page.
      *
-     * @param  int $index  The numeric index of the page.
      * @return string
+     *
+     * @access public
      */
     function pageLastMod($index)
     {
@@ -211,10 +230,11 @@ class Sitemapper_Model
     /**
      * Returns the sitemap.xml changefreq of a page.
      *
-     * @access public
+     * @param int $index The numeric index of the page.
      *
-     * @param  int $index  The numeric index of the page.
      * @return string
+     *
+     * @access public
      */
     function pageChangefreq($index)
     {
@@ -228,10 +248,11 @@ class Sitemapper_Model
     /**
      * Returns the sitemap.xml priority of a page.
      *
-     * @access public
+     * @param int $index The numeric index of the page.
      *
-     * @param  int $index  The numeric index of the page.     *
      * @return float
+     *
+     * @access public
      */
     function pagePriority($index)
     {
@@ -246,10 +267,11 @@ class Sitemapper_Model
     /**
      * Returns the sitemap.xml timestamp of the last modification of a subsite.
      *
-     * @access public
+     * @param string $subsite The name of the subsite.
      *
-     * @param  string $subsite  The name of the subsite.
      * @return string
+     *
+     * @access public
      */
     function subsiteLastMod($subsite)
     {
@@ -264,10 +286,11 @@ class Sitemapper_Model
     /**
      * Returns whether a path points to a subsite.
      *
-     * @access private
+     * @param string $path The path relative to the base folder.
      *
-     * @param  string $path  The path relative to the base folder.
      * @return bool
+     *
+     * @access private
      */
     function _isSubsite($path)
     {
