@@ -1,3 +1,10 @@
+Version 2beta3 - released 2013-08-05
+cmb     fixed bug, where page data tab was always stored to main language (reported by Martin M.)
+cmb     fixed bug, where sitemap index was wrongly linked the plugin back-end for subsites
+cmb     improved definition of SITEMAPPER_URL
+cmb     modified according to PEAR CS
+cmb     improved build system
+
 Version 2beta2 - released 2013-04-30
 cmb     fixed bug where empty last_edit was not properly handled
 cmb     added config option "clean_urls"
