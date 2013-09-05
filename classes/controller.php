@@ -212,18 +212,17 @@ class Sitemapper_Controller
      *
      * @return array
      *
-     * @global array The script name.
      * @global array The configuration of the core.
      *
      * @access private
      */
     function _sitemaps()
     {
-        global $sn, $cf;
+        global $cf;
 
         $sitemap = array(
             'name' => 'index',
-            'href' => $sn . '?sitemapper_index'
+            'href' => CMSIMPLE_ROOT . '?sitemapper_index'
         );
         $sitemaps = array($sitemap);
         foreach ($this->_model->installedSubsites() as $ss) {
@@ -248,7 +247,7 @@ class Sitemapper_Controller
      *
      * @access private
      */
-    function _systemChecks() // RELEASE-TODO
+    function _systemChecks()
     {
         global $pth, $tx, $plugin_tx;
 
