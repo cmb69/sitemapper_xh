@@ -1,4 +1,7 @@
-Version 2beta3 - released 2013-08-05
+Version 2beta4 - released 2013-09-08
+cmb     fixed bug, where 404 response status code might be set for the sitemap (reported by tanavots)
+
+Version 2beta3 - released 2013-09-05
 cmb     fixed bug, where page data tab was always stored to main language (reported by Martin M.)
 cmb     fixed bug, where sitemap index was wrongly linked the plugin back-end for subsites
 cmb     improved definition of SITEMAPPER_URL
