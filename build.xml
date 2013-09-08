@@ -64,7 +64,7 @@
         <delete dir="temp" quiet="true"/>
         <copy file="dist/config/config.php" tofile="dist/config/defaultconfig.php"/>
         <copy file="dist/languages/en.php" tofile="dist/languages/default.php"/>
-        <zip destfile="Sitemapper_XH-${version}.zip" basedir="dist"/>
+        <zip destfile="Sitemapper_XH-${version}.zip" basedir="dist" prefix="sitemapper/"/>
         <delete dir="dist" quiet="true"/>
     </target>
 
