@@ -337,12 +337,15 @@ class Sitemapper_Controller
      * @global string The name of the plugin.
      * @global string The (X)HTML to be placed in the contents area.
      * @global string Whether the plugin administration is requested.
+     * @global string The requested special functionality.
+     * @global string The current language.
+     * @global array  The configuration of the core.
      *
      * @access private
      */
     function _dispatch()
     {
-        global $adm, $admin, $action, $plugin, $o, $sitemapper;
+        global $adm, $admin, $action, $plugin, $o, $sitemapper, $f, $sl, $cf;
 
         if ($adm && isset($sitemapper) && $sitemapper == 'true') {
             $o .= print_plugin_admin('off');
@@ -353,6 +356,12 @@ class Sitemapper_Controller
             default:
                 $o .= plugin_admin_common($action, $admin, $plugin);
             }
+        } elseif (isset($_GET['sitemapper_index'])
+            && $sl == $cf['language']['default']
+        ) {
+            $f = 'sitemapper_index';
+        } elseif (isset($_GET['sitemapper_sitemap'])) {
+            $f = 'sitemapper_sitemap';
         }
     }
 
@@ -426,19 +435,21 @@ class Sitemapper_Controller
      *
      * @return void
      *
-     * @global string The current language.
-     * @global array  The configuration of the core.
+     * @global string The requested special functionality.
      *
      * @access public
      */
     function dispatchAfterPluginLoading()
     {
-        global $sl, $cf;
+        global $f;
 
-        if (isset($_GET['sitemapper_index']) && $sl == $cf['language']['default']) {
+        switch ($f) {
+        case 'sitemapper_index':
             $this->_respondWithSitemap($this->_sitemapIndex());
-        } elseif (isset($_GET['sitemapper_sitemap'])) {
+            break;
+        case 'sitemapper_sitemap':
             $this->_respondWithSitemap($this->_subsiteSitemap());
+            break;
         }
     }
 }
