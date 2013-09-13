@@ -312,15 +312,16 @@ class Sitemapper_Model
         $res = array($this->_defaultLang);
         $dir = $this->_baseFolder;
         $dh = opendir($dir);
-        while (($fn = readdir($dh)) !== false) {
-            if ($fn[0] != '.' && $this->_isSubsite($dir . $fn)) {
-                $res[] = $fn;
+        if ($dh) {
+            while (($fn = readdir($dh)) !== false) {
+                if ($fn[0] != '.' && $this->_isSubsite($dir . $fn)) {
+                    $res[] = $fn;
+                }
             }
+            closedir($dh);
         }
-        closedir($dh);
         sort($res);
         return $res;
-
     }
 }
 
