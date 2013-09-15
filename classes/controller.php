@@ -193,11 +193,13 @@ class Sitemapper_Controller
         for ($i = 0; $i < $cl; $i++) {
             if (!$this->_model->isPageExcluded($i)) {
                 $seperator = $plugin_cf['sitemapper']['clean_urls'] ? '' : '?';
+                $priority = $this->_model->pagePriority($i);
+                $priority = rtrim(number_format($priority, 6, '.', ''), '0');
                 $url = array(
                     'loc' => SITEMAPPER_URL . $seperator . $u[$i],
                     'lastmod' => $this->_model->pageLastMod($i),
                     'changefreq' => $this->_model->pageChangefreq($i),
-                    'priority' => $this->_model->pagePriority($i)
+                    'priority' => $priority
                 );
                 array_walk($url, array($this, '_hsc'));
                 $urls[] = $url;
