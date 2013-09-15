@@ -1,3 +1,9 @@
+Version 2rc1 - released 2013-09-15
+cmb     fixed build.xml to add sitemapper/ prefix to the ZIP file (reported by Martin M.)
+cmb     fixed bug, where priority was written to sitemap in locale dependend format (reported by tanavots)
+cmb     fixed potential issue regarding failing opendir() call
+cmb     added Estonian localization (contributed by tanavots)
+
 Version 2beta4 - released 2013-09-08
 cmb     fixed bug, where 404 response status code might be set for the sitemap (reported by tanavots)
 
