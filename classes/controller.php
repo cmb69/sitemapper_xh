@@ -388,6 +388,9 @@ class Sitemapper_Controller
             XH_afterPluginLoading(array($this, 'dispatchAfterPluginLoading'));
         }
         if ($adm) {
+            if (function_exists('XH_registerStandardPluginMenuItems')) {
+                XH_registerStandardPluginMenuItems(false);
+            }
             $pd_router->add_tab(
                 $plugin_tx['sitemapper']['tab'],
                 $pth['folder']['plugins'] . 'sitemapper/sitemapper_view.php'
