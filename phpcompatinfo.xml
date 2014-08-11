@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- $Id$ -->
 <phpcompatinfo reference="ALL"
-               report="extension"
+               report="summary"
                reportFileAppend="false"
                cacheDriver="file"
                recursive="true"

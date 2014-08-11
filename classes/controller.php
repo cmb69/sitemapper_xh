@@ -258,7 +258,7 @@ class Sitemapper_Controller
         $checks = array();
         $checks[sprintf($ptx['syscheck_phpversion'], $phpVersion)]
             = version_compare(PHP_VERSION, $phpVersion) >= 0 ? 'ok' : 'fail';
-        foreach (array('date', 'pcre') as $ext) {
+        foreach (array('pcre') as $ext) {
             $checks[sprintf($ptx['syscheck_extension'], $ext)]
                 = extension_loaded($ext) ? 'ok' : 'fail';
         }
