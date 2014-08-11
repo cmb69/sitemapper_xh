@@ -4,7 +4,7 @@
  * Test case for the model of Sitemapper_XH.
  *
  * @package	SitemapperTests
- * @copyright	Copyright (c) 2013 Christoph M. Becker <http://3-magi.net/>
+ * @copyright	Copyright (c) 2013-2014 Christoph M. Becker <http://3-magi.net/>
  * @license	http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @version     $Id$
  */
