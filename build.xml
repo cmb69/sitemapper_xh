@@ -12,7 +12,7 @@
         <include name="classes/*.php"/>
     </fileset>
 
-    <fileset id="unit-tests" dir="tests">
+    <fileset id="unit-tests" dir="tests/unit">
         <include name="*Test.php"/>
     </fileset>
 
