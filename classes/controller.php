@@ -384,6 +384,9 @@ class Sitemapper_Controller
 
         $pd_router->add_interest('sitemapper_changefreq');
         $pd_router->add_interest('sitemapper_priority');
+        if (function_exists('XH_afterPluginLoading')) {
+            XH_afterPluginLoading(array($this, 'dispatchAfterPluginLoading'));
+        }
         if ($adm) {
             $pd_router->add_tab(
                 $plugin_tx['sitemapper']['tab'],
