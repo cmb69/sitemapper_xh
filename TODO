@@ -1,2 +1,6 @@
 * fix bug, where priority was written wrong (rep. by svasti)
 * use afterPluginLoading when available
+* remove "date" extension from system check
+* add CSRF protection
+* empty admin.php
+* bump copyright

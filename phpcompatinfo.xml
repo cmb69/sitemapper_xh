@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- $Id$ -->
+<phpcompatinfo reference="ALL"
+               report="extension"
+               reportFileAppend="false"
+               cacheDriver="file"
+               recursive="true"
+               fileExtensions="php"
+               consoleProgress="false"
+               verbose="false">
+
+    <excludes>
+        <exclude id="sitemapper">
+            <directory name="test"/>
+        </exclude>
+    </excludes>
+</phpcompatinfo>

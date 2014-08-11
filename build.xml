@@ -1,43 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!-- $Id$ -->
+
 <project name="Sitemapper" default="none">
+
+    <!-- filesets -->
 
     <fileset id="php-sources" dir=".">
         <include name="*.php"/>
         <include name="classes/*.php"/>
     </fileset>
 
+    <fileset id="unit-tests" dir="tests">
+        <include name="*Test.php"/>
+    </fileset>
+
+    <!-- static code analysis -->
+
     <target name="sniff">
-        <phpcodesniffer standard="PEAR">
+        <phpcodesniffer standard="PEAR" format="full">
             <fileset refid="php-sources"/>
         </phpcodesniffer>
     </target>
 
     <target name="compat">
-        <exec command="pci --dir . --ignore-dirs pcidirs.txt --tab 12,12,20 --summarize"
+        <exec command="phpcompatinfo --configuration phpcompatinfo.xml print
+                                     --exclude-pattern sitemapper ."
               logoutput="true"/>
     </target>
 
-    <target name="tests">
-        <phpunit>
+    <!-- tests -->
+
+    <target name="unit-tests">
+        <phpunit haltonerror="true" haltonfailure="true">
             <formatter type="plain" usefile="false"/>
             <batchtest>
-                <fileset dir="tests">
-                    <include name="*Test.php"/>
-                </fileset>
+                <fileset refid="unit-tests"/>
             </batchtest>
         </phpunit>
     </target>
 
+    <!-- code coverage -->
+
     <target name="coverage">
-        <exec command="phpunit --coverage-html=tests/coverage tests"/>
+        <exec command="phpunit --configuration coverage.xml" logoutput="true"/>
     </target>
+
+    <!-- documentation -->
+
+    <target name="php-doc">
+        <phpdoc title="Sitemapper_XH Developer Documentation" destdir="doc/php"
+                output="HTML:Smarty:HandS" defaultpackagename="Sitemapper"
+                defaultcategoryname="CMSimple_XH" parseprivate="true">
+            <fileset refid="php-sources"/>
+            <projdocfileset dir=".">
+               <include name="README"/>
+               <include name="CHANGELOG"/>
+            </projdocfileset>
+        </phpdoc>
+    </target>
+
+    <target name="doc" depends="php-doc"/>
+
+    <!-- building -->
 
     <target name="build">
         <fail unless="version" message="version is not defined!"/>
-        <svnexport revision="" repositoryurl="." todir="dist"/>
-        <move todir="temp">
-            <fileset dir="dist">
+        <svnexport revision="" repositoryurl="." todir="export"/>
+        <move todir="dist">
+            <fileset dir="export">
                 <include name="index.php"/>
                 <include name="version.nfo"/>
             </fileset>
@@ -47,25 +78,21 @@
                 </replacetokens>
             </filterchain>
         </move>
-        <copy todir="dist">
-            <fileset dir="temp">
-                <include name="index.php"/>
-                <include name="version.nfo"/>
+        <move todir="dist">
+            <fileset dir="export">
+                <exclude name="build.xml"/>
+                <exclude name="coverage.xml"/>
+                <exclude name="phpcompatinfo.xml"/>
+                <exclude name="sitemapper.komodoproject"/>
+                <exclude name="tests/**"/>
+                <exclude name="TODO"/>
             </fileset>
-        </copy>
-        <delete>
-            <fileset dir="dist">
-                <include name="sitemapper.komodoproject"/>
-                <include name="build.xml"/>
-                <include name="pcidirs.txt"/>
-            </fileset>
-        </delete>
-        <delete dir="dist/tests" quiet="true" includeemptydirs="true"/>
-        <delete dir="temp" quiet="true"/>
+        </move>
+        <delete dir="export"/>
         <copy file="dist/config/config.php" tofile="dist/config/defaultconfig.php"/>
         <copy file="dist/languages/en.php" tofile="dist/languages/default.php"/>
         <zip destfile="Sitemapper_XH-${version}.zip" basedir="dist" prefix="sitemapper/"/>
-        <delete dir="dist" quiet="true"/>
+        <delete dir="dist"/>
     </target>
 
 </project>
