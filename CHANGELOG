@@ -1,80 +1,102 @@
+Version 2.0 - released 2014-08-11
+* fixed bug, where integer priorities were not handled correctly (reported by
+  svasti)
+* lifted requirements to CMSimple_XH 1.5.4
+* added support for XH_afterPluginLoading(); no need to call sitemapper() in the
+  template since CMSimple_XH 1.6
+* added metaconfig.php
+* added support for integrated plugin menu
+* updated English and German manuals
+
 Version 2rc1 - released 2013-09-15
-cmb     fixed build.xml to add sitemapper/ prefix to the ZIP file (reported by Martin M.)
-cmb     fixed bug, where priority was written to sitemap in locale dependend format (reported by tanavots)
-cmb     fixed potential issue regarding failing opendir() call
-cmb     added Estonian localization (contributed by tanavots)
+* fixed build.xml to add sitemapper/ prefix to the ZIP file (reported by Martin
+  M.)
+* fixed bug, where priority was written to sitemap in locale dependend format
+  (reported by tanavots)
+* fixed potential issue regarding failing opendir() call
+* added Estonian localization (contributed by tanavots)
 
 Version 2beta4 - released 2013-09-08
-cmb     fixed bug, where 404 response status code might be set for the sitemap (reported by tanavots)
+* fixed bug, where 404 response status code might be set for the sitemap
+  (reported by tanavots)
 
 Version 2beta3 - released 2013-09-05
-cmb     fixed bug, where page data tab was always stored to main language (reported by Martin M.)
-cmb     fixed bug, where sitemap index was wrongly linked the plugin back-end for subsites
-cmb     improved definition of SITEMAPPER_URL
-cmb     modified according to PEAR CS
-cmb     improved build system
+* fixed bug, where page data tab was always stored to main language (reported by
+  Martin M.)
+* fixed bug, where sitemap index was wrongly linked the plugin back-end for
+  subsites
+* improved definition of SITEMAPPER_URL
+* modified according to PEAR CS
+* improved build system
 
 Version 2beta2 - released 2013-04-30
-cmb     fixed bug where empty last_edit was not properly handled
-cmb     added config option "clean_urls"
-cmb     added version.nfo
+* fixed bug where empty last_edit was not properly handled
+* added config option "clean_urls"
+* added version.nfo
 
 Version 2beta1 - released 2013-04-28
-cmb     updated user manuals
-cmb     refactored out controller
+* updated user manuals
+* refactored out controller
 
 Version 2alpha1 - internally released 2013-04-23
-cmb     refactored to create sitemaps on the fly
-cmb     made minor changes to the language files
-cmb     refactored out model and views
-cmb     added test suite
+* refactored to create sitemaps on the fly
+* made minor changes to the language files
+* refactored out model and views
+* added test suite
 
 Version 1pl3 - released 2013-04-28
-cmb     fixed bug, where unpublished pages were shown in sitemap, if sitemapper was loaded before page_params
-cmb     fixed minor bug, where element name "image" was used instead of "img" in the page data tab
+* fixed bug, where unpublished pages were shown in sitemap, if sitemapper was
+  loaded before page_params
+* fixed minor bug, where element name "image" was used instead of "img" in the
+  page data tab
 
 Version 1pl2 - released 2013-04-20
-cmb     fixed bug, where self and parent directory were probed for being a subsite directory
-cmb     revised user manuals
-cmb     extended copyright to 2013
+* fixed bug, where self and parent directory were probed for being a subsite
+  directory
+* revised user manuals
+* extended copyright to 2013
 
 Version 1pl1 - released 2012-04-27
-cmb	fixed bug: links to subsites/second languages skipped language folder (reported by sareide)
-cmb	added slovak translation (contributed by Tata)
-cmb	added czech translation (contributed by oldnema)
-cmb	updated manuals
+* fixed bug: links to subsites/second languages skipped language folder
+  (reported by sareide)
+* added slovak translation (contributed by Tata)
+* added czech translation (contributed by oldnema)
+* updated manuals
 
 Version 1 - released 2012-02-29
-cmb	added plugin icon
-cmb	extended copyright to 2012
-cmb	added czech and polish translations (contributed by oldnema and learnandcode)
+* added plugin icon
+* extended copyright to 2012
+* added czech and polish translations (contributed by oldnema and learnandcode)
 
 Version 1rc1 - released 2011-12-15
-cmb	made minor cosmetic changes
-cmb	added translation hints
-cmb	added default config for CMSimple_XH 1.5
+* made minor cosmetic changes
+* added translation hints
+* added default config for CMSimple_XH 1.5
 
 Version 1beta5 - released 2011-10-26
-cmb	made minor improvements
-cmb	changed boolean config options from yes/no to 1/0 for easier i18n
-cmb	changed from implicit requirements testing to explicit system check (inspired by Holger)
-cmb	added support for subsites (CMSimple_XH 1.5)
-cmb	updated manuals accordingly
-cmb	added default.php
+* made minor improvements
+* changed boolean config options from yes/no to 1/0 for easier i18n
+* changed from implicit requirements testing to explicit system check (inspired
+  by Holger)
+* added support for subsites (CMSimple_XH 1.5)
+* updated manuals accordingly
+* added default.php
 
 Version 1beta4 - released 2011-08-24
-cmb	added config option ignore_hidden_pages (suggested by Maartin, Martin and Gert)
+* added config option ignore_hidden_pages (suggested by Maartin, Martin and Gert)
 
 Version 1beta3 - released 2011-08-22
-cmb	changed requirements check for UTF-8 to be case-insensitive (bug reported by svasti)
-cmb	added automatic update of the current languages sitemap when "View Sitemaps" is called (inspired by enviro)
-cmb	updated manual
+* changed requirements check for UTF-8 to be case-insensitive (bug reported by
+  svasti)
+* added automatic update of the current languages sitemap when "View Sitemaps"
+  is called (inspired by enviro)
+* updated manual
 
 Version 1beta2 - released 2011-08-18
-cmb	added "View Sitemaps" (inspired by Ulrich)
-cmb	changed input of changefreq to selectbox in pagedata tab (suggested by Ulrich)
-cmb	added help tooltips to the pagedata tab
-cmb	added german translation
+* added "View Sitemaps" (inspired by Ulrich)
+* changed input of changefreq to selectbox in pagedata tab (suggested by Ulrich)
+* added help tooltips to the pagedata tab
+* added german translation
 
 Version 1beta1 - released 2011-08-17
-cmb	initial release
+* initial release
