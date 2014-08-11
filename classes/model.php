@@ -94,7 +94,7 @@ class Sitemapper_Model
      *
      * @access private
      *
-     * @var float
+     * @var string
      */
     var $_defaultPriority;
 
@@ -122,7 +122,7 @@ class Sitemapper_Model
         $this->_pagedata = $pagedata;
         $this->_excludeHidden = $excludeHidden;
         $this->_defaultChangefreq = $defaultChangefreq;
-        $this->_defaultPriority = (float) $defaultPriority;
+        $this->_defaultPriority = $defaultPriority;
     }
 
     /**
@@ -259,7 +259,7 @@ class Sitemapper_Model
         $pagedata = $this->_pagedata[$index];
         $res = isset($pagedata['sitemapper_priority'])
             && $pagedata['sitemapper_priority'] != ''
-            ? (float) $pagedata['sitemapper_priority']
+            ? $pagedata['sitemapper_priority']
             : $this->_defaultPriority;
         return $res;
     }

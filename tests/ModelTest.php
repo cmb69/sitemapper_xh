@@ -74,7 +74,9 @@ class ModelTest extends PHPUnit_Framework_TestCase
                 'sitemapper_changefreq' => 'daily',
                 'sitemapper_priority' => '0.3'
             ),
-            array(),
+            array(
+                'sitemapper_priority' => '1.0'
+            ),
             array('published' => '0'),
             array()
         );
@@ -154,7 +156,7 @@ class ModelTest extends PHPUnit_Framework_TestCase
     public function testPagePriority($index, $expected)
     {
         $actual = $this->sitemapper->pagePriority($index);
-        $this->assertEquals($expected, $actual);
+        $this->assertSame($expected, $actual);
     }
 
     /**
@@ -165,8 +167,9 @@ class ModelTest extends PHPUnit_Framework_TestCase
     public function dataForTestPagePriority()
     {
         return array(
-            array(0, 0.5),
-            array(1, 0.3)
+            array(0, '0.5'),
+            array(1, '0.3'),
+            array(2, '1.0')
         );
     }
 

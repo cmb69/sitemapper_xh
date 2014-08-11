@@ -1,4 +1,4 @@
-* fix bug, where priority was written wrong (rep. by svasti)
 * use afterPluginLoading when available
 * add CSRF protection
 * use mocking in tests
+* metaconfig.php
