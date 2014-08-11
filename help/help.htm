@@ -1,5 +1,4 @@
-﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-    "http://www.w3.org/TR/html4/loose.dtd">
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -12,13 +11,13 @@
 
 <h1>Sitemapper_XH - a CMSimple_XH Plugin</h1>
 <div style="float:left; margin-right: 20px"><img src="../sitemapper.png"
-alt="Plugin Icon"></div>
+alt="XML folder"></div>
 <p>Sitemapper_XH automatically creates an XML-Sitemap
 of your CMSimple_XH installation. For detailed information about Sitemaps see <a
 href="http://www.sitemaps.org/">sitemaps.org</a>.</p>
 
 <ul id="nav">
-<li><a href="#notice">Important Notice</a></li>
+<!--<li><a href="#notice">Important Notice</a></li>-->
 <li><a href="#requirements">Requirements</a></li>
 <li><a href="#installation">Installation</a></li>
 <li><a href="#settings">Settings</a></li>
@@ -33,54 +32,55 @@ href="http://www.sitemaps.org/">sitemaps.org</a>.</p>
 <p><strong>Please do read this documentation,
 <em>before</em> you encounter any problems!</strong></p>
 
-<h2><a name="notice">Important Notice</a></h2>
+<!--<h2 id="notice">Important Notice</a></h2>
 <p><strong>Sitemapper_XH couldn't be tested so far in various environments. It
 is a so called release candidate. Use with caution!</strong></p>
+<div class="toplink"><a href="#">back to top</a></div>-->
+
+<h2 id="requirements">Requirements</h2>
+<p>Sitemapper_XH is a plugin for CMSimple_XH. It requires CMSimple_XH &ge; 1.5.4
+and PHP &ge; 4.3.10.</p>
 <div class="toplink"><a href="#">back to top</a></div>
 
-<h2><a name="requirements">Requirements</a></h2>
-<p>Sitemapper_XH is a plugin for CMSimple_XH.
-It requires a UTF-8 encoded version.</p>
-<div class="toplink"><a href="#">back to top</a></div>
-
-<h2><a name="installation">Installation</a></h2>
+<h2 id="installation">Installation</h2>
 <p>The installation is done as with many other CMSimple_XH plugins.
 See the <a href="http://www.cmsimple-xh.org/wiki/doku.php/installation">
 CMSimple_XH wiki</a> for further details.</p>
 <ol>
-<li><strong>Backup the data on your server.</strong></li>
+<li>Backup the data on your server.</li>
 <li>Unzip the distribution on your computer.</li>
 <li>Upload the whole directory sitemapper/ to your server into the CMSimple_XH
 plugins directory.</li>
 <li>Set write permissions for the subdirectories config/ und languages/.</li>
-<li><strong>Switch to "Sitemapper" in the back-end to check if all requirements
-are fulfilled.</strong></li>
+<li>Switch to "Sitemapper" in the back-end to check if all requirements are
+fulfilled.</li>
 </ol>
 <div class="toplink"><a href="#">back to top</a></div>
 
-<h2><a name="settings">Settings</a></h2>
+<h2 id="settings">Settings</h2>
 <p>The plugin's configuration is done as with many other CMSimple_XH plugins in
-the website's back-end. Select "Sitemapper" from "Plugins".</p>
+the website's back-end. Select Plugins &rarr; Sitemapper.</p>
 <p>You can change the default settings of Sitemapper_XH in "Config". Hints for
 the options will be displayed when hovering over the help icons with your mouse.
 The most important setting is <em>canonical hostname</em>. You should enter the
 preferred way of calling your domain, i.e. www.example.com or example.com, if
 that is not already handled correctly by the server configuration.</p>
-<p>Localization is done in "Language". You can translate the character strings
-to your own language or customize them according to your needs.</p>
+<p>Localization is done under "Language". You can translate the character
+strings to your own language (if there is no appropriate language file
+available), or customize them according to your needs.</p>
 <div class="toplink"><a href="#">back to top</a></div>
 
-<h2><a name="usage">Usage</a></h2>
-<p>To activate the plugin you have to insert the following line at the very
-beginning of your template(s):</p>
+<h2 id="usage">Usage</h2>
+<p>Before CMSimple_XH 1.6, you have to activate the plugin by inserting the
+following line at the very beginning of your template(s):</p>
 <pre>&lt;?php sitemapper();?&gt;</pre>
 <p>Sitemapper_XH makes Sitemaps of your website available. There is a Sitemap
 index file, and additional Sitemap files for each installed language and
 subsite. All published pages that are not hidden will be included in the
 Sitemap. Additionally hidden pages will be included when "ignore hidden pages"
-is set to "0". You can view the generated Sitemaps in the plugin administration
-in "Sitemaps".</p>
-<p>The simplest way too make the Sitemap available to search engines is to put
+is disabled. You can view the generated Sitemaps in the plugin administration
+under "Available Sitemaps".</p>
+<p>The simplest way to make the Sitemap available to search engines is to put
 the following line to your robots.txt:</p>
 <pre>Sitemap: http://www.example.com/?sitemapper_index</pre>
 <p>Of course you have to adjust the URL to your domain name (it's best to just
@@ -95,24 +95,25 @@ href="http://www.sitemaps.org/protocol.php#xmlTagDefinitions">XML tag
 definitions</a>.</p>
 <div class="toplink"><a href="#">back to top</a></div>
 
-<h2><a name="limitations">Limitations</a></h2>
+<h2 id="limitations">Limitations</h2>
 <p>Sitemapper_XH will only list the actual pages of CMSimple_XH's content.
 Additional content that is managed by plugins, e.g. forums or blogs, will not be
 included to the Sitemap file.</p>
 <div class="toplink"><a href="#">back to top</a></div>
 
-<h2><a name="license">License</a></h2>
+<h2 id="license">License</h2>
 <p>Sitemapper_XH is licensed under
 <a href="http://www.gnu.org/licenses/gpl.html">GPLv3</a>.</p>
 <p>&copy; 2011-2014 Christoph M. Becker</p>
 <p>Czech translation &copy; 2011-2012 Josef Němec<br>
 Polish translation &copy; 2012 Kamill Krzes<br>
-Slovak translation &copy; 2012 Dr. Martin Sereday</p>
+Slovak translation &copy; 2012 Dr. Martin Sereday<br>
+Estonian translation &copy; 2013 Alo Tänavots</p>
 <div class="toplink"><a href="#">back to top</a></div>
 
-<h2><a name="credits">Credits</a></h2>
+<h2 id="credits">Credits</h2>
 <p>Sitemapper_XH was inspired by Simmyne.</p>
-<p>The plugin icon was designed by <a
+<p>The plugin logo was designed by <a
 href="http://www.dellustrations.com/">Wendell Fernandes</a>. Many thanks for
 publishing this icon as freeware.</p>
 <p>This plugin uses free applications icons from <a
