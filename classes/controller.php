@@ -332,7 +332,6 @@ class Sitemapper_Controller
      *
      * @return void
      *
-     * @global bool   Whether the user is logged in as admin.
      * @global string The value of the "admin" GET or POST parameter.
      * @global string The value of the "action" GET or POST parameter.
      * @global string The name of the plugin.
@@ -346,9 +345,9 @@ class Sitemapper_Controller
      */
     function _dispatch()
     {
-        global $adm, $admin, $action, $plugin, $o, $sitemapper, $f, $sl, $cf;
+        global $admin, $action, $plugin, $o, $sitemapper, $f, $sl, $cf;
 
-        if ($adm && isset($sitemapper) && $sitemapper == 'true') {
+        if (XH_ADM && isset($sitemapper) && $sitemapper == 'true') {
             $o .= print_plugin_admin('off');
             switch ($admin) {
             case '':
@@ -371,7 +370,6 @@ class Sitemapper_Controller
      *
      * @return void
      *
-     * @global bool   Whether the user is logged in as admin.
      * @global array  The paths of system files and folders.
      * @global array  The localization of the plugins.
      * @global object The page data router.
@@ -380,14 +378,14 @@ class Sitemapper_Controller
      */
     function init()
     {
-        global $adm, $pth, $plugin_tx, $pd_router;
+        global $pth, $plugin_tx, $pd_router;
 
         $pd_router->add_interest('sitemapper_changefreq');
         $pd_router->add_interest('sitemapper_priority');
         if (function_exists('XH_afterPluginLoading')) {
             XH_afterPluginLoading(array($this, 'dispatchAfterPluginLoading'));
         }
-        if ($adm) {
+        if (XH_ADM) {
             if (function_exists('XH_registerStandardPluginMenuItems')) {
                 XH_registerStandardPluginMenuItems(false);
             }
