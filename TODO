@@ -1,4 +1,3 @@
 * use afterPluginLoading when available
 * add CSRF protection
 * use mocking in tests
-* metaconfig.php
