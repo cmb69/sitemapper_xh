@@ -7,7 +7,8 @@
     <!-- filesets -->
 
     <fileset id="php-sources" dir=".">
-        <include name="*.php"/>
+        <include name="index.php"/>
+        <include name="sitemapper_view.php"/>
         <include name="classes/*.php"/>
     </fileset>
 
@@ -20,6 +21,7 @@
     <target name="sniff">
         <phpcodesniffer standard="PEAR" format="full">
             <fileset refid="php-sources"/>
+            <fileset refid="unit-tests"/>
         </phpcodesniffer>
     </target>
 

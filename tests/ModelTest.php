@@ -1,22 +1,29 @@
 <?php
 
 /**
- * Test case for the model of Sitemapper_XH.
+ * Testing the model.
  *
- * @package	SitemapperTests
- * @copyright	Copyright (c) 2013-2014 Christoph M. Becker <http://3-magi.net/>
- * @license	http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @version     $Id$
+ * PHP version 5
+ *
+ * @category  Testing
+ * @package   Sitemapper
+ * @author    Christoph M. Becker <cmbecker69@gmx.de>
+ * @copyright 2013-2014 Christoph M. Becker <http://3-magi.net>
+ * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
+ * @version   SVN: $Id$
+ * @link      http://3-magi.net/?CMSimple_XH/Sitemapper_XH
  */
-
 
 require './classes/model.php';
 
 
-/*
- * functional dependencies
+/**
+ * Stub for hide().
+ *
+ * @param int $index A page index.
+ *
+ * @return bool
  */
-
 function hide($index)
 {
     global $c;
@@ -24,18 +31,28 @@ function hide($index)
     return preg_match('/\\#CMSimple hide\\#/is', $c[$index]);
 }
 
-
+/**
+ * Testing the info view.
+ *
+ * @category Testing
+ * @package  Sitemapper
+ * @author   Christoph M. Becker <cmbecker69@gmx.de>
+ * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
+ * @link     http://3-magi.net/?CMSimple_XH/Sitemapper_XH
+ */
 class ModelTest extends PHPUnit_Framework_TestCase
 {
     /**
      * The model object.
      *
-     * @var object
+     * @var Sitemapper_Model
      */
-    private $sitemapper;
+    protected $sitemapper;
 
     /**
-     * Initializes the tests.
+     * Sets up the text fixture.
+     *
+     * @return void
      */
     public function setUp()
     {
@@ -67,6 +84,22 @@ class ModelTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * Tests ::pageLastMod().
+     *
+     * @param int    $index    A page index.
+     * @param string $expected Expected result.
+     *
+     * @return void
+     *
+     * @dataProvider dataForTestPageLastMod
+     */
+    public function testPageLastMod($index, $expected)
+    {
+        $actual = $this->sitemapper->pageLastMod($index);
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
      * Provides data for testPageLastMod().
      *
      * @return array
@@ -80,11 +113,18 @@ class ModelTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @dataProvider dataForTestPageLastMod
+     * Tests ::pageChangefreq().
+     *
+     * @param int    $index    A page index.
+     * @param string $expected Expected result.
+     *
+     * @return void
+     *
+     * @dataProvider dataForTestPageChangefreq
      */
-    public function testPageLastMod($index, $expected)
+    public function testPageChangefreq($index, $expected)
     {
-        $actual = $this->sitemapper->pageLastMod($index);
+        $actual = $this->sitemapper->pageChangefreq($index);
         $this->assertEquals($expected, $actual);
     }
 
@@ -102,11 +142,18 @@ class ModelTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @dataProvider dataForTestPageChangefreq
+     * Tests ::pagePriority().
+     *
+     * @param int    $index    A page index.
+     * @param string $expected Expected result.
+     *
+     * @return void
+     *
+     * @dataProvider dataForTestPagePriority
      */
-    public function testPageChangefreq($index, $expected)
+    public function testPagePriority($index, $expected)
     {
-        $actual = $this->sitemapper->pageChangefreq($index);
+        $actual = $this->sitemapper->pagePriority($index);
         $this->assertEquals($expected, $actual);
     }
 
@@ -124,11 +171,20 @@ class ModelTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @dataProvider dataForTestPagePriority
+     * Tests ::isPageExcluded().
+     *
+     * @param int    $index    A page index.
+     * @param string $expected Expected result.
+     *
+     * @return void
+     *
+     * @dataProvider provideDataForIsPageExcluded
      */
-    public function testPagePriority($index, $expected)
+    public function testIsPageExcluded($index, $expected)
     {
-        $actual = $this->sitemapper->pagePriority($index);
+        global $c;
+
+        $actual = $this->sitemapper->isPageExcluded($index);
         $this->assertEquals($expected, $actual);
     }
 
@@ -149,16 +205,10 @@ class ModelTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @dataProvider provideDataForIsPageExcluded
+     * Tests the installed subsites.
+     *
+     * @return void
      */
-    public function testIsPageExcluded($index, $expected)
-    {
-        global $c;
-
-        $actual = $this->sitemapper->isPageExcluded($index);
-        $this->assertEquals($expected, $actual);
-    }
-
     public function testInstalledSubsites()
     {
         $expected = array('de', 'en', 'subsite');
@@ -166,6 +216,11 @@ class ModelTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 
+    /**
+     * Tests the last modification time of a subsite.
+     *
+     * @return void
+     */
     public function testSubsiteLastMod()
     {
         $filename = './tests/data/de/content/pagedata.php';

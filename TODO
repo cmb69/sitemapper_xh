@@ -2,4 +2,4 @@
 * use afterPluginLoading when available
 * remove "date" extension from system check
 * add CSRF protection
-* sniff tests
+* use mocking in tests
