@@ -87,7 +87,6 @@
                 <exclude name="build.xml"/>
                 <exclude name="coverage.xml"/>
                 <exclude name="phpcompatinfo.xml"/>
-                <exclude name="sitemapper.komodoproject"/>
                 <exclude name="tests/**"/>
                 <exclude name="TODO"/>
             </fileset>
