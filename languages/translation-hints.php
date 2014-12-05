@@ -7,5 +7,4 @@ $plugin_tx['sitemapper']['syscheck_extension']="Do not translate \"%s\"; this wi
 $plugin_tx['sitemapper']['syscheck_magic_quotes']="Do not translate";
 $plugin_tx['sitemapper']['syscheck_writable']="Do not translate \"%s\"; this will be replaced by the name of a folder automatically.";
 
-
 ?>
