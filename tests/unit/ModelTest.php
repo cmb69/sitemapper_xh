@@ -13,8 +13,12 @@
  * @link      http://3-magi.net/?CMSimple_XH/Sitemapper_XH
  */
 
+require './vendor/autoload.php';
 require './classes/model.php';
 
+use org\bovigo\vfs\vfsStreamWrapper;
+use org\bovigo\vfs\vfsStreamDirectory;
+use org\bovigo\vfs\vfsStream;
 
 /**
  * Stub for hide().
@@ -79,9 +83,28 @@ class ModelTest extends PHPUnit_Framework_TestCase
             array('published' => '0'),
             array()
         );
+        $this->setUpVirtualFileSystem();
         $this->sitemapper = new Sitemapper_Model(
-            'en', './tests/data/', $content, $pagedata, true, 'monthly', '0.5'
+            'en', vfsStream::url('test/'), $content, $pagedata, true, 'monthly', '0.5'
         );
+    }
+
+    /**
+     * Sets up the virtual file system fixture.
+     *
+     * @return void
+     */
+    protected function setUpVirtualFileSystem()
+    {
+        vfsStreamWrapper::register();
+        vfsStreamWrapper::setRoot(new vfsStreamDirectory('test'));
+        mkdir(vfsStream::url('test/de'));
+        mkdir(vfsStream::url('test/de/content'));
+        touch(vfsStream::url('test/de/content/content.htm'));
+        touch(vfsStream::url('test/de/content/pagedata.php'));
+        mkdir(vfsStream::url('test/subsite'));
+        touch(vfsStream::url('test/subsite/cmsimplesubsite.htm'));
+        touch(vfsStream::url('test/ab'));
     }
 
     /**
@@ -225,7 +248,7 @@ class ModelTest extends PHPUnit_Framework_TestCase
      */
     public function testSubsiteLastMod()
     {
-        $filename = './tests/data/de/content/pagedata.php';
+        $filename = vfsStream::url('test/de/content/pagedata.php');
         touch($filename);
         $timestamp = filemtime($filename);
         $expected = gmdate('Y-m-d\TH:i:s\Z', $timestamp);
