@@ -51,6 +51,8 @@ class Sitemapper_Controller
     /**
      * Initializes a controller.
      *
+     * @return void
+     *
      * @global array The content of the pages.
      * @global array The paths of system files and folders.
      * @global array The configuration of the core.

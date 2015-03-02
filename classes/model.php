@@ -25,6 +25,7 @@
 class Sitemapper_Model
 {
     /**
+     * The possible change frequencies.
      *
      * @access public
      *
