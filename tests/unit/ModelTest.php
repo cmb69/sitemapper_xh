@@ -14,25 +14,12 @@
  */
 
 require './vendor/autoload.php';
+require '../../cmsimple/functions.php';
 require './classes/model.php';
 
 use org\bovigo\vfs\vfsStreamWrapper;
 use org\bovigo\vfs\vfsStreamDirectory;
 use org\bovigo\vfs\vfsStream;
-
-/**
- * Stub for hide().
- *
- * @param int $index A page index.
- *
- * @return bool
- */
-function hide($index)
-{
-    global $c;
-
-    return preg_match('/\\#CMSimple hide\\#/is', $c[$index]);
-}
 
 /**
  * Testing the info view.
@@ -51,6 +38,13 @@ class ModelTest extends PHPUnit_Framework_TestCase
      * @var Sitemapper_Model
      */
     protected $sitemapper;
+
+    /**
+     * The hide() mock.
+     *
+     * @object
+     */
+    protected $hideMock;
 
     /**
      * Sets up the text fixture.
@@ -85,7 +79,20 @@ class ModelTest extends PHPUnit_Framework_TestCase
         );
         $this->setUpVirtualFileSystem();
         $this->sitemapper = new Sitemapper_Model(
-            'en', vfsStream::url('test/'), $content, $pagedata, true, 'monthly', '0.5'
+            'en', vfsStream::url('test/'), $content, $pagedata, true, 'monthly',
+            '0.5'
+        );
+        $this->hideMock = new PHPUnit_Extensions_MockFunction(
+            'hide', $this->sitemapper
+        );
+        $this->hideMock->expects($this->any())->will(
+            $this->returnCallback(
+                function ($index) {
+                    global $c;
+
+                    return preg_match('/\\#CMSimple hide\\#/is', $c[$index]);
+                }
+            )
         );
     }
 
