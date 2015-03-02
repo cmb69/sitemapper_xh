@@ -105,10 +105,11 @@ class ModelTest extends PHPUnit_Framework_TestCase
     {
         vfsStreamWrapper::register();
         vfsStreamWrapper::setRoot(new vfsStreamDirectory('test'));
+        mkdir(vfsStream::url('test/content'));
+        touch(vfsStream::url('test/content/content.htm'));
+        mkdir(vfsStream::url('test/content/de'));
+        touch(vfsStream::url('test/content/de/content.htm'));
         mkdir(vfsStream::url('test/de'));
-        mkdir(vfsStream::url('test/de/content'));
-        touch(vfsStream::url('test/de/content/content.htm'));
-        touch(vfsStream::url('test/de/content/pagedata.php'));
         mkdir(vfsStream::url('test/subsite'));
         touch(vfsStream::url('test/subsite/cmsimplesubsite.htm'));
         touch(vfsStream::url('test/ab'));
@@ -249,13 +250,28 @@ class ModelTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * Tests the last modification time of the main site.
+     *
+     * @return void
+     */
+    public function testMainSiteLastMod()
+    {
+        $filename = vfsStream::url('test/content/content.htm');
+        touch($filename);
+        $timestamp = filemtime($filename);
+        $expected = gmdate('Y-m-d\TH:i:s\Z', $timestamp);
+        $actual = $this->sitemapper->subsiteLastMod('en');
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
      * Tests the last modification time of a subsite.
      *
      * @return void
      */
     public function testSubsiteLastMod()
     {
-        $filename = vfsStream::url('test/de/content/pagedata.php');
+        $filename = vfsStream::url('test/content/de/content.htm');
         touch($filename);
         $timestamp = filemtime($filename);
         $expected = gmdate('Y-m-d\TH:i:s\Z', $timestamp);
