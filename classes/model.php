@@ -281,7 +281,11 @@ class Sitemapper_Model
         $contentFolder = $this->_subsiteContentFolder($subsite);
         $contentFile = $contentFolder . 'content.htm';
         $pagedataFile = $contentFolder . 'pagedata.php';
-        $res = max(filemtime($contentFile), filemtime($pagedataFile));
+        if (file_exists($pagedataFile)) {
+            $res = max(filemtime($contentFile), filemtime($pagedataFile));
+        } else {
+            $res = filemtime($contentFile);
+        }
         $res = $this->_sitemapDate($res);
         return $res;
     }
