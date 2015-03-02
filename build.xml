@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project name="Sitemapper" default="none">
-
-    <!-- filesets -->
+<project name="Sitemapper" default="help">
 
     <fileset id="php-sources" dir=".">
         <include name="index.php"/>
@@ -14,24 +12,25 @@
         <include name="*Test.php"/>
     </fileset>
 
-    <!-- static code analysis -->
+    <target name="help" description="lists available targets">
+        <exec command="phing -l" outputProperty="help"/>
+        <echo>${help}</echo>
+    </target>
 
-    <target name="sniff">
-        <phpcodesniffer standard="PEAR" format="full">
+    <target name="sniff" description="checks adherence to PEAR CS">
+        <phpcodesniffer standard="PEAR">
             <fileset refid="php-sources"/>
             <fileset refid="unit-tests"/>
         </phpcodesniffer>
     </target>
 
-    <target name="compat">
+    <target name="compat" description="checks PHP requirements">
         <exec command="phpcompatinfo --configuration phpcompatinfo.xml print
                                      --exclude-pattern sitemapper ."
               logoutput="true"/>
     </target>
 
-    <!-- tests -->
-
-    <target name="unit-tests">
+    <target name="unit-tests" description="runs all unit tests">
         <phpunit haltonerror="true" haltonfailure="true">
             <formatter type="plain" usefile="false"/>
             <batchtest>
@@ -40,17 +39,11 @@
         </phpunit>
     </target>
 
-    <target name="tests" depends="unit-tests"/>
-
-    <!-- code coverage -->
-
-    <target name="coverage">
+    <target name="coverage" description="generates coverage report">
         <exec command="phpunit --configuration coverage.xml" logoutput="true"/>
     </target>
 
-    <!-- documentation -->
-
-    <target name="php-doc">
+    <target name="doc" description="generates the developer documentation">
         <phpdoc title="Sitemapper_XH Developer Documentation" destdir="doc/php"
                 output="HTML:Smarty:HandS" defaultpackagename="Sitemapper"
                 defaultcategoryname="CMSimple_XH" parseprivate="true">
@@ -62,13 +55,11 @@
         </phpdoc>
     </target>
 
-    <target name="doc" depends="php-doc"/>
-
-    <!-- building -->
-
     <target name="build">
         <fail unless="version" message="version is not defined!"/>
-        <svnexport revision="" repositoryurl="." todir="export"/>
+        <exec command="git archive -o export.tar HEAD" checkreturn="true"/>
+        <untar file="export.tar" todir="export"/>
+        <delete file="export.tar"/>
         <move todir="dist">
             <fileset dir="export">
                 <include name="index.php"/>
