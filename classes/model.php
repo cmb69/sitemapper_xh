@@ -149,11 +149,14 @@ class Sitemapper_Model
      */
     function _subsiteContentFolder($subsite)
     {
-        $res = $this->_baseFolder;
         if ($subsite != $this->_defaultLang) {
-            $res .= $subsite . '/';
+            $res = $this->_baseFolder . 'content/' . $subsite . '/'; // XH >= 1.6
+            if (!file_exists($res)) {
+                $res = $this->_baseFolder . $subsite . '/content/'; // XH < 1.6
+            }
+        } else {
+            $res = $this->_baseFolder . 'content/';
         }
-        $res .= 'content/';
         return $res;
     }
 
