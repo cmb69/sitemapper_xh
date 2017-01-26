@@ -110,6 +110,7 @@ class ModelTest extends PHPUnit_Framework_TestCase
         mkdir(vfsStream::url('test/content/de'));
         touch(vfsStream::url('test/content/de/content.htm'));
         mkdir(vfsStream::url('test/de'));
+        touch(vfsStream::url('test/de/.2lang'));
         mkdir(vfsStream::url('test/subsite'));
         touch(vfsStream::url('test/subsite/cmsimplesubsite.htm'));
         touch(vfsStream::url('test/ab'));
