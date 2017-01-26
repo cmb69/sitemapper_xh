@@ -1,3 +1,6 @@
+Version 2.0.2 – released 2017-01-26
+* see <https://github.com/cmb69/sitemapper_xh/milestone/1?closed=1>
+
 Version 2.0.1 - released 2015-03-02
 * fixed bug, where last modification dates of second language sitemaps were
   wrong under CMSimple_XH >= 1.6 (reported by olape)
