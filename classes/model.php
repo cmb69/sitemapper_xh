@@ -304,6 +304,7 @@ class Sitemapper_Model
         $baseName = basename($path);
         $res = is_dir($path)
             && (strlen($baseName) == 2
+                && (file_exists("$path/.2lang") || is_dir("$path/content"))
                 || ($baseName != '2site'
                     && file_exists($path . '/cmsimplesubsite.htm')));
         return $res;
