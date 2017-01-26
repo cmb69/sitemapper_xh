@@ -1,57 +1,32 @@
 <?php
 
 /**
- * Testing the model.
- *
- * PHP version 5
- *
- * @category  Testing
- * @package   Sitemapper
- * @author    Christoph M. Becker <cmbecker69@gmx.de>
  * @copyright 2013-2017 Christoph M. Becker <http://3-magi.net>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @link      http://3-magi.net/?CMSimple_XH/Sitemapper_XH
  */
+
+namespace Sitemapper;
 
 require './vendor/autoload.php';
 require '../../cmsimple/functions.php';
 require './classes/model.php';
 
-use Sitemapper\Model;
 use org\bovigo\vfs\vfsStreamWrapper;
 use org\bovigo\vfs\vfsStreamDirectory;
 use org\bovigo\vfs\vfsStream;
 
-/**
- * Testing the info view.
- *
- * @category Testing
- * @package  Sitemapper
- * @author   Christoph M. Becker <cmbecker69@gmx.de>
- * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @link     http://3-magi.net/?CMSimple_XH/Sitemapper_XH
- */
-class ModelTest extends PHPUnit_Framework_TestCase
+class ModelTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * The model object.
-     *
      * @var Model
      */
     protected $sitemapper;
 
     /**
-     * The hide() mock.
-     *
      * @object
      */
     protected $hideMock;
 
-    /**
-     * Sets up the text fixture.
-     *
-     * @return void
-     */
     public function setUp()
     {
         global $c;
@@ -79,13 +54,8 @@ class ModelTest extends PHPUnit_Framework_TestCase
             array()
         );
         $this->setUpVirtualFileSystem();
-        $this->sitemapper = new Model(
-            'en', vfsStream::url('test/'), $content, $pagedata, true, 'monthly',
-            '0.5'
-        );
-        $this->hideMock = new PHPUnit_Extensions_MockFunction(
-            'hide', $this->sitemapper
-        );
+        $this->sitemapper = new Model('en', vfsStream::url('test/'), $content, $pagedata, true, 'monthly', '0.5');
+        $this->hideMock = new \PHPUnit_Extensions_MockFunction('hide', $this->sitemapper);
         $this->hideMock->expects($this->any())->will(
             $this->returnCallback(
                 function ($index) {
@@ -97,11 +67,6 @@ class ModelTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-     * Sets up the virtual file system fixture.
-     *
-     * @return void
-     */
     protected function setUpVirtualFileSystem()
     {
         vfsStreamWrapper::register();
@@ -118,12 +83,8 @@ class ModelTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Tests ::pageLastMod().
-     *
-     * @param int    $index    A page index.
-     * @param string $expected Expected result.
-     *
-     * @return void
+     * @param int $index
+     * @param string $expected
      *
      * @dataProvider dataForTestPageLastMod
      */
@@ -134,8 +95,6 @@ class ModelTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Provides data for testPageLastMod().
-     *
      * @return array
      */
     public function dataForTestPageLastMod()
@@ -147,12 +106,8 @@ class ModelTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Tests ::pageChangefreq().
-     *
-     * @param int    $index    A page index.
-     * @param string $expected Expected result.
-     *
-     * @return void
+     * @param int $index
+     * @param string $expected
      *
      * @dataProvider dataForTestPageChangefreq
      */
@@ -163,8 +118,6 @@ class ModelTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Provides data for testPageChangefreq().
-     *
      * @return array
      */
     public function dataForTestPageChangefreq()
@@ -176,12 +129,8 @@ class ModelTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Tests ::pagePriority().
-     *
-     * @param int    $index    A page index.
-     * @param string $expected Expected result.
-     *
-     * @return void
+     * @param int $index
+     * @param string $expected
      *
      * @dataProvider dataForTestPagePriority
      */
@@ -192,8 +141,6 @@ class ModelTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Provides data for testPagePriority().
-     *
      * @return array
      */
     public function dataForTestPagePriority()
@@ -206,12 +153,8 @@ class ModelTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Tests ::isPageExcluded().
-     *
-     * @param int    $index    A page index.
-     * @param string $expected Expected result.
-     *
-     * @return void
+     * @param int $index
+     * @param string $expected
      *
      * @dataProvider provideDataForIsPageExcluded
      */
@@ -224,8 +167,6 @@ class ModelTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Provides data for testIsPageExcluded().
-     *
      * @return array
      */
     public function provideDataForIsPageExcluded()
@@ -239,11 +180,6 @@ class ModelTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-     * Tests the installed subsites.
-     *
-     * @return void
-     */
     public function testInstalledSubsites()
     {
         $expected = array('de', 'en', 'subsite');
@@ -251,11 +187,6 @@ class ModelTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /**
-     * Tests the last modification time of the main site.
-     *
-     * @return void
-     */
     public function testMainSiteLastMod()
     {
         $filename = vfsStream::url('test/content/content.htm');
@@ -266,11 +197,6 @@ class ModelTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /**
-     * Tests the last modification time of a subsite.
-     *
-     * @return void
-     */
     public function testSubsiteLastMod()
     {
         $filename = vfsStream::url('test/content/de/content.htm');
@@ -281,5 +207,3 @@ class ModelTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 }
-
-?>

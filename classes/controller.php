@@ -1,23 +1,12 @@
 <?php
 
 /**
- * Controller of Sitemapper_XH.
- *
- * PHP versions 4 and 5
- *
- * @category  CMSimple_XH
- * @package   Sitemapper
- * @author    Christoph M. Becker <cmbecker69@gmx.de>
  * @copyright 2011-2017 Christoph M. Becker <http://3-magi.net/>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @link      http://3-magi.net/?CMSimple_XH/Sitemapper_XH
  */
 
 namespace Sitemapper;
 
-/**
- * The fully qualified absolute URL of the current (sub)site.
- */
 define(
     'SITEMAPPER_URL',
     'http'
@@ -30,42 +19,22 @@ define(
     . preg_replace('/index.php$/', '', $sn)
 );
 
-/**
- * The controller class.
- *
- * @category CMSimple_XH
- * @package  Sitemapper
- * @author   Christoph M. Becker <cmbecker69@gmx.de>
- * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @link     http://3-magi.net/?CMSimple_XH/Sitemapper_XH
- */
 class Controller
 {
     /**
-     * The model.
-     *
-     * @var object
+     * @var Model
      */
-    private $_model;
+    private $model;
 
-    /**
-     * Initializes a controller.
-     *
-     * @return void
-     *
-     * @global array The content of the pages.
-     * @global array The paths of system files and folders.
-     * @global array The configuration of the core.
-     * @global array The configuration of the plugins.
-     * @global array The page data router.
-     */
     public function __construct()
     {
         global $c, $pth, $cf, $plugin_cf, $pd_router;
 
-        $this->_model = new Model(
-            $cf['language']['default'], $pth['folder']['base'],
-            $c, $pd_router->find_all(),
+        $this->model = new Model(
+            $cf['language']['default'],
+            $pth['folder']['base'],
+            $c,
+            $pd_router->find_all(),
             $plugin_cf['sitemapper']['ignore_hidden_pages'],
             $plugin_cf['sitemapper']['changefreq'],
             $plugin_cf['sitemapper']['priority']
@@ -73,29 +42,20 @@ class Controller
     }
 
     /**
-     * Returns a string with special HTML characters escaped.
-     *
-     * @param string $str A string.
-     *
+     * @param string $str
      * @return string
      */
-    private function _hsc($str)
+    private function hsc($str)
     {
         return htmlspecialchars($str, ENT_COMPAT, 'UTF_8');
     }
 
     /**
-     * Renders a template.
-     *
-     * @param string $_template The name of the template.
-     * @param array  $_bag      Variables available in the template.
-     *
+     * @param string $_template
+     * @param array  $_bag
      * @return string
-     *
-     * @global array The paths of system files and folders.
-     * @global array The configuration of the core.
      */
-    private function _render($_template, $_bag)
+    private function render($_template, $_bag)
     {
         global $pth, $cf;
 
@@ -114,16 +74,11 @@ class Controller
     }
 
     /**
-     * Renders an XML template.
-     *
-     * @param string $_template The name of the template.
-     * @param array  $_bag      Variables available in the template.
-     *
+     * @param string $_template
+     * @param array  $_bag
      * @return string
-     *
-     * @global array The paths of system files and folders.
      */
-    private function _renderXML($_template, $_bag)
+    private function renderXML($_template, $_bag)
     {
         global $pth;
 
@@ -138,76 +93,61 @@ class Controller
     }
 
     /**
-     * Returns the sitemap index.
-     *
-     * @return string XML.
-     *
-     * @global array The configuration of the core.
+     * @return string
      */
-    private function _sitemapIndex()
+    private function sitemapIndex()
     {
         global $cf;
 
         $sitemaps = array();
-        foreach ($this->_model->installedSubsites() as $ss) {
+        foreach ($this->model->installedSubsites() as $ss) {
             $base = SITEMAPPER_URL;
             if ($ss != $cf['language']['default']) {
                 $base .= $ss . '/';
             }
             $sitemap = array(
                 'loc' => $base . '?sitemapper_sitemap',
-                'time' => $this->_model->subsiteLastMod($ss)
+                'time' => $this->model->subsiteLastMod($ss)
             );
-            array_walk($sitemap, array($this, '_hsc'));
+            array_walk($sitemap, array($this, 'hsc'));
             $sitemaps[] = $sitemap;
         }
         return '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL
-            . $this->_renderXML('index', array('sitemaps' => $sitemaps));
+            . $this->renderXML('index', array('sitemaps' => $sitemaps));
     }
 
     /**
-     * Returns the sitemap of the current subsite/language.
-     *
-     * @return string XML.
-     *
-     * @global array The "URLs" of the pages.
-     * @global int   The number of pages.
-     * @global array The configuration of the plugins.
-     * @global int   The index of the first published page (as of XH 1.6.3).
+     * @return string
      */
-    private function _subsiteSitemap()
+    private function subsiteSitemap()
     {
         global $u, $cl, $plugin_cf, $_XH_firstPublishedPage;
 
         $startpage = isset($_XH_firstPublishedPage) ? $_XH_firstPublishedPage : 0;
         $urls = array();
         for ($i = 0; $i < $cl; $i++) {
-            if (!$this->_model->isPageExcluded($i)) {
+            if (!$this->model->isPageExcluded($i)) {
                 $separator = $plugin_cf['sitemapper']['clean_urls'] ? '' : '?';
-                $priority = $this->_model->pagePriority($i);
+                $priority = $this->model->pagePriority($i);
                 $url = array(
                     'loc' => SITEMAPPER_URL
                         . ($i == $startpage ? '' : ($separator . $u[$i])),
-                    'lastmod' => $this->_model->pageLastMod($i),
-                    'changefreq' => $this->_model->pageChangefreq($i),
+                    'lastmod' => $this->model->pageLastMod($i),
+                    'changefreq' => $this->model->pageChangefreq($i),
                     'priority' => $priority
                 );
-                array_walk($url, array($this, '_hsc'));
+                array_walk($url, array($this, 'hsc'));
                 $urls[] = $url;
             }
         }
         return '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL
-            . $this->_renderXML('sitemap', array('urls' => $urls));
+            . $this->renderXML('sitemap', array('urls' => $urls));
     }
 
     /**
-     * Returns the sitemaps.
-     *
      * @return array
-     *
-     * @global array The configuration of the core.
      */
-    private function _sitemaps()
+    private function sitemaps()
     {
         global $cf;
 
@@ -216,7 +156,7 @@ class Controller
             'href' => CMSIMPLE_ROOT . '?sitemapper_index'
         );
         $sitemaps = array($sitemap);
-        foreach ($this->_model->installedSubsites() as $ss) {
+        foreach ($this->model->installedSubsites() as $ss) {
             $subdir = $ss != $cf['language']['default'] ? $ss.'/' : '';
             $sitemap = array(
                 'name' => $ss,
@@ -228,15 +168,9 @@ class Controller
     }
 
     /**
-     * Returns the system checks.
-     *
      * @return array
-     *
-     * @global array The paths of system files and folders.
-     * @global array The localization of the core.
-     * @global array The localization of the plugins.
      */
-    private function _systemChecks()
+    private function systemChecks()
     {
         global $pth, $tx, $plugin_tx;
 
@@ -265,14 +199,9 @@ class Controller
     }
 
     /**
-     * Returns the plugin information view.
-     *
-     * @return string (X)HTML.
-     *
-     * @global array The paths of system files and folders.
-     * @global array The localization of the plugins.
+     * @return string
      */
-    private function _info()
+    private function info()
     {
         global $pth, $plugin_tx;
 
@@ -282,28 +211,23 @@ class Controller
             'syscheck' => $ptx['syscheck_title'],
             'about' => $ptx['about']
         );
-        $sitemaps = $this->_sitemaps();
+        $sitemaps = $this->sitemaps();
         foreach (array('ok', 'warn', 'fail') as $state) {
             $images[$state] = $pth['folder']['plugins']
                 . 'sitemapper/images/' . $state . '.png';
         }
-        $checks = $this->_systemChecks();
+        $checks = $this->systemChecks();
         $icon = $pth['folder']['plugins'] . 'sitemapper/sitemapper.png';
         $version = SITEMAPPER_VERSION;
-        $bag = compact(
-            'labels', 'sitemaps', 'images', 'checks', 'icon', 'version'
-        );
-        return $this->_render('info', $bag);
+        $bag = compact('labels', 'sitemaps', 'images', 'checks', 'icon', 'version');
+        return $this->render('info', $bag);
     }
 
     /**
-     * Sends a sitemap as HTTP response.
-     *
-     * @param string $body The response body.
-     *
+     * @param string $body
      * @return void
      */
-    private function _respondWithSitemap($body)
+    private function respondWithSitemap($body)
     {
         header('HTTP/1.0 200 OK');
         header('Content-Type: application/xml; charset=utf-8');
@@ -311,32 +235,18 @@ class Controller
         exit;
     }
 
-    /**
-     * Dispatches on Sitemapper related requests.
-     *
-     * @return void
-     *
-     * @global string The value of the "admin" GET or POST parameter.
-     * @global string The value of the "action" GET or POST parameter.
-     * @global string The name of the plugin.
-     * @global string The (X)HTML to be placed in the contents area.
-     * @global string Whether the plugin administration is requested.
-     * @global string The requested special functionality.
-     * @global string The current language.
-     * @global array  The configuration of the core.
-     */
-    private function _dispatch()
+    private function dispatch()
     {
         global $admin, $action, $plugin, $o, $sitemapper, $f, $sl, $cf;
 
         if (XH_ADM && isset($sitemapper) && $sitemapper == 'true') {
             $o .= print_plugin_admin('off');
             switch ($admin) {
-            case '':
-                $o .= $this->_info();
-                break;
-            default:
-                $o .= plugin_admin_common($action, $admin, $plugin);
+                case '':
+                    $o .= $this->info();
+                    break;
+                default:
+                    $o .= plugin_admin_common($action, $admin, $plugin);
             }
         } elseif (isset($_GET['sitemapper_index'])
             && $sl == $cf['language']['default']
@@ -347,15 +257,6 @@ class Controller
         }
     }
 
-    /**
-     * Initializes the controller object.
-     *
-     * @return void
-     *
-     * @global array  The paths of system files and folders.
-     * @global array  The localization of the plugins.
-     * @global object The page data router.
-     */
     public function init()
     {
         global $pth, $plugin_tx, $pd_router;
@@ -374,19 +275,12 @@ class Controller
                 $pth['folder']['plugins'] . 'sitemapper/sitemapper_view.php'
             );
         }
-        $this->_dispatch();
+        $this->dispatch();
     }
 
     /**
-     * Returns the page data tab view.
-     *
-     * @param array $pageData The page's data.
-     *
-     * @return string (X)HTML.
-     *
-     * @global string The "URL" of the currently selected page.
-     * @global array  The paths of system files and folders.
-     * @global array  The localization of the plugins.
+     * @param array $pageData
+     * @return string
      */
     public function pageDataTab($pageData)
     {
@@ -399,7 +293,7 @@ class Controller
             'priority' => $ptx['cf_priority']
         );
         $helpIcon = $pth['folder']['plugins'] . 'sitemapper/images/help.png';
-        $changefreqOptions = $this->_model->changefreqs;
+        $changefreqOptions = $this->model->changefreqs;
         array_unshift($changefreqOptions, '');
         $changefreqOptions = array_flip($changefreqOptions);
         foreach ($changefreqOptions as $opt => $dummy) {
@@ -407,32 +301,21 @@ class Controller
                 = $pageData['sitemapper_changefreq'] == $opt;
         }
         $priority = $pageData['sitemapper_priority'];
-        $bag = compact(
-            'action', 'helpIcon', 'help', 'changefreqOptions', 'priority'
-        );
-        return $this->_render('pdtab', $bag);
+        $bag = compact('action', 'helpIcon', 'help', 'changefreqOptions', 'priority');
+        return $this->render('pdtab', $bag);
     }
 
-    /**
-     * Dispatches to sitemap requests.
-     *
-     * @return void
-     *
-     * @global string The requested special functionality.
-     */
     public function dispatchAfterPluginLoading()
     {
         global $f;
 
         switch ($f) {
-        case 'sitemapper_index':
-            $this->_respondWithSitemap($this->_sitemapIndex());
-            break;
-        case 'sitemapper_sitemap':
-            $this->_respondWithSitemap($this->_subsiteSitemap());
-            break;
+            case 'sitemapper_index':
+                $this->respondWithSitemap($this->sitemapIndex());
+                break;
+            case 'sitemapper_sitemap':
+                $this->respondWithSitemap($this->subsiteSitemap());
+                break;
         }
     }
 }
-
-?>

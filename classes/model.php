@@ -1,34 +1,15 @@
 <?php
 
 /**
- * Model of Sitemapper_XH.
- *
- * PHP versions 4 and 5
- *
- * @category  CMSimple_XH
- * @package   Sitemapper
- * @author    Christoph M. Becker <cmbecker69@gmx.de>
  * @copyright 2011-2017 Christoph M. Becker <http://3-magi.net/>
  * @license   http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @link      http://3-magi.net/?CMSimple_XH/Sitemapper_XH
  */
 
 namespace Sitemapper;
 
-/**
- * The model class.
- *
- * @category CMSimple_XH
- * @package  Sitemapper
- * @author   Christoph M. Becker <cmbecker69@gmx.de>
- * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
- * @link     http://3-magi.net/?CMSimple_XH/Sitemapper_XH
- */
 class Model
 {
     /**
-     * The possible change frequencies.
-     *
      * @var array
      */
     public $changefreqs = array(
@@ -36,57 +17,41 @@ class Model
     );
 
     /**
-     * The default language of CMSimple_XH.
-     *
      * @var string
      */
-    private $_defaultLang;
+    private $defaultLang;
 
     /**
-     * The path of the root folder of the CMSimple_XH installation.
-     *
      * @var string
      */
-    private $_baseFolder;
+    private $baseFolder;
 
     /**
-     * The content array.
-     *
      * @var array
      */
-    private $_content;
+    private $content;
 
     /**
-     * The pagedata array.
-     *
      * @var array
      */
-    private $_pagedata;
+    private $pagedata;
 
     /**
-     * Whether hidden pages shall be excluded from the sitemap.
-     *
      * @var bool
      */
-    private $_excludeHidden;
+    private $excludeHidden;
 
     /**
-     * The default sitemap changefreq.
-     *
      * @var string
      */
-    private $_defaultChangefreq;
+    private $defaultChangefreq;
 
     /**
-     * The default sitemap priority.
-     *
      * @var string
      */
-    private $_defaultPriority;
+    private $defaultPriority;
 
     /**
-     * Constructs a sitemapper model object.
-     *
      * @param string $defaultLang       Default language.
      * @param string $baseFolder        Path of the root folder.
      * @param array  $content           The content of the pages.
@@ -94,64 +59,52 @@ class Model
      * @param bool   $excludeHidden     Whether to exclude hidden pages.
      * @param string $defaultChangefreq Default sitemap changefreq.
      * @param float  $defaultPriority   Default sitemap priority.
-     *
-     * @return void
      */
-    public function __construct($defaultLang, $baseFolder, $content, $pagedata,
-        $excludeHidden, $defaultChangefreq, $defaultPriority
-    ) {
-        $this->_defaultLang = $defaultLang;
-        $this->_baseFolder = $baseFolder;
-        $this->_content = $content;
-        $this->_pagedata = $pagedata;
-        $this->_excludeHidden = $excludeHidden;
-        $this->_defaultChangefreq = $defaultChangefreq;
-        $this->_defaultPriority = $defaultPriority;
+    public function __construct($defaultLang, $baseFolder, $content, $pagedata, $excludeHidden, $defaultChangefreq, $defaultPriority)
+    {
+        $this->defaultLang = $defaultLang;
+        $this->baseFolder = $baseFolder;
+        $this->content = $content;
+        $this->pagedata = $pagedata;
+        $this->excludeHidden = $excludeHidden;
+        $this->defaultChangefreq = $defaultChangefreq;
+        $this->defaultPriority = $defaultPriority;
     }
 
     /**
-     * Returns a sitemap.xml conforming timestamp.
-     *
-     * @param int $timestamp A UNIX timestamp.
-     *
+     * @param int $timestamp
      * @return string
      */
-    private function _sitemapDate($timestamp)
+    private function sitemapDate($timestamp)
     {
         $res = gmdate('Y-m-d\TH:i:s\Z', $timestamp);
         return $res;
     }
 
     /**
-     * Returns the path of a subsites' content folder.
-     *
-     * @param string $subsite Name of a subsite.
-     *
+     * @param string $subsite
      * @return string
      */
-    private function _subsiteContentFolder($subsite)
+    private function subsiteContentFolder($subsite)
     {
-        if ($subsite != $this->_defaultLang) {
-            $res = $this->_baseFolder . 'content/' . $subsite . '/'; // XH >= 1.6
+        if ($subsite != $this->defaultLang) {
+            $res = $this->baseFolder . 'content/' . $subsite . '/'; // XH >= 1.6
             if (!file_exists($res)) {
-                $res = $this->_baseFolder . $subsite . '/content/'; // XH < 1.6
+                $res = $this->baseFolder . $subsite . '/content/'; // XH < 1.6
             }
         } else {
-            $res = $this->_baseFolder . 'content/';
+            $res = $this->baseFolder . 'content/';
         }
         return $res;
     }
 
     /**
-     * Returns whether a page is hidden.
-     *
-     * @param int $index The numeric index of the page.
-     *
+     * @param int $index
      * @return bool
      */
-    private function _isPageHidden($index)
+    private function isPageHidden($index)
     {
-        $pagedata = $this->_pagedata[$index];
+        $pagedata = $this->pagedata[$index];
         $res = (isset($pagedata['linked_to_menu'])
                 && $pagedata['linked_to_menu'] == '0')
             || hide($index);
@@ -159,94 +112,73 @@ class Model
     }
 
     /**
-     * Returns whether a page is published.
-     *
-     * @param int $index The numeric index of the page.
-     *
+     * @param int $index
      * @return bool
      */
-    private function _isPagePublished($index)
+    private function isPagePublished($index)
     {
-        $pagedata = $this->_pagedata[$index];
+        $pagedata = $this->pagedata[$index];
         $res = (!isset($pagedata['published']) || $pagedata['published'] != '0')
-            && $this->_content[$index] != '#CMSimple hide#';
+            && $this->content[$index] != '#CMSimple hide#';
         return $res;
     }
 
     /**
-     * Returns whether a page shall be excluded from the sitemap,
-     * either because it is unpublished, or because it is hidden
-     * and hidden pages shall be excluded.
-     *
-     * @param int $index The numeric index of the page.
-     *
+     * @param int $index
      * @return bool
      */
     public function isPageExcluded($index)
     {
-        $res = !$this->_isPagePublished($index)
-            || $this->_excludeHidden && $this->_isPageHidden($index);
+        $res = !$this->isPagePublished($index)
+            || $this->excludeHidden && $this->isPageHidden($index);
         return $res;
     }
 
     /**
-     * Returns the sitemap.xml timestamp of the last modification of a page.
-     * Returns false, if the last modification time is not available.
-     *
-     * @param int $index The numeric index of the page.
-     *
-     * @return string
+     * @param int $index
+     * @return string or false on failure
      */
     public function pageLastMod($index)
     {
-        $res = $this->_pagedata[$index]['last_edit'];
-        $res = !empty($res) ? $this->_sitemapDate($res) : false;
+        $res = $this->pagedata[$index]['last_edit'];
+        $res = !empty($res) ? $this->sitemapDate($res) : false;
         return $res;
     }
 
     /**
-     * Returns the sitemap.xml changefreq of a page.
-     *
-     * @param int $index The numeric index of the page.
-     *
+     * @param int $index
      * @return string
      */
     public function pageChangefreq($index)
     {
-        $pagedata = $this->_pagedata[$index];
+        $pagedata = $this->pagedata[$index];
         $res = !empty($pagedata['sitemapper_changefreq'])
             ? $pagedata['sitemapper_changefreq']
-            : $this->_defaultChangefreq;
+            : $this->defaultChangefreq;
         return $res;
     }
 
     /**
-     * Returns the sitemap.xml priority of a page.
-     *
-     * @param int $index The numeric index of the page.
-     *
+     * @param int $index
      * @return float
      */
     public function pagePriority($index)
     {
-        $pagedata = $this->_pagedata[$index];
+        $pagedata = $this->pagedata[$index];
         $res = isset($pagedata['sitemapper_priority'])
             && $pagedata['sitemapper_priority'] != ''
             ? $pagedata['sitemapper_priority']
-            : $this->_defaultPriority;
+            : $this->defaultPriority;
         return $res;
     }
 
     /**
-     * Returns the sitemap.xml timestamp of the last modification of a subsite.
-     *
-     * @param string $subsite The name of the subsite.
-     *
+     * @param string $subsite
      * @return string
      */
     public function subsiteLastMod($subsite)
     {
-        $contentFolder = $this->_subsiteContentFolder($subsite);
+        $contentFolder = $this->subsiteContentFolder($subsite);
         $contentFile = $contentFolder . 'content.htm';
         $pagedataFile = $contentFolder . 'pagedata.php';
         if (file_exists($pagedataFile)) {
@@ -254,18 +186,15 @@ class Model
         } else {
             $res = filemtime($contentFile);
         }
-        $res = $this->_sitemapDate($res);
+        $res = $this->sitemapDate($res);
         return $res;
     }
 
     /**
-     * Returns whether a path points to a subsite.
-     *
-     * @param string $path The path relative to the base folder.
-     *
+     * @param string $path
      * @return bool
      */
-    private function _isSubsite($path)
+    private function isSubsite($path)
     {
         $baseName = basename($path);
         $res = is_dir($path)
@@ -277,18 +206,16 @@ class Model
     }
 
     /**
-     * Returns all available subsites and languages.
-     *
      * @return array
      */
     public function installedSubsites()
     {
-        $res = array($this->_defaultLang);
-        $dir = $this->_baseFolder;
+        $res = array($this->defaultLang);
+        $dir = $this->baseFolder;
         $dh = opendir($dir);
         if ($dh) {
             while (($fn = readdir($dh)) !== false) {
-                if ($fn[0] != '.' && $this->_isSubsite($dir . $fn)) {
+                if ($fn[0] != '.' && $this->isSubsite($dir . $fn)) {
                     $res[] = $fn;
                 }
             }
@@ -298,5 +225,3 @@ class Model
         return $res;
     }
 }
-
-?>
