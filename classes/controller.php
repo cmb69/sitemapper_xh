@@ -42,11 +42,9 @@ class Sitemapper_Controller
     /**
      * The model.
      *
-     * @access private
-     *
      * @var object
      */
-    var $_model;
+    private $_model;
 
     /**
      * Initializes a controller.
@@ -58,10 +56,8 @@ class Sitemapper_Controller
      * @global array The configuration of the core.
      * @global array The configuration of the plugins.
      * @global array The page data router.
-     *
-     * @access public
      */
-    function __construct()
+    public function __construct()
     {
         global $c, $pth, $cf, $plugin_cf, $pd_router;
 
@@ -80,10 +76,8 @@ class Sitemapper_Controller
      * @param string $str A string.
      *
      * @return string
-     *
-     * @access private
      */
-    function _hsc($str)
+    private function _hsc($str)
     {
         return htmlspecialchars($str, ENT_COMPAT, 'UTF_8');
     }
@@ -98,10 +92,8 @@ class Sitemapper_Controller
      *
      * @global array The paths of system files and folders.
      * @global array The configuration of the core.
-     *
-     * @access private
      */
-    function _render($_template, $_bag)
+    private function _render($_template, $_bag)
     {
         global $pth, $cf;
 
@@ -128,10 +120,8 @@ class Sitemapper_Controller
      * @return string
      *
      * @global array The paths of system files and folders.
-     *
-     * @access private
      */
-    function _renderXML($_template, $_bag)
+    private function _renderXML($_template, $_bag)
     {
         global $pth;
 
@@ -151,10 +141,8 @@ class Sitemapper_Controller
      * @return string XML.
      *
      * @global array The configuration of the core.
-     *
-     * @access private
      */
-    function _sitemapIndex()
+    private function _sitemapIndex()
     {
         global $cf;
 
@@ -184,10 +172,8 @@ class Sitemapper_Controller
      * @global int   The number of pages.
      * @global array The configuration of the plugins.
      * @global int   The index of the first published page (as of XH 1.6.3).
-     *
-     * @access private
      */
-    function _subsiteSitemap()
+    private function _subsiteSitemap()
     {
         global $u, $cl, $plugin_cf, $_XH_firstPublishedPage;
 
@@ -218,10 +204,8 @@ class Sitemapper_Controller
      * @return array
      *
      * @global array The configuration of the core.
-     *
-     * @access private
      */
-    function _sitemaps()
+    private function _sitemaps()
     {
         global $cf;
 
@@ -249,10 +233,8 @@ class Sitemapper_Controller
      * @global array The paths of system files and folders.
      * @global array The localization of the core.
      * @global array The localization of the plugins.
-     *
-     * @access private
      */
-    function _systemChecks()
+    private function _systemChecks()
     {
         global $pth, $tx, $plugin_tx;
 
@@ -287,10 +269,8 @@ class Sitemapper_Controller
      *
      * @global array The paths of system files and folders.
      * @global array The localization of the plugins.
-     *
-     * @access private
      */
-    function _info()
+    private function _info()
     {
         global $pth, $plugin_tx;
 
@@ -320,10 +300,8 @@ class Sitemapper_Controller
      * @param string $body The response body.
      *
      * @return void
-     *
-     * @access private
      */
-    function _respondWithSitemap($body)
+    private function _respondWithSitemap($body)
     {
         header('HTTP/1.0 200 OK');
         header('Content-Type: application/xml; charset=utf-8');
@@ -344,10 +322,8 @@ class Sitemapper_Controller
      * @global string The requested special functionality.
      * @global string The current language.
      * @global array  The configuration of the core.
-     *
-     * @access private
      */
-    function _dispatch()
+    private function _dispatch()
     {
         global $admin, $action, $plugin, $o, $sitemapper, $f, $sl, $cf;
 
@@ -377,10 +353,8 @@ class Sitemapper_Controller
      * @global array  The paths of system files and folders.
      * @global array  The localization of the plugins.
      * @global object The page data router.
-     *
-     * @access public
      */
-    function init()
+    public function init()
     {
         global $pth, $plugin_tx, $pd_router;
 
@@ -411,10 +385,8 @@ class Sitemapper_Controller
      * @global string The "URL" of the currently selected page.
      * @global array  The paths of system files and folders.
      * @global array  The localization of the plugins.
-     *
-     * @access public
      */
-    function pageDataTab($pageData)
+    public function pageDataTab($pageData)
     {
         global $sn, $su, $pth, $plugin_tx;
 
@@ -445,10 +417,8 @@ class Sitemapper_Controller
      * @return void
      *
      * @global string The requested special functionality.
-     *
-     * @access public
      */
-    function dispatchAfterPluginLoading()
+    public function dispatchAfterPluginLoading()
     {
         global $f;
 
