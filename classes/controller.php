@@ -75,24 +75,6 @@ class Sitemapper_Controller
     }
 
     /**
-     * Fallback constructor for PHP 4.
-     *
-     * @return void
-     *
-     * @global array The content of the pages.
-     * @global array The paths of system files and folders.
-     * @global array The configuration of the core.
-     * @global array The configuration of the plugins.
-     * @global array The page data router.
-     *
-     * @access public
-     */
-    function Sitemapper_Controller()
-    {
-        Sitemapper_Controller::__construct();
-    }
-
-    /**
      * Returns a string with special HTML characters escaped.
      *
      * @param string $str A string.
