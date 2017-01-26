@@ -56,7 +56,7 @@ function sitemapper()
 /*
  * Create and initialize the controller.
  */
-$_Sitemapper = new Sitemapper_Controller();
+$_Sitemapper = new Sitemapper\Controller();
 $_Sitemapper->init();
 
 ?>

@@ -13,6 +13,8 @@
  * @link      http://3-magi.net/?CMSimple_XH/Sitemapper_XH
  */
 
+namespace Sitemapper;
+
 /**
  * The fully qualified absolute URL of the current (sub)site.
  */
@@ -37,7 +39,7 @@ define(
  * @license  http://www.gnu.org/licenses/gpl-3.0.en.html GNU GPLv3
  * @link     http://3-magi.net/?CMSimple_XH/Sitemapper_XH
  */
-class Sitemapper_Controller
+class Controller
 {
     /**
      * The model.
@@ -61,7 +63,7 @@ class Sitemapper_Controller
     {
         global $c, $pth, $cf, $plugin_cf, $pd_router;
 
-        $this->_model = new Sitemapper_Model(
+        $this->_model = new Model(
             $cf['language']['default'], $pth['folder']['base'],
             $c, $pd_router->find_all(),
             $plugin_cf['sitemapper']['ignore_hidden_pages'],

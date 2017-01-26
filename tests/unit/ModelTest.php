@@ -17,6 +17,7 @@ require './vendor/autoload.php';
 require '../../cmsimple/functions.php';
 require './classes/model.php';
 
+use Sitemapper\Model;
 use org\bovigo\vfs\vfsStreamWrapper;
 use org\bovigo\vfs\vfsStreamDirectory;
 use org\bovigo\vfs\vfsStream;
@@ -35,7 +36,7 @@ class ModelTest extends PHPUnit_Framework_TestCase
     /**
      * The model object.
      *
-     * @var Sitemapper_Model
+     * @var Model
      */
     protected $sitemapper;
 
@@ -78,7 +79,7 @@ class ModelTest extends PHPUnit_Framework_TestCase
             array()
         );
         $this->setUpVirtualFileSystem();
-        $this->sitemapper = new Sitemapper_Model(
+        $this->sitemapper = new Model(
             'en', vfsStream::url('test/'), $content, $pagedata, true, 'monthly',
             '0.5'
         );
