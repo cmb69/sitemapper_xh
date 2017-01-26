@@ -28,6 +28,11 @@
         <exec command="phpcompatinfo analyser:run --alias current" logoutput="true"/>
     </target>
 
+    <target name="uml" description="generates UML class diagram">
+        <exec command="umlwriter diagram:render --reflector=reflect --processor=graphviz classes | dot -Tpng -o UML.png"
+              logoutput="true"/>
+    </target>
+
     <target name="unit-tests" description="runs all unit tests">
         <phpunit haltonerror="true" haltonfailure="true">
             <formatter type="plain" usefile="false"/>
@@ -39,18 +44,6 @@
 
     <target name="coverage" description="generates coverage report">
         <exec command="phpunit --configuration coverage.xml" logoutput="true"/>
-    </target>
-
-    <target name="doc" description="generates the developer documentation">
-        <phpdoc title="Sitemapper_XH Developer Documentation" destdir="doc/php"
-                output="HTML:Smarty:HandS" defaultpackagename="Sitemapper"
-                defaultcategoryname="CMSimple_XH" parseprivate="true">
-            <fileset refid="php-sources"/>
-            <projdocfileset dir=".">
-               <include name="README"/>
-               <include name="CHANGELOG"/>
-            </projdocfileset>
-        </phpdoc>
     </target>
 
     <target name="build">
