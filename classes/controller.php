@@ -61,7 +61,7 @@ class Sitemapper_Controller
      *
      * @access public
      */
-    function Sitemapper_Controller()
+    function __construct()
     {
         global $c, $pth, $cf, $plugin_cf, $pd_router;
 
@@ -72,6 +72,24 @@ class Sitemapper_Controller
             $plugin_cf['sitemapper']['changefreq'],
             $plugin_cf['sitemapper']['priority']
         );
+    }
+
+    /**
+     * Fallback constructor for PHP 4.
+     *
+     * @return void
+     *
+     * @global array The content of the pages.
+     * @global array The paths of system files and folders.
+     * @global array The configuration of the core.
+     * @global array The configuration of the plugins.
+     * @global array The page data router.
+     *
+     * @access public
+     */
+    function Sitemapper_Controller()
+    {
+        Sitemapper_Controller::__construct();
     }
 
     /**

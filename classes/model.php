@@ -113,7 +113,7 @@ class Sitemapper_Model
      *
      * @access public
      */
-    function Sitemapper_Model($defaultLang, $baseFolder, $content, $pagedata,
+    function __construct($defaultLang, $baseFolder, $content, $pagedata,
         $excludeHidden, $defaultChangefreq, $defaultPriority
     ) {
         $this->_defaultLang = $defaultLang;
@@ -123,6 +123,30 @@ class Sitemapper_Model
         $this->_excludeHidden = $excludeHidden;
         $this->_defaultChangefreq = $defaultChangefreq;
         $this->_defaultPriority = $defaultPriority;
+    }
+
+    /**
+     * Fallback constructor for PHP 4.
+     *
+     * @param string $defaultLang       Default language.
+     * @param string $baseFolder        Path of the root folder.
+     * @param array  $content           The content of the pages.
+     * @param array  $pagedata          The pagedata of the pages.
+     * @param bool   $excludeHidden     Whether to exclude hidden pages.
+     * @param string $defaultChangefreq Default sitemap changefreq.
+     * @param float  $defaultPriority   Default sitemap priority.
+     *
+     * @return void
+     *
+     * @access public
+     */
+    function Sitemapper_Model($defaultLang, $baseFolder, $content, $pagedata,
+        $excludeHidden, $defaultChangefreq, $defaultPriority
+    ) {
+        Sitemapper_Model::__construct(
+            $defaultLang, $baseFolder, $content, $pagedata, $excludeHidden,
+            $defaultChangefreq, $defaultPriority
+        );
     }
 
     /**
