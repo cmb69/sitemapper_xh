@@ -65,10 +65,7 @@ CMSimple_XH-Plugins auch im Administrationsbereich der Homepage. Wählen Sie
 Plugins &rarr; Sitemapper.</p>
 <p>Sie können die Voreinstellungen von Sitemapper_XH in der Plugin-Konfiguration
 ändern. Beim Überfahren der Hilfe-Icons mit der Maus werden Hinweise zu den
-Einstellungen angezeigt. Die wichtigste Einstellung ist <em>canonical
-hostname</em>. Sie sollten den bevorzugten Aufruf Ihrer Domain eingeben, also
-www.example.com oder example.com, falls dies nicht bereits durch die
-Serverkonfiguration richtig erfolgt.</p>
+Einstellungen angezeigt.</p>
 <p>Die Lokalisierung wird unter "Sprache" vorgenommen. Sie können die
 Zeichenketten in Ihre eigene Sprache übersetzen (falls keine entsprechende
 Sprachdatei zur Verfügung steht), oder sie entsprechend Ihren Anforderungen
@@ -104,6 +101,14 @@ definitions</a>.</p>
 <div class="toplink"><a href="#">zum Seitenanfang</a></div>
 
 <h2 id="limitations">Beschränkungen</h2>
+<p>Sitemapper_XH erzeugt die URLs in den Sitemaps abhängig davon wie die Sitemap
+abgerufen wurde. Kann auf die CMSimple_XH Installation durch
+http://example.com/, https://www.example.com/, http://www.example.com/index.php,
+usw. zugegriffen werden, dann können die URLs jedes mal anders sein. Um das zu
+vermeiden, sollten entsprechende Weiterleitung eingerichtet werden, was
+beispielsweise leicht mit dem <a
+href="http://3-magi.net/de/?CMSimple_XH/Seo_XH">Seo_XH</a> Plugin durchgeführt
+werden kann.</p>
 <p>Sitemapper_XH wird nur die eigentlichen Seiten des CMSimple Inhalts
 auflisten. Zusätzliche Inhalte, die von Plugins verwaltet werden, z.B. Foren
 oder Blogs, werden nicht in die Sitemap-Dokumente aufgenommen.</p>

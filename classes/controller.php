@@ -12,11 +12,8 @@ define(
     'http'
     . (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 's' : '')
     . '://'
-    . (empty($plugin_cf['sitemapper']['canonical_hostname'])
-        ? $_SERVER['HTTP_HOST']
-        : $plugin_cf['sitemapper']['canonical_hostname']
-        . ($_SERVER['SERVER_PORT'] < 1024 ? '' : ':' . $_SERVER['SERVER_PORT']))
-    . preg_replace('/index.php$/', '', $sn)
+    . $_SERVER['HTTP_HOST']
+    . $sn
 );
 
 class Controller
