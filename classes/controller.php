@@ -201,20 +201,23 @@ class Sitemapper_Controller
      * @global array The "URLs" of the pages.
      * @global int   The number of pages.
      * @global array The configuration of the plugins.
+     * @global int   The index of the first published page (as of XH 1.6.3).
      *
      * @access private
      */
     function _subsiteSitemap()
     {
-        global $u, $cl, $plugin_cf;
+        global $u, $cl, $plugin_cf, $_XH_firstPublishedPage;
 
+        $startpage = isset($_XH_firstPublishedPage) ? $_XH_firstPublishedPage : 0;
         $urls = array();
         for ($i = 0; $i < $cl; $i++) {
             if (!$this->_model->isPageExcluded($i)) {
-                $seperator = $plugin_cf['sitemapper']['clean_urls'] ? '' : '?';
+                $separator = $plugin_cf['sitemapper']['clean_urls'] ? '' : '?';
                 $priority = $this->_model->pagePriority($i);
                 $url = array(
-                    'loc' => SITEMAPPER_URL . $seperator . $u[$i],
+                    'loc' => SITEMAPPER_URL
+                        . ($i == $startpage ? '' : ($separator . $u[$i])),
                     'lastmod' => $this->_model->pageLastMod($i),
                     'changefreq' => $this->_model->pageChangefreq($i),
                     'priority' => $priority
