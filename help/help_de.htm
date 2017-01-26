@@ -81,16 +81,18 @@ Zeile ganz zu Beginn Ihres/Ihrer Templates einfügen: </p>
 <pre>&lt;?php sitemapper();?&gt;</pre>
 <p>Sitemapper_XH stellt Sitemaps Ihrer Website zur Verfügung. Es gibt einen
 Sitemap-Index und zusätzliche Sitemaps für jede installierte Sprache und
-Subsite. Alle veröffentlichten Seiten, die nicht versteckt sind, werden in der
-Sitemap aufgeführt. Darüberhinaus werden verstecke Seiten aufgeführt, wenn
+Subsite. Die Sitemaps werden dynamisch generiert, und <em>nicht</em> im
+Dateisystem abgelegt.</p>
+<p>Alle veröffentlichten Seiten, die nicht versteckt sind, werden in den
+Sitemaps aufgeführt. Darüberhinaus werden verstecke Seiten aufgeführt, wenn
 "ignore hidden pages" deaktiviert ist. Sie können die erzeugten Sitemaps unter
 "Vorhandene Sitemaps" einsehen.</p>
-<p>Die einfachste Möglichkeit die Sitemap Suchmaschinen zur Verfügung zu
+<p>Die einfachste Möglichkeit die Sitemaps Suchmaschinen zur Verfügung zu
 stellen, ist die folgende Zeile in Ihre robots.txt zu schreiben:
 <pre>Sitemap: http://www.example.com/?sitemapper_index</pre>
 <p>Natürlich müssen Sie die URL an Ihren Domainnamen anpassen (es ist das beste,
 wenn Sie die URL zum Sitemap-Index einfach aus der Plugin-Administration durch
-Copy&amp;Paste übernehmen). Eine weitere Möglichkeit besteht darin, Ihre Sitemap
+Copy&amp;Paste übernehmen). Eine weitere Möglichkeit besteht darin, Ihre Sitemaps
 direkt bei Suchmaschinen einzureichen (z.B. über die <a
 href="http://www.google.com/webmasters/">Google Webmaster Tools</a>).</p>
 <p>Es ist möglich die Standardwerte von "changefreq" und "priority", die in den
@@ -104,7 +106,7 @@ definitions</a>.</p>
 <h2 id="limitations">Beschränkungen</h2>
 <p>Sitemapper_XH wird nur die eigentlichen Seiten des CMSimple Inhalts
 auflisten. Zusätzliche Inhalte, die von Plugins verwaltet werden, z.B. Foren
-oder Blogs, werden nicht in die Sitemap-Datei aufgenommen.</p>
+oder Blogs, werden nicht in die Sitemap-Dokumente aufgenommen.</p>
 <div class="toplink"><a href="#">zum Seitenanfang</a></div>
 
 <h2 id="license">Lizenz</h2>
