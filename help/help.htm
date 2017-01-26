@@ -75,17 +75,19 @@ available), or customize them according to your needs.</p>
 following line at the very beginning of your template(s):</p>
 <pre>&lt;?php sitemapper();?&gt;</pre>
 <p>Sitemapper_XH makes Sitemaps of your website available. There is a Sitemap
-index file, and additional Sitemap files for each installed language and
-subsite. All published pages that are not hidden will be included in the
-Sitemap. Additionally hidden pages will be included when "ignore hidden pages"
+index document, and additional Sitemap documents for each installed language and
+subsite. These documents are created on the fly, and are <em>not</em> stored in
+the filesystem.</p>
+<p>All published pages that are not hidden will be included in the
+Sitemaps. Additionally hidden pages will be included when "ignore hidden pages"
 is disabled. You can view the generated Sitemaps in the plugin administration
 under "Available Sitemaps".</p>
-<p>The simplest way to make the Sitemap available to search engines is to put
+<p>The simplest way to make the Sitemaps available to search engines is to put
 the following line to your robots.txt:</p>
 <pre>Sitemap: http://www.example.com/?sitemapper_index</pre>
 <p>Of course you have to adjust the URL to your domain name (it's best to just
-copy and paste the URL to the Sitemap index file from the plugin
-administration). Another possibility is to submit your Sitemap to search
+copy and paste the URL to the Sitemap index document from the plugin
+administration). Another possibility is to submit your Sitemaps to search
 engines directly (e.g. via the <a
 href="http://www.google.com/webmasters/">Google Webmaster Tools</a>).</p>
 <p>It is possible to override the default settings of "changefreq" and
@@ -98,7 +100,7 @@ definitions</a>.</p>
 <h2 id="limitations">Limitations</h2>
 <p>Sitemapper_XH will only list the actual pages of CMSimple_XH's content.
 Additional content that is managed by plugins, e.g. forums or blogs, will not be
-included to the Sitemap file.</p>
+included to the Sitemap documents.</p>
 <div class="toplink"><a href="#">back to top</a></div>
 
 <h2 id="license">License</h2>
