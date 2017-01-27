@@ -155,6 +155,7 @@ class Controller
 
         $ptx = $plugin_tx['sitemapper'];
         $phpVersion = '4.3.10';
+        $xhVersion = '1.6';
         $checks = array();
         $checks[sprintf($ptx['syscheck_phpversion'], $phpVersion)]
             = version_compare(PHP_VERSION, $phpVersion) >= 0 ? 'ok' : 'fail';
@@ -164,8 +165,8 @@ class Controller
         }
         $checks[$ptx['syscheck_magic_quotes']]
             = !get_magic_quotes_runtime() ? 'ok' : 'fail';
-        $checks[$ptx['syscheck_encoding']]
-            = strtoupper($tx['meta']['codepage']) == 'UTF-8' ? 'ok' : 'warn';
+        $checks[sprintf($ptx['syscheck_xhversion'], $xhVersion)]
+            = version_compare(substr(CMSIMPLE_XH_VERSION, 12), $xhVersion) >= 0 ? 'ok' : 'fail';
         $folders = array();
         foreach (array('config/', 'languages/') as $folder) {
             $folders[] = $pth['folder']['plugins'] . 'sitemapper/' . $folder;
