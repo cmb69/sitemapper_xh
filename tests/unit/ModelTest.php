@@ -23,9 +23,14 @@ class ModelTest extends \PHPUnit_Framework_TestCase
     protected $sitemapper;
 
     /**
-     * @object
+     * @var object
      */
     protected $hideMock;
+    
+    /**
+     * @var object
+     */
+    protected $secondLanguagesMock;
 
     public function setUp()
     {
@@ -65,6 +70,8 @@ class ModelTest extends \PHPUnit_Framework_TestCase
                 }
             )
         );
+        $this->secondLanguagesMock = new \PHPUnit_Extensions_MockFunction('XH_secondLanguages', $this->sitemapper);
+        $this->secondLanguagesMock->expects($this->any())->willReturn(['de']);
     }
 
     protected function setUpVirtualFileSystem()
@@ -77,8 +84,6 @@ class ModelTest extends \PHPUnit_Framework_TestCase
         touch(vfsStream::url('test/content/de/content.htm'));
         mkdir(vfsStream::url('test/de'));
         touch(vfsStream::url('test/de/.2lang'));
-        mkdir(vfsStream::url('test/subsite'));
-        touch(vfsStream::url('test/subsite/cmsimplesubsite.htm'));
         touch(vfsStream::url('test/ab'));
     }
 
@@ -180,10 +185,10 @@ class ModelTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    public function testInstalledSubsites()
+    public function testInstalledLanguages()
     {
-        $expected = array('de', 'en', 'subsite');
-        $actual = $this->sitemapper->installedSubsites();
+        $expected = array('en', 'de');
+        $actual = $this->sitemapper->installedLanguages();
         $this->assertEquals($expected, $actual);
     }
 
@@ -193,7 +198,7 @@ class ModelTest extends \PHPUnit_Framework_TestCase
         touch($filename);
         $timestamp = filemtime($filename);
         $expected = gmdate('Y-m-d\TH:i:s\Z', $timestamp);
-        $actual = $this->sitemapper->subsiteLastMod('en');
+        $actual = $this->sitemapper->languageLastMod('en');
         $this->assertEquals($expected, $actual);
     }
 
@@ -203,7 +208,7 @@ class ModelTest extends \PHPUnit_Framework_TestCase
         touch($filename);
         $timestamp = filemtime($filename);
         $expected = gmdate('Y-m-d\TH:i:s\Z', $timestamp);
-        $actual = $this->sitemapper->subsiteLastMod('de');
+        $actual = $this->sitemapper->languageLastMod('de');
         $this->assertEquals($expected, $actual);
     }
 }

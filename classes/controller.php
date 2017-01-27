@@ -79,14 +79,14 @@ class Controller
         global $cf;
 
         $sitemaps = array();
-        foreach ($this->model->installedSubsites() as $ss) {
+        foreach ($this->model->installedLanguages() as $lang) {
             $base = CMSIMPLE_URL;
-            if ($ss != $cf['language']['default']) {
-                $base .= $ss . '/';
+            if ($lang != $cf['language']['default']) {
+                $base .= $lang . '/';
             }
             $sitemap = array(
                 'loc' => $base . '?sitemapper_sitemap',
-                'time' => $this->model->subsiteLastMod($ss)
+                'time' => $this->model->languageLastMod($lang)
             );
             array_walk($sitemap, 'XH_hsc');
             $sitemaps[] = $sitemap;
@@ -98,7 +98,7 @@ class Controller
     /**
      * @return string
      */
-    private function subsiteSitemap()
+    private function languageSitemap()
     {
         global $u, $cl, $plugin_cf, $_XH_firstPublishedPage;
 
@@ -135,10 +135,10 @@ class Controller
             'href' => CMSIMPLE_ROOT . '?sitemapper_index'
         );
         $sitemaps = array($sitemap);
-        foreach ($this->model->installedSubsites() as $ss) {
-            $subdir = $ss != $cf['language']['default'] ? $ss.'/' : '';
+        foreach ($this->model->installedLanguages() as $lang) {
+            $subdir = $lang != $cf['language']['default'] ? "$lang/" : '';
             $sitemap = array(
-                'name' => $ss,
+                'name' => $lang,
                 'href' => CMSIMPLE_ROOT . $subdir . '?sitemapper_sitemap'
             );
             $sitemaps[] = $sitemap;
@@ -291,7 +291,7 @@ class Controller
                 $this->respondWithSitemap($this->sitemapIndex());
                 break;
             case 'sitemapper_sitemap':
-                $this->respondWithSitemap($this->subsiteSitemap());
+                $this->respondWithSitemap($this->languageSitemap());
                 break;
         }
     }

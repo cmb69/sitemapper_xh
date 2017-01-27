@@ -82,14 +82,14 @@ class Model
     }
 
     /**
-     * @param string $subsite
+     * @param string $lang
      * @return string
      */
-    private function subsiteContentFolder($subsite)
+    private function languageContentFolder($lang)
     {
         $res = $this->baseFolder . 'content/';
-        if ($subsite != $this->defaultLang) {
-            $res .= $subsite . '/';
+        if ($lang != $this->defaultLang) {
+            $res .= $lang . '/';
         }
         return $res;
     }
@@ -169,48 +169,23 @@ class Model
     }
 
     /**
-     * @param string $subsite
+     * @param string $lang
      * @return string
      */
-    public function subsiteLastMod($subsite)
+    public function languageLastMod($lang)
     {
-        $contentFolder = $this->subsiteContentFolder($subsite);
+        $contentFolder = $this->languageContentFolder($lang);
         $contentFile = $contentFolder . 'content.htm';
         return $this->sitemapDate(filemtime($contentFile));
     }
 
     /**
-     * @param string $path
-     * @return bool
-     */
-    private function isSubsite($path)
-    {
-        $baseName = basename($path);
-        $res = is_dir($path)
-            && (strlen($baseName) == 2
-                && (file_exists("$path/.2lang") || is_dir("$path/content"))
-                || ($baseName != '2site'
-                    && file_exists($path . '/cmsimplesubsite.htm')));
-        return $res;
-    }
-
-    /**
      * @return array
      */
-    public function installedSubsites()
+    public function installedLanguages()
     {
-        $res = array($this->defaultLang);
-        $dir = $this->baseFolder;
-        $dh = opendir($dir);
-        if ($dh) {
-            while (($fn = readdir($dh)) !== false) {
-                if ($fn[0] != '.' && $this->isSubsite($dir . $fn)) {
-                    $res[] = $fn;
-                }
-            }
-            closedir($dh);
-        }
-        sort($res);
+        $res = XH_secondLanguages();
+        array_unshift($res, $this->defaultLang);
         return $res;
     }
 }
