@@ -23,12 +23,5 @@ define('SITEMAPPER_VERSION', '@SITEMAPPER_VERSION@');
 require_once $pth['folder']['plugin_classes'] . 'model.php';
 require_once $pth['folder']['plugin_classes'] . 'controller.php';
 
-function sitemapper()
-{
-    global $_Sitemapper;
-
-    $_Sitemapper->dispatchAfterPluginLoading();
-}
-
 $_Sitemapper = new Sitemapper\Controller();
 $_Sitemapper->init();
