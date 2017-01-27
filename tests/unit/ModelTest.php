@@ -9,7 +9,6 @@ namespace Sitemapper;
 
 require './vendor/autoload.php';
 require '../../cmsimple/functions.php';
-require './classes/model.php';
 
 use org\bovigo\vfs\vfsStreamWrapper;
 use org\bovigo\vfs\vfsStreamDirectory;
