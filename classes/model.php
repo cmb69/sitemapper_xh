@@ -87,13 +87,9 @@ class Model
      */
     private function subsiteContentFolder($subsite)
     {
+        $res = $this->baseFolder . 'content/';
         if ($subsite != $this->defaultLang) {
-            $res = $this->baseFolder . 'content/' . $subsite . '/'; // XH >= 1.6
-            if (!file_exists($res)) {
-                $res = $this->baseFolder . $subsite . '/content/'; // XH < 1.6
-            }
-        } else {
-            $res = $this->baseFolder . 'content/';
+            $res .= $subsite . '/';
         }
         return $res;
     }
@@ -180,14 +176,7 @@ class Model
     {
         $contentFolder = $this->subsiteContentFolder($subsite);
         $contentFile = $contentFolder . 'content.htm';
-        $pagedataFile = $contentFolder . 'pagedata.php';
-        if (file_exists($pagedataFile)) {
-            $res = max(filemtime($contentFile), filemtime($pagedataFile));
-        } else {
-            $res = filemtime($contentFile);
-        }
-        $res = $this->sitemapDate($res);
-        return $res;
+        return $this->sitemapDate(filemtime($contentFile));
     }
 
     /**
