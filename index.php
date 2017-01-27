@@ -18,7 +18,7 @@ EOT
     );
 }
 
-define('SITEMAPPER_VERSION', '@SITEMAPPER_VERSION@');
+const SITEMAPPER_VERSION = '@SITEMAPPER_VERSION@';
 
 $_Sitemapper = new Sitemapper\Controller();
 $_Sitemapper->init();
