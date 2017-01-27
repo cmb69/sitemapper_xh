@@ -59,7 +59,7 @@ class Controller
         global $pth;
 
         $_template = "{$pth['folder']['plugins']}sitemapper/views/$_template.xml";
-        unset($pth, $cf);
+        unset($pth);
         extract($_bag);
         ob_start();
         include $_template;
@@ -147,7 +147,7 @@ class Controller
      */
     private function systemChecks()
     {
-        global $pth, $tx, $plugin_tx;
+        global $pth, $plugin_tx;
 
         $ptx = $plugin_tx['sitemapper'];
         $phpVersion = '5.3.0';
