@@ -30,15 +30,6 @@ class Controller
     }
 
     /**
-     * @param string $str
-     * @return string
-     */
-    private function hsc($str)
-    {
-        return htmlspecialchars($str, ENT_COMPAT, 'UTF_8');
-    }
-
-    /**
      * @param string $_template
      * @param array  $_bag
      * @return string
@@ -97,7 +88,7 @@ class Controller
                 'loc' => $base . '?sitemapper_sitemap',
                 'time' => $this->model->subsiteLastMod($ss)
             );
-            array_walk($sitemap, array($this, 'hsc'));
+            array_walk($sitemap, 'XH_hsc');
             $sitemaps[] = $sitemap;
         }
         return '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL
@@ -124,7 +115,7 @@ class Controller
                     'changefreq' => $this->model->pageChangefreq($i),
                     'priority' => $priority
                 );
-                array_walk($url, array($this, 'hsc'));
+                array_walk($url, 'XH_hsc');
                 $urls[] = $url;
             }
         }
