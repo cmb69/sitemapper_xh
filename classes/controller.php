@@ -7,15 +7,6 @@
 
 namespace Sitemapper;
 
-define(
-    'SITEMAPPER_URL',
-    'http'
-    . (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 's' : '')
-    . '://'
-    . $_SERVER['HTTP_HOST']
-    . $sn
-);
-
 class Controller
 {
     /**
@@ -98,7 +89,7 @@ class Controller
 
         $sitemaps = array();
         foreach ($this->model->installedSubsites() as $ss) {
-            $base = SITEMAPPER_URL;
+            $base = CMSIMPLE_URL;
             if ($ss != $cf['language']['default']) {
                 $base .= $ss . '/';
             }
@@ -127,7 +118,7 @@ class Controller
                 $separator = $plugin_cf['sitemapper']['clean_urls'] ? '' : '?';
                 $priority = $this->model->pagePriority($i);
                 $url = array(
-                    'loc' => SITEMAPPER_URL
+                    'loc' => CMSIMPLE_URL
                         . ($i == $startpage ? '' : ($separator . $u[$i])),
                     'lastmod' => $this->model->pageLastMod($i),
                     'changefreq' => $this->model->pageChangefreq($i),
