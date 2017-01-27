@@ -38,8 +38,7 @@ class Controller
     {
         global $pth, $cf;
 
-        $_template = $pth['folder']['plugins'] . 'sitemapper/views/'
-            . $_template . '.htm';
+        $_template = "{$pth['folder']['plugins']}sitemapper/views/$_template.htm";
         $_xhtml = $cf['xhtml']['endtags'];
         unset($pth, $cf);
         extract($_bag);
@@ -61,8 +60,7 @@ class Controller
     {
         global $pth;
 
-        $_template = $pth['folder']['plugins'] . 'sitemapper/views/'
-            . $_template . '.xml';
+        $_template = "{$pth['folder']['plugins']}sitemapper/views/$_template.xml";
         unset($pth, $cf);
         extract($_bag);
         ob_start();
@@ -169,7 +167,7 @@ class Controller
             = version_compare(substr(CMSIMPLE_XH_VERSION, 12), $xhVersion) >= 0 ? 'ok' : 'fail';
         $folders = array();
         foreach (array('config/', 'languages/') as $folder) {
-            $folders[] = $pth['folder']['plugins'] . 'sitemapper/' . $folder;
+            $folders[] = "{$pth['folder']['plugins']}sitemapper/$folder";
         }
         foreach ($folders as $folder) {
             $checks[sprintf($ptx['syscheck_writable'], $folder)]
@@ -193,8 +191,7 @@ class Controller
         );
         $sitemaps = $this->sitemaps();
         foreach (array('ok', 'warn', 'fail') as $state) {
-            $images[$state] = $pth['folder']['plugins']
-                . 'sitemapper/images/' . $state . '.png';
+            $images[$state] = "{$pth['folder']['plugins']}sitemapper/images/$state.png";
         }
         $checks = $this->systemChecks();
         $icon = $pth['folder']['plugins'] . 'sitemapper/sitemapper.png';
@@ -228,9 +225,7 @@ class Controller
                 default:
                     $o .= plugin_admin_common($action, $admin, $plugin);
             }
-        } elseif (isset($_GET['sitemapper_index'])
-            && $sl == $cf['language']['default']
-        ) {
+        } elseif (isset($_GET['sitemapper_index']) && $sl == $cf['language']['default']) {
             $f = 'sitemapper_index';
         } elseif (isset($_GET['sitemapper_sitemap'])) {
             $f = 'sitemapper_sitemap';
@@ -265,7 +260,7 @@ class Controller
         global $sn, $su, $pth, $plugin_tx;
 
         $ptx = $plugin_tx['sitemapper'];
-        $action = $sn . '?' . $su;
+        $action = "$sn?$su";
         $help = array(
             'changefreq' => $ptx['cf_changefreq'],
             'priority' => $ptx['cf_priority']

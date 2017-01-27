@@ -77,8 +77,7 @@ class Model
      */
     private function sitemapDate($timestamp)
     {
-        $res = gmdate('Y-m-d\TH:i:s\Z', $timestamp);
-        return $res;
+        return gmdate('Y-m-d\TH:i:s\Z', $timestamp);
     }
 
     /**
@@ -101,10 +100,8 @@ class Model
     private function isPageHidden($index)
     {
         $pagedata = $this->pagedata[$index];
-        $res = (isset($pagedata['linked_to_menu'])
-                && $pagedata['linked_to_menu'] == '0')
+        return (isset($pagedata['linked_to_menu']) && $pagedata['linked_to_menu'] == '0')
             || hide($index);
-        return $res;
     }
 
     /**
@@ -114,9 +111,8 @@ class Model
     private function isPagePublished($index)
     {
         $pagedata = $this->pagedata[$index];
-        $res = (!isset($pagedata['published']) || $pagedata['published'] != '0')
+        return (!isset($pagedata['published']) || $pagedata['published'] != '0')
             && $this->content[$index] != '#CMSimple hide#';
-        return $res;
     }
 
     /**
@@ -125,9 +121,8 @@ class Model
      */
     public function isPageExcluded($index)
     {
-        $res = !$this->isPagePublished($index)
+        return !$this->isPagePublished($index)
             || $this->excludeHidden && $this->isPageHidden($index);
-        return $res;
     }
 
     /**
@@ -136,9 +131,8 @@ class Model
      */
     public function pageLastMod($index)
     {
-        $res = $this->pagedata[$index]['last_edit'];
-        $res = !empty($res) ? $this->sitemapDate($res) : false;
-        return $res;
+        $lastEdit = $this->pagedata[$index]['last_edit'];
+        return !empty($lastEdit) ? $this->sitemapDate($lastEdit) : false;
     }
 
     /**
@@ -148,10 +142,9 @@ class Model
     public function pageChangefreq($index)
     {
         $pagedata = $this->pagedata[$index];
-        $res = !empty($pagedata['sitemapper_changefreq'])
+        return !empty($pagedata['sitemapper_changefreq'])
             ? $pagedata['sitemapper_changefreq']
             : $this->defaultChangefreq;
-        return $res;
     }
 
     /**
@@ -161,11 +154,10 @@ class Model
     public function pagePriority($index)
     {
         $pagedata = $this->pagedata[$index];
-        $res = isset($pagedata['sitemapper_priority'])
+        return isset($pagedata['sitemapper_priority'])
             && $pagedata['sitemapper_priority'] != ''
             ? $pagedata['sitemapper_priority']
             : $this->defaultPriority;
-        return $res;
     }
 
     /**
