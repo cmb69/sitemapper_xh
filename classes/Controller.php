@@ -150,7 +150,7 @@ class Controller
         global $pth, $tx, $plugin_tx;
 
         $ptx = $plugin_tx['sitemapper'];
-        $phpVersion = '4.3.10';
+        $phpVersion = '5.3.0';
         $xhVersion = '1.6';
         $checks = array();
         $checks[sprintf($ptx['syscheck_phpversion'], $phpVersion)]
