@@ -6,10 +6,9 @@
  */
 
 /**
- * @param array $pageData
  * @return string
  */
-function Sitemapper_view($pageData)
+function Sitemapper_view(array $pageData)
 {
     global $_Sitemapper;
 

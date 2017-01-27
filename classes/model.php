@@ -52,15 +52,13 @@ class Model
     private $defaultPriority;
 
     /**
-     * @param string $defaultLang       Default language.
-     * @param string $baseFolder        Path of the root folder.
-     * @param array  $content           The content of the pages.
-     * @param array  $pagedata          The pagedata of the pages.
-     * @param bool   $excludeHidden     Whether to exclude hidden pages.
-     * @param string $defaultChangefreq Default sitemap changefreq.
-     * @param float  $defaultPriority   Default sitemap priority.
+     * @param string $defaultLang
+     * @param string $baseFolder
+     * @param bool $excludeHidden
+     * @param string $defaultChangefreq
+     * @param float $defaultPriority
      */
-    public function __construct($defaultLang, $baseFolder, $content, $pagedata, $excludeHidden, $defaultChangefreq, $defaultPriority)
+    public function __construct($defaultLang, $baseFolder, array $content, array $pagedata, $excludeHidden, $defaultChangefreq, $defaultPriority)
     {
         $this->defaultLang = $defaultLang;
         $this->baseFolder = $baseFolder;

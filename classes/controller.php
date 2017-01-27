@@ -31,10 +31,9 @@ class Controller
 
     /**
      * @param string $_template
-     * @param array  $_bag
      * @return string
      */
-    private function render($_template, $_bag)
+    private function render($_template, array $_bag)
     {
         global $pth, $cf;
 
@@ -53,10 +52,9 @@ class Controller
 
     /**
      * @param string $_template
-     * @param array  $_bag
      * @return string
      */
-    private function renderXML($_template, $_bag)
+    private function renderXML($_template, array $_bag)
     {
         global $pth;
 
@@ -202,7 +200,6 @@ class Controller
 
     /**
      * @param string $body
-     * @return void
      */
     private function respondWithSitemap($body)
     {
@@ -252,10 +249,9 @@ class Controller
     }
 
     /**
-     * @param array $pageData
      * @return string
      */
-    public function pageDataTab($pageData)
+    public function pageDataTab(array $pageData)
     {
         global $sn, $su, $pth, $plugin_tx;
 
