@@ -4,7 +4,6 @@
 	$plugin_tx['sitemapper']['sitemaps']="Kasutatavad sisukaardid";
 	$plugin_tx['sitemapper']['syscheck_title']="Süsteemi kontroll";
 	$plugin_tx['sitemapper']['syscheck_phpversion']="PHP versioon ≥ %s";
-	$plugin_tx['sitemapper']['syscheck_magic_quotes']="magic_quotes_runtime väljas";
 	$plugin_tx['sitemapper']['syscheck_writable']="'%s' kirjutatav";
 	$plugin_tx['sitemapper']['about']="Sitemapper_XH info";
 	$plugin_tx['sitemapper']['cf_changefreq']="Kui tihti lehekülg tõenäoliselt muutub. See väärtus annab otsingumootoritele üldist teavet ja ei pruugi olla seotud sellega kui sageli nad lehte indekseerivad. Sobivad väärtused on:  \"always\", \"hourly\", \"daily\", \"weekly\", \"monthly\", \"yearly\" ja \"never\" (\"alati\", \"kord tunnis\", \"igapäevaselt\", \"kord nädalas\", \"kord kuus\", \"kord  aastas\" ja \"mitte kunagi\").";

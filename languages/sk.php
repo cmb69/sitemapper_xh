@@ -9,7 +9,6 @@
 
 $plugin_tx['sitemapper']['syscheck_title']="Kontrola systému";
 $plugin_tx['sitemapper']['syscheck_phpversion']="PHP verzia ≥ %s";
-$plugin_tx['sitemapper']['syscheck_magic_quotes']="magic_quotes_runtime off";
 $plugin_tx['sitemapper']['syscheck_writable']="'%s' umožňuje zápis";
 $plugin_tx['sitemapper']['cf_changefreq']="Aká je predpokladaná frekvencia zmien na stránke? Toto je základná informácia pre vyhľadávače. Nemusí byť úplne presná, orientačne informu o tom, ako často sa majú prezerať stránky.";
 $plugin_tx['sitemapper']['cf_priority']="Priorita tejto URL relatívna voči iným URL na tejto stránke. Platný je rozsah od 0.0 do 1.0.";
