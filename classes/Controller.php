@@ -213,7 +213,7 @@ class Controller
     {
         global $admin, $action, $plugin, $o, $sitemapper, $f, $sl, $cf;
 
-        if (XH_ADM && isset($sitemapper) && $sitemapper == 'true') {
+        if (XH_ADM && XH_wantsPluginAdministration('sitemapper')) {
             $o .= print_plugin_admin('off');
             switch ($admin) {
                 case '':
