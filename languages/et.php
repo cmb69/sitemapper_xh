@@ -4,7 +4,6 @@
 	$plugin_tx['sitemapper']['sitemaps']="Kasutatavad sisukaardid";
 	$plugin_tx['sitemapper']['syscheck_title']="Süsteemi kontroll";
 	$plugin_tx['sitemapper']['syscheck_phpversion']="PHP versioon ≥ %s";
-	$plugin_tx['sitemapper']['syscheck_extension']="Laiendused '%s' laaditud";
 	$plugin_tx['sitemapper']['syscheck_magic_quotes']="magic_quotes_runtime väljas";
 	$plugin_tx['sitemapper']['syscheck_writable']="'%s' kirjutatav";
 	$plugin_tx['sitemapper']['about']="Sitemapper_XH info";

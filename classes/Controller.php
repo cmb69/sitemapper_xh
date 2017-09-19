@@ -155,10 +155,6 @@ class Controller
         $checks = array();
         $checks[sprintf($ptx['syscheck_phpversion'], $phpVersion)]
             = version_compare(PHP_VERSION, $phpVersion) >= 0 ? 'ok' : 'fail';
-        foreach (array('pcre') as $ext) {
-            $checks[sprintf($ptx['syscheck_extension'], $ext)]
-                = extension_loaded($ext) ? 'ok' : 'fail';
-        }
         $checks[$ptx['syscheck_magic_quotes']]
             = !get_magic_quotes_runtime() ? 'ok' : 'fail';
         $checks[sprintf($ptx['syscheck_xhversion'], $xhVersion)]

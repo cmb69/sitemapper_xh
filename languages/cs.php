@@ -2,7 +2,6 @@
 
 $plugin_tx['sitemapper']['syscheck_title']="Kontrola systému";
 $plugin_tx['sitemapper']['syscheck_phpversion']="PHP verze ≥ %s";
-$plugin_tx['sitemapper']['syscheck_extension']="Rozšíření '%s' spuštěno";
 $plugin_tx['sitemapper']['syscheck_magic_quotes']="magic_quotes_runtime off";
 $plugin_tx['sitemapper']['syscheck_writable']="'%s' zapisovatelné";
 $plugin_tx['sitemapper']['cf_changefreq']="Jak často se má stránka může změnit. Tato hodnota obsahuje obecné informace do vyhledávačů a určuje přesně jak často se budou procházet stránky. Platné hodnoty jsou: \"always\" (vždy), \" hourly\" (hodinově), \"daily\" (denně), \"weekly\" (týdně), \"monthly\" (měsíčně), \"yearly\" (ročně) a \"never\" (nikdy).";
