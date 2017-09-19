@@ -205,7 +205,7 @@ class Controller
 
     private function dispatch()
     {
-        global $admin, $action, $plugin, $o, $sitemapper, $f, $sl, $cf;
+        global $admin, $action, $plugin, $o, $f, $sl, $cf;
 
         if (XH_ADM && XH_wantsPluginAdministration('sitemapper')) {
             $o .= print_plugin_admin('off');
