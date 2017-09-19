@@ -2,6 +2,7 @@ Sitemapper_XH – a CMSimple_XH plugin
 ====================================
 
 [![stable: 2.0.2](https://img.shields.io/badge/stable-2.0.2-green.svg)](https://github.com/cmb69/sitemapper_xh/releases/tag/2.0.2)
+[![beta: 3.0beta1](https://img.shields.io/badge/beta-3.0beta1-red.svg)](https://github.com/cmb69/sitemapper_xh/releases/tag/3.0beta1)
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0)
 
 Copyright (c) 2011-2017 Christoph M. Becker
