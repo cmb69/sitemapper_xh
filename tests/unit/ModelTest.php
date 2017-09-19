@@ -21,16 +21,6 @@ class ModelTest extends \PHPUnit_Framework_TestCase
      */
     protected $sitemapper;
 
-    /**
-     * @var object
-     */
-    protected $hideMock;
-    
-    /**
-     * @var object
-     */
-    protected $secondLanguagesMock;
-
     public function setUp()
     {
         global $c;
@@ -59,18 +49,19 @@ class ModelTest extends \PHPUnit_Framework_TestCase
         );
         $this->setUpVirtualFileSystem();
         $this->sitemapper = new Model('en', vfsStream::url('test/'), $content, $pagedata, true, 'monthly', '0.5');
-        $this->hideMock = new \PHPUnit_Extensions_MockFunction('hide', $this->sitemapper);
-        $this->hideMock->expects($this->any())->will(
-            $this->returnCallback(
-                function ($index) {
-                    global $c;
+        uopz_set_return('hide', function ($index) {
+            global $c;
+        
+        
+            return preg_match('/\\#CMSimple hide\\#/is', $c[$index]);
+        }, true);
+        uopz_set_return('XH_secondLanguages', ['de']);
+    }
 
-                    return preg_match('/\\#CMSimple hide\\#/is', $c[$index]);
-                }
-            )
-        );
-        $this->secondLanguagesMock = new \PHPUnit_Extensions_MockFunction('XH_secondLanguages', $this->sitemapper);
-        $this->secondLanguagesMock->expects($this->any())->willReturn(['de']);
+    protected function tearDown()
+    {
+        uopz_unset_return('hide');
+        uopz_unset_return('XH_secondLanguages');
     }
 
     protected function setUpVirtualFileSystem()
