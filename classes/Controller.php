@@ -37,7 +37,7 @@ class Controller
     {
         global $pth, $cf;
 
-        $_template = "{$pth['folder']['plugins']}sitemapper/views/$_template.htm";
+        $_template = "{$pth['folder']['plugins']}sitemapper/views/$_template.php";
         $_xhtml = $cf['xhtml']['endtags'];
         unset($pth, $cf);
         extract($_bag);
@@ -58,7 +58,7 @@ class Controller
     {
         global $pth;
 
-        $_template = "{$pth['folder']['plugins']}sitemapper/views/$_template.xml";
+        $_template = "{$pth['folder']['plugins']}sitemapper/views/$_template.php";
         unset($pth);
         extract($_bag);
         ob_start();
