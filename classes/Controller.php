@@ -151,7 +151,7 @@ class Controller
 
         $ptx = $plugin_tx['sitemapper'];
         $phpVersion = '5.3.0';
-        $xhVersion = '1.6';
+        $xhVersion = '1.6.3';
         $checks = array();
         $checks[sprintf($ptx['syscheck_phpversion'], $phpVersion)]
             = version_compare(PHP_VERSION, $phpVersion) >= 0 ? 'ok' : 'fail';
