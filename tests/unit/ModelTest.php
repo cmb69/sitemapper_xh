@@ -10,11 +10,12 @@ namespace Sitemapper;
 require './vendor/autoload.php';
 require '../../cmsimple/functions.php';
 
+use PHPUnit\Framework\TestCase;
 use org\bovigo\vfs\vfsStreamWrapper;
 use org\bovigo\vfs\vfsStreamDirectory;
 use org\bovigo\vfs\vfsStream;
 
-class ModelTest extends \PHPUnit_Framework_TestCase
+class ModelTest extends TestCase
 {
     /**
      * @var Model
