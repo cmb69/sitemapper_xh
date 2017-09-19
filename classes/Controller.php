@@ -75,9 +75,11 @@ class Controller
      */
     private function languageSitemap()
     {
-        global $u, $cl, $plugin_cf, $_XH_firstPublishedPage;
+        global $u, $cl, $plugin_cf, $xh_publisher, $_XH_firstPublishedPage;
 
-        $startpage = isset($_XH_firstPublishedPage) ? $_XH_firstPublishedPage : 0;
+        $startpage = isset($xh_publisher)
+            ? $xh_publisher->getFirstPublishedPage()
+            : (isset($_XH_firstPublishedPage) ? $_XH_firstPublishedPage : 0);
         $urls = array();
         for ($i = 0; $i < $cl; $i++) {
             if (!$this->model->isPageExcluded($i)) {
