@@ -35,27 +35,6 @@ class Controller
      */
     private function render($_template, array $_bag)
     {
-        global $pth, $cf;
-
-        $_template = "{$pth['folder']['plugins']}sitemapper/views/$_template.php";
-        $_xhtml = $cf['xhtml']['endtags'];
-        unset($pth, $cf);
-        extract($_bag);
-        ob_start();
-        include $_template;
-        $o = ob_get_clean();
-        if (!$_xhtml) {
-            $o = str_replace('/>', '>', $o);
-        }
-        return $o;
-    }
-
-    /**
-     * @param string $_template
-     * @return string
-     */
-    private function renderXML($_template, array $_bag)
-    {
         global $pth;
 
         $_template = "{$pth['folder']['plugins']}sitemapper/views/$_template.php";
@@ -88,7 +67,7 @@ class Controller
             $sitemaps[] = $sitemap;
         }
         return '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL
-            . $this->renderXML('index', array('sitemaps' => $sitemaps));
+            . $this->render('index', array('sitemaps' => $sitemaps));
     }
 
     /**
@@ -116,7 +95,7 @@ class Controller
             }
         }
         return '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL
-            . $this->renderXML('sitemap', array('urls' => $urls));
+            . $this->render('sitemap', array('urls' => $urls));
     }
 
     /**

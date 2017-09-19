@@ -12,14 +12,14 @@
 <?php foreach ($checks as $check => $state):?>
     <li>
         <img src="<?=$images[$state]?>" alt="<?=$images[$state]?>"
-            style="margin: 0; height: 1em; padding-right: 1em"/>
+            style="margin: 0; height: 1em; padding-right: 1em">
         <span><?=$check?></span>
     </li>
 <?php endforeach?>
 </ul>
 <h4><?=$labels['about']?></h4>
 <img src="<?=$icon?>" style="float: left; width: 128px; height: 128px;
-margin-right: 16px" alt="XML folder"/>
+margin-right: 16px" alt="XML folder">
 <p>Version: <?=$version?></p>
 <p>Copyright &copy; 2011-2017 <a href="http://3-magi.net/">Christoph M. Becker</a></p>
 <p style="text-align: justify">This program is free software: you can
