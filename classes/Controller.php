@@ -265,7 +265,7 @@ class Controller
         $changefreqOptions = $this->model->changefreqs;
         array_unshift($changefreqOptions, '');
         $changefreqOptions = array_flip($changefreqOptions);
-        foreach ($changefreqOptions as $opt => $dummy) {
+        foreach (array_keys($changefreqOptions) as $opt) {
             $changefreqOptions[$opt]
                 = $pageData['sitemapper_changefreq'] == $opt;
         }
