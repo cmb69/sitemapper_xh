@@ -51,7 +51,7 @@
     </target>
 
     <target name="coverage" description="generates coverage report">
-        <exec command="phpunit --bootstrap classes/required_classes.php --configuration coverage.xml"
+        <exec command="phpunit --configuration coverage.xml"
               logoutput="true"/>
     </target>
 
