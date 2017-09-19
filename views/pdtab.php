@@ -1,28 +1,28 @@
 <!-- Sitemapper: page data tab -->
-<form id="sitemapper" action="<?php echo $action;?>" method="post">
+<form id="sitemapper" action="<?=$action;?>" method="post">
     <p><strong>Sitemap</strong></p>
     <p>
         <a class="pl_tooltip" onclick="return false">
-            <img src="<?php echo $helpIcon;?>" alt="help"/>
-            <span><?php echo $help['changefreq'];?></span>
+            <img src="<?=$helpIcon;?>" alt="help"/>
+            <span><?=$help['changefreq'];?></span>
         </a>
         <label for="sitemapper_changefreq"><span>Changefreq:</span></label>
         <select id="sitemapper_changefreq" name="sitemapper_changefreq"
                 style="display: block">
 <?php foreach ($changefreqOptions as $name => $default):?>
-            <option value="<?php echo $name;?>" <?php echo $default ? 'selected="selected"' : '';?>><?php echo $name;?></option>
+            <option value="<?=$name;?>" <?=$default ? 'selected="selected"' : '';?>><?=$name;?></option>
 <?php endforeach;?>
         </select>
     </p>
     <p>
         <a class="pl_tooltip" onclick="return false">
-            <img src="<?php echo $helpIcon;?>" alt="help"/>
-            <span><?php echo $help['priority'];?></span>
+            <img src="<?=$helpIcon;?>" alt="help"/>
+            <span><?=$help['priority'];?></span>
         </a>
         <label for="sitemapper_priority"><span>Priority:</span></label>
         <input type="text" id="sitemapper_priority" name="sitemapper_priority"
                style="display: block"
-               value="<?php echo $priority;?>"/>
+               value="<?=$priority;?>"/>
     </p>
     <p style="text-align: right">
         <input type="submit" class="submit" name="save_page_data"/>

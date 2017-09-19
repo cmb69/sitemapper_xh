@@ -4,8 +4,8 @@
               xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <?php foreach ($sitemaps as $sitemap):?>
     <sitemap>
-        <loc><?php echo $sitemap['loc'];?></loc>
-        <lastmod><?php echo $sitemap['time'];?></lastmod>
+        <loc><?=$sitemap['loc'];?></loc>
+        <lastmod><?=$sitemap['time'];?></lastmod>
     </sitemap>
 <?php endforeach;?>
 </sitemapindex>

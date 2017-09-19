@@ -4,12 +4,12 @@
         xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <?php foreach ($urls as $url):?>
     <url>
-        <loc><?php echo $url['loc'];?></loc>
+        <loc><?=$url['loc'];?></loc>
 <?php if (!empty($url['lastmod'])):?>
-        <lastmod><?php echo $url['lastmod'];?></lastmod>
+        <lastmod><?=$url['lastmod'];?></lastmod>
 <?php endif;?>
-        <changefreq><?php echo $url['changefreq'];?></changefreq>
-        <priority><?php echo $url['priority'];?></priority>
+        <changefreq><?=$url['changefreq'];?></changefreq>
+        <priority><?=$url['priority'];?></priority>
     </url>
 <?php endforeach;?>
 </urlset>
