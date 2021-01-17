@@ -109,7 +109,7 @@ bestimmten Zweck*. Details finden Sie in der GNU General Public License.
 Sie sollten ein Exemplar der GNU General Public License zusammen mit
 Sitemapper\_XH erhalten haben. Falls nicht, siehe http://www.gnu.org/licenses/.
 
-© 2011-2017 Christoph M. Becker
+© 2011-2021 Christoph M. Becker
 
 Tscheschiche Übersetzung © 2011-2012 Josef Němec  
 Polnische Übersetzung © 2012 Kamill Krzes  

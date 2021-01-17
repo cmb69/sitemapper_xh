@@ -103,7 +103,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Sitemapper\_XH.  If not, see http://www.gnu.org/licenses/.
 
-© 2011-2017 Christoph M. Becker
+© 2011-2021 Christoph M. Becker
 
 Czech translation © 2011-2012 Josef Němec  
 Polish translation © 2012 Kamill Krzes  
