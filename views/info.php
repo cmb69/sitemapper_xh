@@ -5,7 +5,7 @@ if (!isset($this)) {
 }
 ?>
 <!-- Sitemapper_XH: info -->
-<h4><?=$labels['sitemaps']?></h4>
+<h4><?=$this->text('sitemaps')?></h4>
 <ul>
 <?php foreach ($sitemaps as $sitemap):?>
     <li>
@@ -13,7 +13,7 @@ if (!isset($this)) {
     </li>
 <?php endforeach?>
 </ul>
-<h4><?=$labels['syscheck']?></h4>
+<h4><?=$this->text('syscheck_title')?></h4>
 <ul style="list-style: none">
 <?php foreach ($checks as $check => $state):?>
     <li>
@@ -23,7 +23,7 @@ if (!isset($this)) {
     </li>
 <?php endforeach?>
 </ul>
-<h4><?=$labels['about']?></h4>
+<h4><?=$this->text('about')?></h4>
 <img src="<?=$icon?>" style="float: left; width: 128px; height: 128px;
 margin-right: 16px" alt="XML folder">
 <p>Version: <?=$version?></p>

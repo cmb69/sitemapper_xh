@@ -21,5 +21,5 @@
 
 const SITEMAPPER_VERSION = '@SITEMAPPER_VERSION@';
 
-$_Sitemapper = new Sitemapper\Controller();
+$_Sitemapper = new Sitemapper\Controller(new Sitemapper\View);
 $_Sitemapper->init();

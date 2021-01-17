@@ -28,7 +28,12 @@ class Controller
      */
     private $model;
 
-    public function __construct()
+    /**
+     * @var View
+     */
+    private $view;
+
+    public function __construct(View $view)
     {
         global $c, $pth, $cf, $plugin_cf, $pd_router;
 
@@ -41,23 +46,7 @@ class Controller
             $plugin_cf['sitemapper']['changefreq'],
             $plugin_cf['sitemapper']['priority']
         );
-    }
-
-    /**
-     * @param string $_template
-     * @return string
-     */
-    private function render($_template, array $_bag)
-    {
-        global $pth;
-
-        $_template = "{$pth['folder']['plugins']}sitemapper/views/$_template.php";
-        unset($pth);
-        extract($_bag);
-        ob_start();
-        include $_template;
-        $o = ob_get_clean();
-        return $o;
+        $this->view = $view;
     }
 
     /**
@@ -81,7 +70,7 @@ class Controller
             $sitemaps[] = $sitemap;
         }
         return '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL
-            . $this->render('index', array('sitemaps' => $sitemaps));
+            . $this->view->render('index', array('sitemaps' => $sitemaps));
     }
 
     /**
@@ -111,7 +100,7 @@ class Controller
             }
         }
         return '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL
-            . $this->render('sitemap', array('urls' => $urls));
+            . $this->view->render('sitemap', array('urls' => $urls));
     }
 
     /**
@@ -168,14 +157,8 @@ class Controller
      */
     private function info()
     {
-        global $pth, $plugin_tx;
+        global $pth;
 
-        $ptx = $plugin_tx['sitemapper'];
-        $labels = array(
-            'sitemaps' => $ptx['sitemaps'],
-            'syscheck' => $ptx['syscheck_title'],
-            'about' => $ptx['about']
-        );
         $sitemaps = $this->sitemaps();
         foreach (array('ok', 'warn', 'fail') as $state) {
             $images[$state] = "{$pth['folder']['plugins']}sitemapper/images/$state.png";
@@ -183,8 +166,8 @@ class Controller
         $checks = $this->systemChecks();
         $icon = $pth['folder']['plugins'] . 'sitemapper/sitemapper.png';
         $version = SITEMAPPER_VERSION;
-        $bag = compact('labels', 'sitemaps', 'images', 'checks', 'icon', 'version');
-        return $this->render('info', $bag);
+        $bag = compact('sitemaps', 'images', 'checks', 'icon', 'version');
+        return $this->view->render('info', $bag);
     }
 
     /**
@@ -242,14 +225,9 @@ class Controller
      */
     public function pageDataTab(array $pageData)
     {
-        global $sn, $su, $pth, $plugin_tx;
+        global $sn, $su, $pth;
 
-        $ptx = $plugin_tx['sitemapper'];
         $action = "$sn?$su";
-        $help = array(
-            'changefreq' => $ptx['cf_changefreq'],
-            'priority' => $ptx['cf_priority']
-        );
         $helpIcon = $pth['folder']['plugins'] . 'sitemapper/images/help.png';
         $changefreqOptions = $this->model->changefreqs;
         array_unshift($changefreqOptions, '');
@@ -259,8 +237,8 @@ class Controller
                 = $pageData['sitemapper_changefreq'] == $opt;
         }
         $priority = $pageData['sitemapper_priority'];
-        $bag = compact('action', 'helpIcon', 'help', 'changefreqOptions', 'priority');
-        return $this->render('pdtab', $bag);
+        $bag = compact('action', 'helpIcon', 'changefreqOptions', 'priority');
+        return $this->view->render('pdtab', $bag);
     }
 
     public function dispatchAfterPluginLoading()
