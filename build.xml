@@ -35,11 +35,6 @@
         <exec command="phpcompatinfo analyser:run --alias current" logoutput="true"/>
     </target>
 
-    <target name="uml" description="generates UML class diagram">
-        <exec command="umlwriter diagram:render --reflector=reflect --processor=graphviz classes | dot -Tpng -o UML.png"
-              logoutput="true"/>
-    </target>
-
     <target name="unit-tests" description="runs all unit tests">
         <phpunit bootstrap="classes/required_classes.php"
                  haltonerror="true" haltonfailure="true">
