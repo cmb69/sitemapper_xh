@@ -15,7 +15,7 @@ Ausführliche Information über Sitemaps erhalten Sie unter [sitemaps.org](http:
 - [Danksagung](#danksagung)
 
 ## Vorraussetzungen
-Sitemapper\_XH ist ein Plugin für CMSimple\_XH ≥ 1.6.3 und PHP ≥ 5.4.0.
+Sitemapper\_XH ist ein Plugin für CMSimple\_XH ≥ 1.7.0 und PHP ≥ 5.4.0.
 
 ## Download
 

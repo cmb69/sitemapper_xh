@@ -16,7 +16,7 @@ For detailed information about Sitemaps see [sitemaps.org](http://www.sitemaps.o
 
 ## Requirements
 
-Sitemapper\_XH is a plugin for CMSimple\_XH ≥ 1.6.3 and PHP ≥ 5.4.0.
+Sitemapper\_XH is a plugin for CMSimple\_XH ≥ 1.7.0 and PHP ≥ 5.4.0.
 
 ## Download
 

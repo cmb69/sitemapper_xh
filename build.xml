@@ -36,8 +36,7 @@
     </target>
 
     <target name="unit-tests" description="runs all unit tests">
-        <phpunit bootstrap="classes/required_classes.php"
-                 haltonerror="true" haltonfailure="true">
+        <phpunit haltonerror="true" haltonfailure="true">
             <formatter type="plain" usefile="false"/>
             <batchtest>
                 <fileset refid="unit-tests"/>
