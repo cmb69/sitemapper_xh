@@ -1,3 +1,9 @@
+<?php
+if (!isset($this)) {
+    header('HTTP/1.0 404 Not Found');
+    exit;
+}
+?>
 <!-- Sitemapper_XH: info -->
 <h4><?=$labels['sitemaps']?></h4>
 <ul>

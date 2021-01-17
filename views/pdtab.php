@@ -1,3 +1,9 @@
+<?php
+if (!isset($this)) {
+    header('HTTP/1.0 404 Not Found');
+    exit;
+}
+?>
 <!-- Sitemapper: page data tab -->
 <form id="sitemapper" action="<?=$action?>" method="post">
     <p><strong>Sitemap</strong></p>
