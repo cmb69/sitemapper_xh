@@ -7,10 +7,6 @@
 
 namespace Sitemapper;
 
-require './vendor/autoload.php';
-require '../../cmsimple/functions.php';
-require './classes/Model.php';
-
 use PHPUnit\Framework\TestCase;
 use org\bovigo\vfs\vfsStreamWrapper;
 use org\bovigo\vfs\vfsStreamDirectory;
