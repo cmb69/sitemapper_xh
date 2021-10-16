@@ -50,70 +50,6 @@ class Controller
     }
 
     /**
-     * @return string
-     */
-    private function sitemapIndex()
-    {
-        global $cf;
-
-        $sitemaps = array();
-        foreach ($this->model->installedLanguages() as $lang) {
-            $base = CMSIMPLE_URL;
-            if ($lang != $cf['language']['default']) {
-                $base .= $lang . '/';
-            }
-            $sitemap = array(
-                'loc' => $base . '?sitemapper_sitemap',
-                'time' => $this->model->languageLastMod($lang)
-            );
-            array_walk($sitemap, 'XH_hsc');
-            $sitemaps[] = $sitemap;
-        }
-        return '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL
-            . $this->view->render('index', array('sitemaps' => $sitemaps));
-    }
-
-    /**
-     * @return string
-     */
-    private function languageSitemap()
-    {
-        global $u, $cl, $plugin_cf, $xh_publisher;
-
-        $startpage = $xh_publisher->getFirstPublishedPage();
-        $urls = array();
-        for ($i = 0; $i < $cl; $i++) {
-            if (!$this->model->isPageExcluded($i)) {
-                $separator = $plugin_cf['sitemapper']['clean_urls'] ? '' : '?';
-                $priority = $this->model->pagePriority($i);
-                $url = array(
-                    'loc' => CMSIMPLE_URL
-                        . ($i == $startpage ? '' : ($separator . $u[$i])),
-                    'lastmod' => $this->model->pageLastMod($i),
-                    'changefreq' => $this->model->pageChangefreq($i),
-                    'priority' => $priority
-                );
-                array_walk($url, 'XH_hsc');
-                $urls[] = $url;
-            }
-        }
-        return '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL
-            . $this->view->render('sitemap', array('urls' => $urls));
-    }
-
-    /**
-     * @param string $body
-     * @return void
-     */
-    private function respondWithSitemap($body)
-    {
-        header('HTTP/1.0 200 OK');
-        header('Content-Type: application/xml; charset=utf-8');
-        echo $body;
-        exit;
-    }
-
-    /**
      * @return void
      */
     private function dispatch()
@@ -178,10 +114,12 @@ class Controller
 
         switch ($f) {
             case 'sitemapper_index':
-                $this->respondWithSitemap($this->sitemapIndex());
+                $controller = new SitemapController($this->model, $this->view);
+                $controller->sitemapIndex();
                 break;
             case 'sitemapper_sitemap':
-                $this->respondWithSitemap($this->languageSitemap());
+                $controller = new SitemapController($this->model, $this->view);
+                $controller->languageSitemap();
                 break;
         }
     }
