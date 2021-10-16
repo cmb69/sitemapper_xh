@@ -2,12 +2,6 @@
 
 <project name="Sitemapper" default="help">
 
-    <fileset id="php-sources" dir=".">
-        <include name="index.php"/>
-        <include name="sitemapper_view.php"/>
-        <include name="classes/*.php"/>
-    </fileset>
-
     <fileset id="unit-tests" dir="tests/unit">
         <include name="*Test.php"/>
     </fileset>
@@ -29,10 +23,9 @@
     </target>
 
     <target name="mess" description="detects code flaws">
-        <phpmd>
-            <fileset refid="php-sources"/>
-            <fileset refid="unit-tests"/>
-         </phpmd>
+        <exec executable="phpmd" passthru="true" checkreturn="true">
+            <arg line="index.php,sitemapper_view.php,classes,tests/unit ansi codesize,unusedcode"/>
+        </exec>
     </target>
 
     <target name="compat" description="checks PHP requirements">
