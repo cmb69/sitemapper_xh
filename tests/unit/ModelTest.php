@@ -33,7 +33,7 @@ class ModelTest extends TestCase
      */
     protected $sitemapper;
 
-    public function setUp()
+    public function setUp(): void
     {
         global $c;
 
@@ -70,7 +70,7 @@ class ModelTest extends TestCase
         uopz_set_return('XH_secondLanguages', ['de']);
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         uopz_unset_return('hide');
         uopz_unset_return('XH_secondLanguages');
