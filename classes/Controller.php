@@ -102,73 +102,6 @@ class Controller
     }
 
     /**
-     * @return array<int,array>
-     */
-    private function sitemaps()
-    {
-        global $cf;
-
-        $sitemap = array(
-            'name' => 'index',
-            'href' => CMSIMPLE_ROOT . '?sitemapper_index'
-        );
-        $sitemaps = array($sitemap);
-        foreach ($this->model->installedLanguages() as $lang) {
-            $subdir = $lang != $cf['language']['default'] ? "$lang/" : '';
-            $sitemap = array(
-                'name' => $lang,
-                'href' => CMSIMPLE_ROOT . $subdir . '?sitemapper_sitemap'
-            );
-            $sitemaps[] = $sitemap;
-        }
-        return $sitemaps;
-    }
-
-    /**
-     * @return array<string,string>
-     */
-    private function systemChecks()
-    {
-        global $pth, $plugin_tx;
-
-        $ptx = $plugin_tx['sitemapper'];
-        $phpVersion = '5.4.0';
-        $xhVersion = '1.7.0';
-        $checks = array();
-        $checks[sprintf($ptx['syscheck_phpversion'], $phpVersion)]
-            = version_compare(PHP_VERSION, $phpVersion) >= 0 ? 'ok' : 'fail';
-        $checks[sprintf($ptx['syscheck_xhversion'], $xhVersion)]
-            = version_compare(substr(CMSIMPLE_XH_VERSION, 12), $xhVersion) >= 0 ? 'ok' : 'fail';
-        $folders = array();
-        foreach (array('config/', 'languages/') as $folder) {
-            $folders[] = "{$pth['folder']['plugins']}sitemapper/$folder";
-        }
-        foreach ($folders as $folder) {
-            $checks[sprintf($ptx['syscheck_writable'], $folder)]
-                = is_writable($folder) ? 'ok' : 'warn';
-        }
-        return $checks;
-    }
-
-    /**
-     * @return string
-     */
-    private function info()
-    {
-        global $pth;
-
-        $sitemaps = $this->sitemaps();
-        foreach (array('ok', 'warn', 'fail') as $state) {
-            $images[$state] = "{$pth['folder']['plugins']}sitemapper/images/$state.png";
-        }
-        $checks = $this->systemChecks();
-        $icon = $pth['folder']['plugins'] . 'sitemapper/sitemapper.png';
-        $version = SITEMAPPER_VERSION;
-        $bag = compact('sitemaps', 'images', 'checks', 'icon', 'version');
-        return $this->view->render('info', $bag);
-    }
-
-    /**
      * @param string $body
      * @return void
      */
@@ -191,7 +124,8 @@ class Controller
             $o .= print_plugin_admin('off');
             switch ($admin) {
                 case '':
-                    $o .= $this->info();
+                    $controller = new InfoController($this->model, $this->view);
+                    $o .= $controller->execute();
                     break;
                 default:
                     $o .= plugin_admin_common();
