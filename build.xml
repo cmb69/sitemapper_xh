@@ -19,7 +19,7 @@
     </target>
 
     <target name="stan" description="static analysis">
-        <exec executable="phpstan" passtrue="true" checkreturn="true"/>
+        <exec executable="phpstan" passthru="true" checkreturn="true"/>
     </target>
 
     <target name="mess" description="detects code flaws">

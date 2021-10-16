@@ -170,7 +170,7 @@ class Controller
 
     /**
      * @param string $body
-     * @return never
+     * @return void
      */
     private function respondWithSitemap($body)
     {
@@ -257,8 +257,10 @@ class Controller
         switch ($f) {
             case 'sitemapper_index':
                 $this->respondWithSitemap($this->sitemapIndex());
+                break;
             case 'sitemapper_sitemap':
                 $this->respondWithSitemap($this->languageSitemap());
+                break;
         }
     }
 }
