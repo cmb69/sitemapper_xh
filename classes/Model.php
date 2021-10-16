@@ -72,8 +72,15 @@ class Model
      * @param string $defaultChangefreq
      * @param float $defaultPriority
      */
-    public function __construct($defaultLang, $baseFolder, array $content, array $pagedata, $excludeHidden, $defaultChangefreq, $defaultPriority)
-    {
+    public function __construct(
+        $defaultLang,
+        $baseFolder,
+        array $content,
+        array $pagedata,
+        $excludeHidden,
+        $defaultChangefreq,
+        $defaultPriority
+    ) {
         $this->defaultLang = $defaultLang;
         $this->baseFolder = $baseFolder;
         $this->content = $content;
