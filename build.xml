@@ -20,7 +20,7 @@
 
     <target name="mess" description="detects code flaws">
         <exec executable="phpmd" passthru="true" checkreturn="true">
-            <arg line="index.php,sitemapper_view.php,classes,tests/unit ansi codesize,unusedcode"/>
+            <arg line="index.php,sitemapper_view.php,classes,tests/unit ansi codesize,unusedcode --ignore-violations-on-exit"/>
         </exec>
     </target>
 
