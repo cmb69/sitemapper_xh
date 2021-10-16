@@ -165,20 +165,8 @@ class Controller
      */
     public function pageDataTab(array $pageData)
     {
-        global $sn, $su, $pth;
-
-        $action = "$sn?$su";
-        $helpIcon = $pth['folder']['plugins'] . 'sitemapper/images/help.png';
-        $changefreqOptions = $this->model->changefreqs;
-        array_unshift($changefreqOptions, '');
-        $changefreqOptions = array_flip($changefreqOptions);
-        foreach (array_keys($changefreqOptions) as $opt) {
-            $changefreqOptions[$opt]
-                = $pageData['sitemapper_changefreq'] == $opt;
-        }
-        $priority = $pageData['sitemapper_priority'];
-        $bag = compact('action', 'helpIcon', 'changefreqOptions', 'priority');
-        return $this->view->render('pdtab', $bag);
+        $controller = new PageDataController($pageData, $this->model, $this->view);
+        return $controller->execute();
     }
 
     /**
