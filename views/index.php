@@ -1,4 +1,9 @@
 <?php
+
+/**
+ * @var array<int,array> $sitemaps
+ */
+
 if (!isset($this)) {
     header('HTTP/1.0 404 Not Found');
     exit;

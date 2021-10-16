@@ -29,7 +29,7 @@ class View
     private $template;
 
     /**
-     * @var array
+     * @var array<string,mixed>
      */
     private $data;
 
@@ -37,7 +37,7 @@ class View
      * Renders a template.
      *
      * @param string $template
-     * @param array  $data
+     * @param array<string,mixed>  $data
      *
      * @return string (X)HTML.
      */

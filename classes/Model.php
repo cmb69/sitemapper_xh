@@ -24,7 +24,7 @@ namespace Sitemapper;
 class Model
 {
     /**
-     * @var array
+     * @var array<int,string>
      */
     public $changefreqs = array(
         'always', 'hourly', 'daily', 'weekly', 'monthly', 'yearly', 'never'
@@ -41,12 +41,12 @@ class Model
     private $baseFolder;
 
     /**
-     * @var array
+     * @var array<int,string>
      */
     private $content;
 
     /**
-     * @var array
+     * @var array<int,array>
      */
     private $pagedata;
 
@@ -68,9 +68,11 @@ class Model
     /**
      * @param string $defaultLang
      * @param string $baseFolder
+     * @param array<int,string> $content
+     * @param array<int,array> $pagedata
      * @param bool $excludeHidden
      * @param string $defaultChangefreq
-     * @param float $defaultPriority
+     * @param string $defaultPriority
      */
     public function __construct(
         $defaultLang,
@@ -191,7 +193,7 @@ class Model
     }
 
     /**
-     * @return array
+     * @return array<int,string>
      */
     public function installedLanguages()
     {

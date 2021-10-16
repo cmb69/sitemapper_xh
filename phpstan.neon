@@ -1,0 +1,12 @@
+parameters:
+  level: 6
+  paths:
+    - classes/
+    - views/
+    - index.php
+    - sitemapper_view.php
+  bootstrapFiles:
+    - phpstan.bootstrap.php
+  scanFiles:
+    - ../../cmsimple/adminfuncs.php
+    - ../../cmsimple/functions.php

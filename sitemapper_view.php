@@ -20,6 +20,7 @@
  */
 
 /**
+ * @param array<string,string> $pageData
  * @return string
  */
 function Sitemapper_view(array $pageData)

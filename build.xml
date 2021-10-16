@@ -18,6 +18,10 @@
         </exec>
     </target>
 
+    <target name="stan" description="static analysis">
+        <exec executable="phpstan" passtrue="true" checkreturn="true"/>
+    </target>
+
     <target name="mess" description="detects code flaws">
         <exec executable="phpmd" passthru="true" checkreturn="true">
             <arg line="index.php,sitemapper_view.php,classes,tests/unit ansi codesize,unusedcode --ignore-violations-on-exit"/>

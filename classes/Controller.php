@@ -102,7 +102,7 @@ class Controller
     }
 
     /**
-     * @return array
+     * @return array<int,array>
      */
     private function sitemaps()
     {
@@ -125,7 +125,7 @@ class Controller
     }
 
     /**
-     * @return array
+     * @return array<string,string>
      */
     private function systemChecks()
     {
@@ -170,6 +170,7 @@ class Controller
 
     /**
      * @param string $body
+     * @return never
      */
     private function respondWithSitemap($body)
     {
@@ -179,18 +180,21 @@ class Controller
         exit;
     }
 
+    /**
+     * @return void
+     */
     private function dispatch()
     {
-        global $admin, $action, $plugin, $o, $f, $sl, $cf;
+        global $admin, $o, $f, $sl, $cf;
 
-        if (XH_ADM && XH_wantsPluginAdministration('sitemapper')) {
+        if (defined("XH_ADM") && XH_ADM && XH_wantsPluginAdministration('sitemapper')) {
             $o .= print_plugin_admin('off');
             switch ($admin) {
                 case '':
                     $o .= $this->info();
                     break;
                 default:
-                    $o .= plugin_admin_common($action, $admin, $plugin);
+                    $o .= plugin_admin_common();
             }
         } elseif (isset($_GET['sitemapper_index']) && $sl == $cf['language']['default']) {
             $f = 'sitemapper_index';
@@ -199,6 +203,9 @@ class Controller
         }
     }
 
+    /**
+     * @return void
+     */
     public function init()
     {
         global $pth, $plugin_tx, $pd_router;
@@ -206,7 +213,7 @@ class Controller
         $pd_router->add_interest('sitemapper_changefreq');
         $pd_router->add_interest('sitemapper_priority');
         XH_afterPluginLoading(array($this, 'dispatchAfterPluginLoading'));
-        if (XH_ADM) {
+        if (defined("XH_ADM") && XH_ADM) {
             if (function_exists('XH_registerStandardPluginMenuItems')) {
                 XH_registerStandardPluginMenuItems(false);
             }
@@ -219,6 +226,7 @@ class Controller
     }
 
     /**
+     * @param array<string,string> $pageData
      * @return string
      */
     public function pageDataTab(array $pageData)
@@ -239,6 +247,9 @@ class Controller
         return $this->view->render('pdtab', $bag);
     }
 
+    /**
+     * @return void
+     */
     public function dispatchAfterPluginLoading()
     {
         global $f;
@@ -246,10 +257,8 @@ class Controller
         switch ($f) {
             case 'sitemapper_index':
                 $this->respondWithSitemap($this->sitemapIndex());
-                break;
             case 'sitemapper_sitemap':
                 $this->respondWithSitemap($this->languageSitemap());
-                break;
         }
     }
 }

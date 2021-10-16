@@ -12,7 +12,7 @@ jobs:
         with:
           php-version: ${{matrix.php_version}}
           extensions: uopz
-          tools: composer
+          tools: composer,phive
       - name: Install CMSimple_XH
         run: |
           curl -fsSL -o CMSimple_XH-1.7.5.zip https://github.com/cmsimple-xh/cmsimple-xh/releases/download/1.7.5/CMSimple_XH-1.7.5.zip
@@ -23,8 +23,12 @@ jobs:
           path: 'cmsimplexh/plugins/sitemapper'
       - name: composer install
         run: cd cmsimplexh/plugins/sitemapper && composer install
+      - name: phive install
+        run: cd cmsimplexh/plugins/sitemapper && phive install
       - name: phing sniff
         run: cd cmsimplexh/plugins/sitemapper && PATH=tools:vendor/bin:$PATH phing sniff
+      - name: phing stan
+        run: cd cmsimplexh/plugins/sitemapper && PATH=tools:vendor/bin:$PATH phing stan
       - name: phing mess
         run: cd cmsimplexh/plugins/sitemapper && PATH=tools:vendor/bin:$PATH phing mess
       - name: phing unit-tests

@@ -1,4 +1,12 @@
 <?php
+
+/**
+ * @var string $action
+ * @var string $helpIcon
+ * @var array<string,bool> $changefreqOptions
+ * @var string $priority
+ */
+
 if (!isset($this)) {
     header('HTTP/1.0 404 Not Found');
     exit;
