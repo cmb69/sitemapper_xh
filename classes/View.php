@@ -77,19 +77,23 @@ class View
 
     /**
      * @param string $key
+     * @param mixed $args
      * @return string
      */
-    protected function text($key)
+    public function text($key, ...$args)
     {
-        return XH_hsc($this->lang[$key]);
+        return $this->esc(vsprintf($this->lang[$key], $args));
     }
 
     /**
-     * @param string $value
+     * @param mixed $value
      * @return string
      */
     public function esc($value)
     {
-        return(XH_hsc($value));
+        if ($value instanceof HtmlString) {
+            return $value->value();
+        }
+        return XH_hsc($value);
     }
 }
