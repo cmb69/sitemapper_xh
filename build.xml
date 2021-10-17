@@ -31,7 +31,10 @@
     </target>
 
     <target name="compat" description="checks PHP requirements">
-        <exec command="phpcompatinfo analyser:run classes" passthru="true" checkreturn="true"/>
+        <exec executable="phpcompatinfo" passthru="true" checkreturn="true">
+            <arg value="analyser:run"/>
+            <arg file="classes"/>
+        </exec>
     </target>
 
     <target name="unit-tests" description="runs all unit tests">
