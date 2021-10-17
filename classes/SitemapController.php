@@ -52,7 +52,6 @@ class SitemapController
                 'loc' => $base . '?sitemapper_sitemap',
                 'time' => $this->model->languageLastMod($lang)
             );
-            array_walk($sitemap, 'XH_hsc');
             $sitemaps[] = $sitemap;
         }
         $this->respondWithSitemap(
@@ -81,7 +80,6 @@ class SitemapController
                     'changefreq' => $this->model->pageChangefreq($i),
                     'priority' => $priority
                 );
-                array_walk($url, 'XH_hsc');
                 $urls[] = $url;
             }
         }

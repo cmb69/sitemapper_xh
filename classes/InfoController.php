@@ -40,8 +40,6 @@ class InfoController
      */
     public function execute()
     {
-        global $pth;
-
         $sitemaps = $this->sitemaps();
         $checks = $this->systemChecks();
         $version = Plugin::VERSION;

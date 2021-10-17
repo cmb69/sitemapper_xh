@@ -71,4 +71,13 @@ class View
 
         return isset($plugin_tx['sitemapper'][$key]) ? XH_hsc($plugin_tx['sitemapper'][$key]) : null;
     }
+
+    /**
+     * @param string $value
+     * @return string
+     */
+    public function esc($value)
+    {
+        return(XH_hsc($value));
+    }
 }

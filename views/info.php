@@ -11,16 +11,16 @@ if (!isset($this)) {
     exit;
 }
 ?>
-<h1>Sitemapper <?=$version?></h1>
+<h1>Sitemapper <?=$this->esc($version)?></h1>
 <h2><?=$this->text('sitemaps')?></h2>
 <ul>
 <?php foreach ($sitemaps as $sitemap):?>
     <li>
-        <a href="<?=$sitemap['href']?>" target="_blank"><?=$sitemap['name']?></a>
+        <a href="<?=$this->esc($sitemap['href'])?>" target="_blank"><?=$this->esc($sitemap['name'])?></a>
     </li>
 <?php endforeach?>
 </ul>
 <h2><?=$this->text('syscheck_title')?></h2>
 <?php foreach ($checks as $check => $class):?>
-    <p class="<?=$class?>"><?=$check?></p>
+    <p class="<?=$this->esc($class)?>"><?=$this->esc($check)?></p>
 <?php endforeach?>

@@ -15,12 +15,12 @@ if (!isset($this)) {
         xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <?php foreach ($urls as $url):?>
     <url>
-        <loc><?=$url['loc']?></loc>
+        <loc><?=$this->esc($url['loc'])?></loc>
 <?php if (!empty($url['lastmod'])):?>
-        <lastmod><?=$url['lastmod']?></lastmod>
+        <lastmod><?=$this->esc($url['lastmod'])?></lastmod>
 <?php endif?>
-        <changefreq><?=$url['changefreq']?></changefreq>
-        <priority><?=$url['priority']?></priority>
+        <changefreq><?=$this->esc($url['changefreq'])?></changefreq>
+        <priority><?=$this->esc($url['priority'])?></priority>
     </url>
 <?php endforeach?>
 </urlset>
