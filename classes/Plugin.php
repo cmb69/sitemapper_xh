@@ -105,13 +105,13 @@ class Plugin
      */
     private static function model()
     {
-        global $pth, $cf, $plugin_cf, $pd_router, $_xh_publisher;
+        global $pth, $cf, $plugin_cf, $pd_router, $xh_publisher;
 
         return new Model(
             $cf['language']['default'],
             $pth['folder']['base'],
             $pd_router->find_all(),
-            $_xh_publisher,
+            $xh_publisher,
             $plugin_cf['sitemapper']['ignore_hidden_pages'],
             $plugin_cf['sitemapper']['changefreq'],
             $plugin_cf['sitemapper']['priority']
