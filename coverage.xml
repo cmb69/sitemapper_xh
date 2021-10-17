@@ -8,8 +8,6 @@
     <filter>
         <whitelist addUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">classes</directory>
-            <file>index.php</file>
-            <file>sitemapper_view.php</file>
         </whitelist>
     </filter>
     <logging>
