@@ -23,6 +23,12 @@ namespace Sitemapper;
 
 class View
 {
+    /** @var string */
+    private $templateDir;
+
+    /** @var array<string,string> */
+    private $lang;
+
     /**
      * @var string
      */
@@ -34,6 +40,16 @@ class View
     private $data;
 
     /**
+     * @param string $templateDir
+     * @param array<string,string> $lang
+     */
+    public function __construct($templateDir, array $lang)
+    {
+        $this->templateDir = $templateDir;
+        $this->lang = $lang;
+    }
+
+    /**
      * Renders a template.
      *
      * @param string $template
@@ -43,9 +59,7 @@ class View
      */
     public function render($template, $data)
     {
-        global $pth;
-
-        $this->template = "{$pth['folder']['plugins']}sitemapper/views/$template.php";
+        $this->template = "$this->templateDir/$template.php";
         $this->data = $data;
         return $this->doRender();
     }
@@ -67,9 +81,7 @@ class View
      */
     protected function text($key)
     {
-        global $plugin_tx;
-
-        return XH_hsc($plugin_tx['sitemapper'][$key]);
+        return XH_hsc($this->lang[$key]);
     }
 
     /**

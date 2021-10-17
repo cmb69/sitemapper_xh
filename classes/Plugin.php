@@ -58,7 +58,7 @@ class Plugin
             $o .= print_plugin_admin('off');
             switch ($admin) {
                 case '':
-                    $controller = new InfoController(self::model(), new View());
+                    $controller = new InfoController(self::model(), self::view());
                     $o .= $controller->execute();
                     break;
                 default:
@@ -77,7 +77,7 @@ class Plugin
      */
     public static function pageDataTab(array $pageData)
     {
-        $controller = new PageDataController($pageData, self::model(), new View());
+        $controller = new PageDataController($pageData, self::model(), self::view());
         return $controller->execute();
     }
 
@@ -90,11 +90,11 @@ class Plugin
 
         switch ($f) {
             case 'sitemapper_index':
-                $controller = new SitemapController(self::model(), new View());
+                $controller = new SitemapController(self::model(), self::view());
                 $controller->sitemapIndex();
                 break;
             case 'sitemapper_sitemap':
-                $controller = new SitemapController(self::model(), new View());
+                $controller = new SitemapController(self::model(), self::view());
                 $controller->languageSitemap();
                 break;
         }
@@ -116,5 +116,15 @@ class Plugin
             $plugin_cf['sitemapper']['changefreq'],
             $plugin_cf['sitemapper']['priority']
         );
+    }
+
+    /**
+     * @return View
+     */
+    private static function view()
+    {
+        global $pth, $plugin_tx;
+
+        return new View("{$pth['folder']['plugins']}sitemapper/views", $plugin_tx["sitemapper"]);
     }
 }
