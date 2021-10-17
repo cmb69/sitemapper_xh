@@ -16,7 +16,7 @@ if (!isset($this)) {
 <?php foreach ($urls as $url):?>
     <url>
         <loc><?=$this->esc($url->loc)?></loc>
-<?php if (!empty($url->lastmod)):?>
+<?php if ($url->lastmod):?>
         <lastmod><?=$this->esc($url->lastmod)?></lastmod>
 <?php endif?>
         <changefreq><?=$this->esc($url->changefreq)?></changefreq>
