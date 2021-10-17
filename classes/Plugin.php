@@ -21,38 +21,36 @@
 
 namespace Sitemapper;
 
-class Controller
+class Plugin
 {
-    /**
-     * @var Model
-     */
-    private $model;
+    const VERSION = '@SITEMAPPER_VERSION@';
 
     /**
-     * @var View
+     * @return void
      */
-    private $view;
-
-    public function __construct(View $view)
+    public static function run()
     {
-        global $c, $pth, $cf, $plugin_cf, $pd_router;
+        global $pth, $plugin_tx, $pd_router;
 
-        $this->model = new Model(
-            $cf['language']['default'],
-            $pth['folder']['base'],
-            $c,
-            $pd_router->find_all(),
-            $plugin_cf['sitemapper']['ignore_hidden_pages'],
-            $plugin_cf['sitemapper']['changefreq'],
-            $plugin_cf['sitemapper']['priority']
-        );
-        $this->view = $view;
+        $pd_router->add_interest('sitemapper_changefreq');
+        $pd_router->add_interest('sitemapper_priority');
+        XH_afterPluginLoading(array(self::class, 'dispatchAfterPluginLoading'));
+        if (defined("XH_ADM") && XH_ADM) {
+            if (function_exists('XH_registerStandardPluginMenuItems')) {
+                XH_registerStandardPluginMenuItems(false);
+            }
+            $pd_router->add_tab(
+                $plugin_tx['sitemapper']['tab'],
+                $pth['folder']['plugins'] . 'sitemapper/sitemapper_view.php'
+            );
+        }
+        self::dispatch();
     }
 
     /**
      * @return void
      */
-    private function dispatch()
+    private static function dispatch()
     {
         global $admin, $o, $f, $sl, $cf;
 
@@ -60,7 +58,7 @@ class Controller
             $o .= print_plugin_admin('off');
             switch ($admin) {
                 case '':
-                    $controller = new InfoController($this->model, $this->view);
+                    $controller = new InfoController(self::model(), new View());
                     $o .= $controller->execute();
                     break;
                 default:
@@ -74,53 +72,49 @@ class Controller
     }
 
     /**
-     * @return void
-     */
-    public function init()
-    {
-        global $pth, $plugin_tx, $pd_router;
-
-        $pd_router->add_interest('sitemapper_changefreq');
-        $pd_router->add_interest('sitemapper_priority');
-        XH_afterPluginLoading(array($this, 'dispatchAfterPluginLoading'));
-        if (defined("XH_ADM") && XH_ADM) {
-            if (function_exists('XH_registerStandardPluginMenuItems')) {
-                XH_registerStandardPluginMenuItems(false);
-            }
-            $pd_router->add_tab(
-                $plugin_tx['sitemapper']['tab'],
-                $pth['folder']['plugins'] . 'sitemapper/sitemapper_view.php'
-            );
-        }
-        $this->dispatch();
-    }
-
-    /**
      * @param array<string,string> $pageData
      * @return string
      */
-    public function pageDataTab(array $pageData)
+    public static function pageDataTab(array $pageData)
     {
-        $controller = new PageDataController($pageData, $this->model, $this->view);
+        $controller = new PageDataController($pageData, self::model(), new View());
         return $controller->execute();
     }
 
     /**
      * @return void
      */
-    public function dispatchAfterPluginLoading()
+    public static function dispatchAfterPluginLoading()
     {
         global $f;
 
         switch ($f) {
             case 'sitemapper_index':
-                $controller = new SitemapController($this->model, $this->view);
+                $controller = new SitemapController(self::model(), new View());
                 $controller->sitemapIndex();
                 break;
             case 'sitemapper_sitemap':
-                $controller = new SitemapController($this->model, $this->view);
+                $controller = new SitemapController(self::model(), new View());
                 $controller->languageSitemap();
                 break;
         }
+    }
+
+    /**
+     * @return Model
+     */
+    private static function model()
+    {
+        global $c, $pth, $cf, $plugin_cf, $pd_router;
+
+        return new Model(
+            $cf['language']['default'],
+            $pth['folder']['base'],
+            $c,
+            $pd_router->find_all(),
+            $plugin_cf['sitemapper']['ignore_hidden_pages'],
+            $plugin_cf['sitemapper']['changefreq'],
+            $plugin_cf['sitemapper']['priority']
+        );
     }
 }

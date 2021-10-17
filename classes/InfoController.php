@@ -48,7 +48,7 @@ class InfoController
         }
         $checks = $this->systemChecks();
         $icon = $pth['folder']['plugins'] . 'sitemapper/sitemapper.png';
-        $version = SITEMAPPER_VERSION;
+        $version = Plugin::VERSION;
         $bag = compact('sitemaps', 'images', 'checks', 'icon', 'version');
         return $this->view->render('info', $bag);
     }

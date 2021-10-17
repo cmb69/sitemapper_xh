@@ -19,7 +19,4 @@
  * along with Sitemapper_XH.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const SITEMAPPER_VERSION = '@SITEMAPPER_VERSION@';
-
-$_Sitemapper = new Sitemapper\Controller(new Sitemapper\View);
-$_Sitemapper->init();
+\Sitemapper\Plugin::run();

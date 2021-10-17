@@ -25,7 +25,5 @@
  */
 function Sitemapper_view(array $pageData)
 {
-    global $_Sitemapper;
-
-    return $_Sitemapper->pageDataTab($pageData);
+    return \Sitemapper\Plugin::pageDataTab($pageData);
 }
