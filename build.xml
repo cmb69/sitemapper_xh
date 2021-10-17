@@ -29,7 +29,7 @@
     </target>
 
     <target name="compat" description="checks PHP requirements">
-        <exec command="phpcompatinfo analyser:run --alias current" logoutput="true"/>
+        <exec command="phpcompatinfo analyser:run classes" passthru="true" checkreturn="true"/>
     </target>
 
     <target name="unit-tests" description="runs all unit tests">
