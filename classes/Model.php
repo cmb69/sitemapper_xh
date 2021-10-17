@@ -148,7 +148,7 @@ class Model
 
     /**
      * @param int $index
-     * @return string or false on failure
+     * @return string|false
      */
     public function pageLastMod($index)
     {
@@ -189,7 +189,7 @@ class Model
     {
         $contentFolder = $this->languageContentFolder($lang);
         $contentFile = $contentFolder . 'content.htm';
-        return $this->sitemapDate(filemtime($contentFile));
+        return $this->sitemapDate((int) filemtime($contentFile));
     }
 
     /**

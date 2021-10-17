@@ -58,7 +58,7 @@ class View
         extract($this->data);
         ob_start();
         include $this->template;
-        return ob_get_clean();
+        return (string) ob_get_clean();
     }
 
     /**
@@ -69,7 +69,7 @@ class View
     {
         global $plugin_tx;
 
-        return isset($plugin_tx['sitemapper'][$key]) ? XH_hsc($plugin_tx['sitemapper'][$key]) : null;
+        return XH_hsc($plugin_tx['sitemapper'][$key]);
     }
 
     /**
