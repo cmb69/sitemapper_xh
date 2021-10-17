@@ -51,12 +51,14 @@ class PageDataController
 
         $action = "$sn?$su";
         $helpIcon = $pth['folder']['plugins'] . 'sitemapper/images/help.png';
-        $changefreqOptions = $this->model->changefreqs;
-        array_unshift($changefreqOptions, '');
-        $changefreqOptions = array_flip($changefreqOptions);
-        foreach (array_keys($changefreqOptions) as $opt) {
-            $changefreqOptions[$opt]
-                = $this->pageData['sitemapper_changefreq'] == $opt;
+        $changefreqs = $this->model->changefreqs;
+        array_unshift($changefreqs, '');
+        $changefreqOptions = [];
+        foreach ($changefreqs as $changefreq) {
+            $changefreqOptions[] = (object) [
+                "name" => $changefreq,
+                "selected" => $this->pageData['sitemapper_changefreq'] == $changefreq ? " selected" : "",
+            ];
         }
         $priority = $this->pageData['sitemapper_priority'];
         $bag = compact('action', 'helpIcon', 'changefreqOptions', 'priority');

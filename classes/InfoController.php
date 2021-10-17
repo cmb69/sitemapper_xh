@@ -21,6 +21,8 @@
 
 namespace Sitemapper;
 
+use stdClass;
+
 class InfoController
 {
     /** @var Model */
@@ -48,30 +50,30 @@ class InfoController
     }
 
     /**
-     * @return array<int,array>
+     * @return array<int,stdClass>
      */
     private function sitemaps()
     {
         global $cf;
 
-        $sitemap = array(
+        $sitemap = (object) [
             'name' => 'index',
             'href' => CMSIMPLE_ROOT . '?sitemapper_index'
-        );
+        ];
         $sitemaps = array($sitemap);
         foreach ($this->model->installedLanguages() as $lang) {
             $subdir = $lang != $cf['language']['default'] ? "$lang/" : '';
-            $sitemap = array(
+            $sitemap = (object) [
                 'name' => $lang,
                 'href' => CMSIMPLE_ROOT . $subdir . '?sitemapper_sitemap'
-            );
+            ];
             $sitemaps[] = $sitemap;
         }
         return $sitemaps;
     }
 
     /**
-     * @return array<string,string>
+     * @return array<int,stdClass>
      */
     private function systemChecks()
     {
@@ -81,17 +83,23 @@ class InfoController
         $phpVersion = '7.0.0';
         $xhVersion = '1.7.0';
         $checks = array();
-        $checks[sprintf($ptx['syscheck_phpversion'], $phpVersion)]
-            = version_compare(PHP_VERSION, $phpVersion) >= 0 ? 'xh_success' : 'xh_fail';
-        $checks[sprintf($ptx['syscheck_xhversion'], $xhVersion)]
-            = version_compare(substr(CMSIMPLE_XH_VERSION, 12), $xhVersion) >= 0 ? 'xh_success' : 'xh_fail';
+        $checks[] = (object) [
+            "label" => sprintf($ptx['syscheck_phpversion'], $phpVersion),
+            "class" => version_compare(PHP_VERSION, $phpVersion) >= 0 ? 'xh_success' : 'xh_fail',
+        ];
+        $checks[] = (object) [
+            "label" => sprintf($ptx['syscheck_xhversion'], $xhVersion),
+            "class" => version_compare(substr(CMSIMPLE_XH_VERSION, 12), $xhVersion) >= 0 ? 'xh_success' : 'xh_fail',
+        ];
         $folders = array();
         foreach (array('config/', 'languages/') as $folder) {
             $folders[] = "{$pth['folder']['plugins']}sitemapper/$folder";
         }
         foreach ($folders as $folder) {
-            $checks[sprintf($ptx['syscheck_writable'], $folder)]
-                = is_writable($folder) ? 'xh_success' : 'xh_warn';
+            $checks[] = (object) [
+                "label" => sprintf($ptx['syscheck_writable'], $folder),
+                "class" => is_writable($folder) ? 'xh_success' : 'xh_warn',
+            ];
         }
         return $checks;
     }

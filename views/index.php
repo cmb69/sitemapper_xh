@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @var array<int,array> $sitemaps
+ * @var array<int,stdClass> $sitemaps
  */
 
 if (!isset($this)) {
@@ -15,8 +15,8 @@ if (!isset($this)) {
               xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <?php foreach ($sitemaps as $sitemap):?>
     <sitemap>
-        <loc><?=$this->esc($sitemap['loc'])?></loc>
-        <lastmod><?=$this->esc($sitemap['time'])?></lastmod>
+        <loc><?=$this->esc($sitemap->loc)?></loc>
+        <lastmod><?=$this->esc($sitemap->time)?></lastmod>
     </sitemap>
 <?php endforeach?>
 </sitemapindex>

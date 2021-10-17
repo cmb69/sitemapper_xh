@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @var array<string,array> $sitemaps
- * @var array<string,string> $checks
+ * @var array<int,stdClass> $sitemaps
+ * @var array<int,stdClass> $checks
  * @var string $version
  */
 
@@ -16,11 +16,11 @@ if (!isset($this)) {
 <ul>
 <?php foreach ($sitemaps as $sitemap):?>
     <li>
-        <a href="<?=$this->esc($sitemap['href'])?>" target="_blank"><?=$this->esc($sitemap['name'])?></a>
+        <a href="<?=$this->esc($sitemap->href)?>" target="_blank"><?=$this->esc($sitemap->name)?></a>
     </li>
 <?php endforeach?>
 </ul>
 <h2><?=$this->text('syscheck_title')?></h2>
-<?php foreach ($checks as $check => $class):?>
-    <p class="<?=$this->esc($class)?>"><?=$this->esc($check)?></p>
+<?php foreach ($checks as $check):?>
+    <p class="<?=$this->esc($check->class)?>"><?=$this->esc($check->label)?></p>
 <?php endforeach?>

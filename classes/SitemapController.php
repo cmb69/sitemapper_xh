@@ -48,10 +48,10 @@ class SitemapController
             if ($lang != $cf['language']['default']) {
                 $base .= $lang . '/';
             }
-            $sitemap = array(
+            $sitemap = (object) [
                 'loc' => $base . '?sitemapper_sitemap',
                 'time' => $this->model->languageLastMod($lang)
-            );
+            ];
             $sitemaps[] = $sitemap;
         }
         $this->respondWithSitemap(
@@ -73,13 +73,13 @@ class SitemapController
             if (!$this->model->isPageExcluded($i)) {
                 $separator = $plugin_cf['sitemapper']['clean_urls'] ? '' : '?';
                 $priority = $this->model->pagePriority($i);
-                $url = array(
+                $url = (object) [
                     'loc' => CMSIMPLE_URL
                         . ($i == $startpage ? '' : ($separator . $u[$i])),
                     'lastmod' => $this->model->pageLastMod($i),
                     'changefreq' => $this->model->pageChangefreq($i),
                     'priority' => $priority
-                );
+                ];
                 $urls[] = $url;
             }
         }

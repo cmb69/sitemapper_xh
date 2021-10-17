@@ -3,7 +3,7 @@
 /**
  * @var string $action
  * @var string $helpIcon
- * @var array<string,bool> $changefreqOptions
+ * @var array<int,stdClass> $changefreqOptions
  * @var string $priority
  */
 
@@ -23,8 +23,8 @@ if (!isset($this)) {
         <label for="sitemapper_changefreq"><span>Changefreq:</span></label>
         <select id="sitemapper_changefreq" name="sitemapper_changefreq"
                 style="display: block">
-<?php foreach ($changefreqOptions as $name => $default):?>
-            <option value="<?=$this->esc($name)?>" <?=$default ? 'selected="selected"' : ''?>><?=$this->esc($name)?></option>
+<?php foreach ($changefreqOptions as $changefreqOption):?>
+            <option value="<?=$this->esc($changefreqOption->name)?>"<?=$changefreqOption->selected?>><?=$this->esc($changefreqOption->name)?></option>
 <?php endforeach?>
         </select>
     </p>
