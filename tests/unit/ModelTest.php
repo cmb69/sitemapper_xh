@@ -58,12 +58,6 @@ class ModelTest extends TestCase
         $publisher->method("isHidden")->willReturnMap([[0, false], [1, true], [2, true], [3, false], [4, true]]);
         $publisher->method("isPublished")->willReturnMap([[0, true], [1, true], [2, true], [3, false], [4, true]]);
         $this->sitemapper = new Model('en', vfsStream::url('test/'), $pageDataRouter, $publisher, true, 'monthly', '0.5');
-        uopz_set_return('XH_secondLanguages', ['de']);
-    }
-
-    protected function tearDown(): void
-    {
-        uopz_unset_return('XH_secondLanguages');
     }
 
     protected function setUpVirtualFileSystem()
