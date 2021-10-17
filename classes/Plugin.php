@@ -52,13 +52,18 @@ class Plugin
      */
     private static function dispatch()
     {
-        global $admin, $o, $f, $sl, $cf;
+        global $admin, $o, $f, $sl, $cf, $pth;
 
         if (defined("XH_ADM") && XH_ADM && XH_wantsPluginAdministration('sitemapper')) {
             $o .= print_plugin_admin('off');
             switch ($admin) {
                 case '':
-                    $controller = new InfoController(self::model(), self::view());
+                    $controller = new InfoController(
+                        $cf['language']['default'],
+                        "{$pth['folder']['plugins']}sitemapper",
+                        self::model(),
+                        self::view()
+                    );
                     $o .= $controller->execute();
                     break;
                 default:

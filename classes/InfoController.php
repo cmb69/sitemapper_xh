@@ -25,14 +25,26 @@ use stdClass;
 
 class InfoController
 {
+    /** @var string */
+    private $defaultLanguage;
+
+    /** @var string */
+    private $pluginDir;
+
     /** @var Model */
     private $model;
 
     /** @var View */
     private $view;
 
-    public function __construct(Model $model, View $view)
+    /**
+     * @param string $defaultLanguage
+     * @param string $pluginDir
+     */
+    public function __construct($defaultLanguage, $pluginDir, Model $model, View $view)
     {
+        $this->defaultLanguage = $defaultLanguage;
+        $this->pluginDir = $pluginDir;
         $this->model = $model;
         $this->view = $view;
     }
@@ -54,15 +66,13 @@ class InfoController
      */
     private function sitemaps()
     {
-        global $cf;
-
         $sitemap = (object) [
             'name' => 'index',
             'href' => CMSIMPLE_ROOT . '?sitemapper_index'
         ];
         $sitemaps = array($sitemap);
         foreach ($this->model->installedLanguages() as $lang) {
-            $subdir = $lang != $cf['language']['default'] ? "$lang/" : '';
+            $subdir = $lang != $this->defaultLanguage ? "$lang/" : '';
             $sitemap = (object) [
                 'name' => $lang,
                 'href' => CMSIMPLE_ROOT . $subdir . '?sitemapper_sitemap'
@@ -77,8 +87,6 @@ class InfoController
      */
     private function systemChecks()
     {
-        global $pth;
-
         $phpVersion = '7.0.0';
         $xhVersion = '1.7.0';
         $checks = array();
@@ -92,7 +100,7 @@ class InfoController
         ];
         $folders = array();
         foreach (array('config/', 'languages/') as $folder) {
-            $folders[] = "{$pth['folder']['plugins']}sitemapper/$folder";
+            $folders[] = "$this->pluginDir/$folder";
         }
         foreach ($folders as $folder) {
             $checks[] = (object) [
