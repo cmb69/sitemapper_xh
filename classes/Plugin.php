@@ -110,7 +110,7 @@ class Plugin
         return new Model(
             $cf['language']['default'],
             $pth['folder']['base'],
-            $pd_router->find_all(),
+            $pd_router,
             $xh_publisher,
             $plugin_cf['sitemapper']['ignore_hidden_pages'],
             $plugin_cf['sitemapper']['changefreq'],

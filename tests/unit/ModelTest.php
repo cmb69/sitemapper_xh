@@ -26,6 +26,7 @@ use org\bovigo\vfs\vfsStreamWrapper;
 use org\bovigo\vfs\vfsStreamDirectory;
 use org\bovigo\vfs\vfsStream;
 
+use XH\PageDataRouter;
 use XH\Publisher;
 
 class ModelTest extends TestCase
@@ -37,25 +38,26 @@ class ModelTest extends TestCase
 
     public function setUp(): void
     {
-        $pagedata = array(
-            array('last_edit' => ''),
-            array(
+        $this->setUpVirtualFileSystem();
+        $pageDataRouter = $this->createStub(PageDataRouter::class);
+        $pageDataRouter->method("find_page")->willReturnMap([
+            [0, ['last_edit' => '']],
+            [1, [
                 'last_edit' => '1366639458',
                 'linked_to_menu' => '0',
                 'sitemapper_changefreq' => 'daily',
                 'sitemapper_priority' => '0.3'
-            ),
-            array(
+            ]],
+            [2, [
                 'sitemapper_priority' => '1.0'
-            ),
-            array('published' => '0'),
-            array()
-        );
-        $this->setUpVirtualFileSystem();
+            ]],
+            [3, ['published' => '0']],
+            [4, []],
+        ]);
         $publisher = $this->createStub(Publisher::class);
         $publisher->method("isHidden")->willReturnMap([[0, false], [1, true], [2, true], [3, false], [4, true]]);
         $publisher->method("isPublished")->willReturnMap([[0, true], [1, true], [2, true], [3, false], [4, true]]);
-        $this->sitemapper = new Model('en', vfsStream::url('test/'), $pagedata, $publisher, true, 'monthly', '0.5');
+        $this->sitemapper = new Model('en', vfsStream::url('test/'), $pageDataRouter, $publisher, true, 'monthly', '0.5');
         uopz_set_return('XH_secondLanguages', ['de']);
     }
 

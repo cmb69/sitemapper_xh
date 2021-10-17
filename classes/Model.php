@@ -21,6 +21,7 @@
 
 namespace Sitemapper;
 
+use XH\PageDataRouter;
 use XH\Publisher;
 
 class Model
@@ -43,9 +44,9 @@ class Model
     private $baseFolder;
 
     /**
-     * @var array<int,array>
+     * @var PageDataRouter
      */
-    private $pagedata;
+    private $pageDataRouter;
 
     /** @var Publisher */
     private $publisher;
@@ -68,7 +69,6 @@ class Model
     /**
      * @param string $defaultLang
      * @param string $baseFolder
-     * @param array<int,array> $pagedata
      * @param bool $excludeHidden
      * @param string $defaultChangefreq
      * @param string $defaultPriority
@@ -76,7 +76,7 @@ class Model
     public function __construct(
         $defaultLang,
         $baseFolder,
-        array $pagedata,
+        PageDataRouter $pageDataRouter,
         Publisher $publisher,
         $excludeHidden,
         $defaultChangefreq,
@@ -84,7 +84,7 @@ class Model
     ) {
         $this->defaultLang = $defaultLang;
         $this->baseFolder = $baseFolder;
-        $this->pagedata = $pagedata;
+        $this->pageDataRouter = $pageDataRouter;
         $this->publisher = $publisher;
         $this->excludeHidden = $excludeHidden;
         $this->defaultChangefreq = $defaultChangefreq;
@@ -147,7 +147,7 @@ class Model
      */
     public function pageLastMod($index)
     {
-        $lastEdit = $this->pagedata[$index]['last_edit'];
+        $lastEdit = $this->pageDataRouter->find_page($index)['last_edit'];
         return !empty($lastEdit) ? $this->sitemapDate($lastEdit) : false;
     }
 
@@ -157,7 +157,7 @@ class Model
      */
     public function pageChangefreq($index)
     {
-        $pagedata = $this->pagedata[$index];
+        $pagedata = $this->pageDataRouter->find_page($index);
         return !empty($pagedata['sitemapper_changefreq'])
             ? $pagedata['sitemapper_changefreq']
             : $this->defaultChangefreq;
@@ -169,7 +169,7 @@ class Model
      */
     public function pagePriority($index)
     {
-        $pagedata = $this->pagedata[$index];
+        $pagedata = $this->pageDataRouter->find_page($index);
         return isset($pagedata['sitemapper_priority'])
             && $pagedata['sitemapper_priority'] != ''
             ? $pagedata['sitemapper_priority']
