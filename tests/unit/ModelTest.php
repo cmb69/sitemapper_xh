@@ -26,6 +26,8 @@ use org\bovigo\vfs\vfsStreamWrapper;
 use org\bovigo\vfs\vfsStreamDirectory;
 use org\bovigo\vfs\vfsStream;
 
+use XH\Publisher;
+
 class ModelTest extends TestCase
 {
     /**
@@ -35,16 +37,6 @@ class ModelTest extends TestCase
 
     public function setUp(): void
     {
-        global $c;
-
-        $content = array(
-            'Lorem ipsum',
-            'Lorem ipsum',
-            'Lorem #cmsimple hide# ipsum',
-            'Lorem ipsum',
-            '#cmsimple hide#'
-        );
-        $c = $content;
         $pagedata = array(
             array('last_edit' => ''),
             array(
@@ -60,19 +52,15 @@ class ModelTest extends TestCase
             array()
         );
         $this->setUpVirtualFileSystem();
-        $this->sitemapper = new Model('en', vfsStream::url('test/'), $content, $pagedata, true, 'monthly', '0.5');
-        uopz_set_return('hide', function ($index) {
-            global $c;
-        
-        
-            return preg_match('/\\#CMSimple hide\\#/is', $c[$index]);
-        }, true);
+        $publisher = $this->createStub(Publisher::class);
+        $publisher->method("isHidden")->willReturnMap([[0, false], [1, true], [2, true], [3, false], [4, true]]);
+        $publisher->method("isPublished")->willReturnMap([[0, true], [1, true], [2, true], [3, false], [4, true]]);
+        $this->sitemapper = new Model('en', vfsStream::url('test/'), $pagedata, $publisher, true, 'monthly', '0.5');
         uopz_set_return('XH_secondLanguages', ['de']);
     }
 
     protected function tearDown(): void
     {
-        uopz_unset_return('hide');
         uopz_unset_return('XH_secondLanguages');
     }
 

@@ -21,6 +21,8 @@
 
 namespace Sitemapper;
 
+use XH\Publisher;
+
 class Model
 {
     /**
@@ -41,14 +43,12 @@ class Model
     private $baseFolder;
 
     /**
-     * @var array<int,string>
-     */
-    private $content;
-
-    /**
      * @var array<int,array>
      */
     private $pagedata;
+
+    /** @var Publisher */
+    private $publisher;
 
     /**
      * @var bool
@@ -68,7 +68,6 @@ class Model
     /**
      * @param string $defaultLang
      * @param string $baseFolder
-     * @param array<int,string> $content
      * @param array<int,array> $pagedata
      * @param bool $excludeHidden
      * @param string $defaultChangefreq
@@ -77,16 +76,16 @@ class Model
     public function __construct(
         $defaultLang,
         $baseFolder,
-        array $content,
         array $pagedata,
+        Publisher $publisher,
         $excludeHidden,
         $defaultChangefreq,
         $defaultPriority
     ) {
         $this->defaultLang = $defaultLang;
         $this->baseFolder = $baseFolder;
-        $this->content = $content;
         $this->pagedata = $pagedata;
+        $this->publisher = $publisher;
         $this->excludeHidden = $excludeHidden;
         $this->defaultChangefreq = $defaultChangefreq;
         $this->defaultPriority = $defaultPriority;
@@ -120,9 +119,7 @@ class Model
      */
     private function isPageHidden($index)
     {
-        $pagedata = $this->pagedata[$index];
-        return (isset($pagedata['linked_to_menu']) && $pagedata['linked_to_menu'] == '0')
-            || hide($index);
+        return $this->publisher->isHidden($index);
     }
 
     /**
@@ -131,9 +128,7 @@ class Model
      */
     private function isPagePublished($index)
     {
-        $pagedata = $this->pagedata[$index];
-        return (!isset($pagedata['published']) || $pagedata['published'] != '0')
-            && $this->content[$index] != '#CMSimple hide#';
+        return $this->publisher->isPublished($index);
     }
 
     /**

@@ -8,5 +8,6 @@ parameters:
   bootstrapFiles:
     - phpstan.bootstrap.php
   scanFiles:
+    - ../../cmsimple/classes/Publisher.php
     - ../../cmsimple/adminfuncs.php
     - ../../cmsimple/functions.php
