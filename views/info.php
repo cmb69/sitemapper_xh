@@ -3,7 +3,6 @@
 /**
  * @var array<string,array> $sitemaps
  * @var array<string,string> $checks
- * @var array<string,string> $images
  * @var string $version
  */
 
@@ -22,12 +21,6 @@ if (!isset($this)) {
 <?php endforeach?>
 </ul>
 <h2><?=$this->text('syscheck_title')?></h2>
-<ul style="list-style: none">
-<?php foreach ($checks as $check => $state):?>
-    <li>
-        <img src="<?=$images[$state]?>" alt="<?=$images[$state]?>"
-            style="margin: 0; height: 1em; padding-right: 1em">
-        <span><?=$check?></span>
-    </li>
+<?php foreach ($checks as $check => $class):?>
+    <p class="<?=$class?>"><?=$check?></p>
 <?php endforeach?>
-</ul>

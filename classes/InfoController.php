@@ -43,12 +43,9 @@ class InfoController
         global $pth;
 
         $sitemaps = $this->sitemaps();
-        foreach (array('ok', 'warn', 'fail') as $state) {
-            $images[$state] = "{$pth['folder']['plugins']}sitemapper/images/$state.png";
-        }
         $checks = $this->systemChecks();
         $version = Plugin::VERSION;
-        $bag = compact('sitemaps', 'images', 'checks', 'version');
+        $bag = compact('sitemaps', 'checks', 'version');
         return $this->view->render('info', $bag);
     }
 
@@ -87,16 +84,16 @@ class InfoController
         $xhVersion = '1.7.0';
         $checks = array();
         $checks[sprintf($ptx['syscheck_phpversion'], $phpVersion)]
-            = version_compare(PHP_VERSION, $phpVersion) >= 0 ? 'ok' : 'fail';
+            = version_compare(PHP_VERSION, $phpVersion) >= 0 ? 'xh_success' : 'xh_fail';
         $checks[sprintf($ptx['syscheck_xhversion'], $xhVersion)]
-            = version_compare(substr(CMSIMPLE_XH_VERSION, 12), $xhVersion) >= 0 ? 'ok' : 'fail';
+            = version_compare(substr(CMSIMPLE_XH_VERSION, 12), $xhVersion) >= 0 ? 'xh_success' : 'xh_fail';
         $folders = array();
         foreach (array('config/', 'languages/') as $folder) {
             $folders[] = "{$pth['folder']['plugins']}sitemapper/$folder";
         }
         foreach ($folders as $folder) {
             $checks[sprintf($ptx['syscheck_writable'], $folder)]
-                = is_writable($folder) ? 'ok' : 'warn';
+                = is_writable($folder) ? 'xh_success' : 'xh_warn';
         }
         return $checks;
     }
