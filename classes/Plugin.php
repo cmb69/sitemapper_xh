@@ -82,7 +82,15 @@ class Plugin
      */
     public static function pageDataTab(array $pageData)
     {
-        $controller = new PageDataController($pageData, self::model(), self::view());
+        global $sn, $su, $pth;
+
+        $controller = new PageDataController(
+            "$sn?$su",
+            "{$pth['folder']['plugins']}sitemapper/images",
+            $pageData,
+            self::model(),
+            self::view()
+        );
         return $controller->execute();
     }
 

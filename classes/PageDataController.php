@@ -23,6 +23,12 @@ namespace Sitemapper;
 
 class PageDataController
 {
+    /** @var string */
+    private $url;
+
+    /** @var string */
+    private $imageDir;
+
     /** @var array<string,string> */
     private $pageData;
 
@@ -33,10 +39,14 @@ class PageDataController
     private $view;
 
     /**
+     * @param string $url
+     * @param string $imageDir
      * @param array<string,string> $pageData
      */
-    public function __construct(array $pageData, Model $model, View $view)
+    public function __construct($url, $imageDir, array $pageData, Model $model, View $view)
     {
+        $this->url = $url;
+        $this->imageDir = $imageDir;
         $this->pageData = $pageData;
         $this->model = $model;
         $this->view = $view;
@@ -47,10 +57,8 @@ class PageDataController
      */
     public function execute()
     {
-        global $sn, $su, $pth;
-
-        $action = "$sn?$su";
-        $helpIcon = $pth['folder']['plugins'] . 'sitemapper/images/help.png';
+        $action = $this->url;
+        $helpIcon = "$this->imageDir/help.png";
         $changefreqs = $this->model->changefreqs;
         array_unshift($changefreqs, '');
         $changefreqOptions = [];
