@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright 2021 Christoph M. Becker
+ * Copyright 2025 Christoph M. Becker
  *
  * This file is part of Sitemapper_XH.
  *
@@ -19,13 +19,26 @@
  * along with Sitemapper_XH.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-require_once './vendor/autoload.php';
-require_once '../../cmsimple/classes/PageDataRouter.php';
-require_once '../../cmsimple/classes/Publisher.php';
-require_once '../../cmsimple/functions.php';
-require_once './classes/HtmlString.php';
-require_once './classes/InfoController.php';
-require_once './classes/Model.php';
-require_once './classes/PageDataController.php';
-require_once './classes/Plugin.php';
-require_once './classes/View.php';
+namespace Sitemapper;
+
+use ApprovalTests\Approvals;
+use PHPUnit\Framework\TestCase;
+
+class InfoControllerTest extends TestCase
+{
+    public function testExecute(): void
+    {
+        $model = $this->createStub(Model::class);
+        $model->method("installedLanguages")->willReturn(["en", "de"]);
+        $view = new View("./views/", XH_includeVar("./languages/en.php", "plugin_tx")["sitemapper"]);
+        $sut = new InfoController(
+            "/",
+            "en",
+            "./plugins/sitemapper",
+            "CMSimple_XH 1.8",
+            $model,
+            $view
+        );
+        Approvals::verifyHtml($sut->execute());
+    }
+}

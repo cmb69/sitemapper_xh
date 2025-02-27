@@ -26,10 +26,16 @@ use stdClass;
 class InfoController
 {
     /** @var string */
+    private $root;
+
+    /** @var string */
     private $defaultLanguage;
 
     /** @var string */
     private $pluginDir;
+
+    /** @var string */
+    private $xhVersion;
 
     /** @var Model */
     private $model;
@@ -41,10 +47,18 @@ class InfoController
      * @param string $defaultLanguage
      * @param string $pluginDir
      */
-    public function __construct($defaultLanguage, $pluginDir, Model $model, View $view)
-    {
+    public function __construct(
+        string $root,
+        $defaultLanguage,
+        $pluginDir,
+        string $xhVersion,
+        Model $model,
+        View $view
+    ) {
+        $this->root = $root;
         $this->defaultLanguage = $defaultLanguage;
         $this->pluginDir = $pluginDir;
+        $this->xhVersion = $xhVersion;
         $this->model = $model;
         $this->view = $view;
     }
@@ -68,14 +82,14 @@ class InfoController
     {
         $sitemap = (object) [
             'name' => 'index',
-            'href' => CMSIMPLE_ROOT . '?sitemapper_index'
+            'href' => $this->root . '?sitemapper_index'
         ];
         $sitemaps = array($sitemap);
         foreach ($this->model->installedLanguages() as $lang) {
             $subdir = $lang != $this->defaultLanguage ? "$lang/" : '';
             $sitemap = (object) [
                 'name' => $lang,
-                'href' => CMSIMPLE_ROOT . $subdir . '?sitemapper_sitemap'
+                'href' => $this->root . $subdir . '?sitemapper_sitemap'
             ];
             $sitemaps[] = $sitemap;
         }
@@ -96,8 +110,7 @@ class InfoController
         ];
         $checks[] = (object) [
             "label" => new HtmlString($this->view->text('syscheck_xhversion', $xhVersion)),
-            // @phpstan-ignore greaterOrEqual.alwaysTrue,ternary.elseUnreachable
-            "class" => version_compare(substr(CMSIMPLE_XH_VERSION, 12), $xhVersion) >= 0 ? 'xh_success' : 'xh_fail',
+            "class" => version_compare(substr($this->xhVersion, 12), $xhVersion) >= 0 ? 'xh_success' : 'xh_fail',
         ];
         $folders = array();
         foreach (array('config/', 'languages/') as $folder) {

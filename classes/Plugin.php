@@ -59,8 +59,10 @@ class Plugin
             switch ($admin) {
                 case '':
                     $controller = new InfoController(
+                        CMSIMPLE_ROOT,
                         $cf['language']['default'],
                         "{$pth['folder']['plugins']}sitemapper",
+                        CMSIMPLE_XH_VERSION,
                         self::model(),
                         self::view()
                     );
