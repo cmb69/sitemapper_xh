@@ -71,10 +71,14 @@
         <delete file="export.zip"/>
         <move todir="dist">
             <fileset dir="export">
+                <exclude name=".github/**"/>
+                <exclude name=".phive/**"/>
                 <exclude name="build.xml"/>
                 <exclude name="composer.*"/>
                 <exclude name="coverage.xml"/>
                 <exclude name="help/template.htm"/>
+                <exclude name="phpstan.bootstrap.php"/>
+                <exclude name="phpstan.neon"/>
                 <exclude name="README*.md"/>
                 <exclude name="tests/**"/>
             </fileset>
