@@ -55,7 +55,7 @@ class SitemapController
             $sitemaps[] = $sitemap;
         }
         $this->respondWithSitemap(
-            '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL
+            '<?xml version="1.0" encoding="UTF-8"?>' . "\n"
             . $this->view->render('index', array('sitemaps' => $sitemaps))
         );
     }
@@ -84,7 +84,7 @@ class SitemapController
             }
         }
         $this->respondWithSitemap(
-            '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL
+            '<?xml version="1.0" encoding="UTF-8"?>' . "\n"
             . $this->view->render('sitemap', array('urls' => $urls))
         );
     }
