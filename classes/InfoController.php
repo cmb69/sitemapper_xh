@@ -96,6 +96,7 @@ class InfoController
         ];
         $checks[] = (object) [
             "label" => new HtmlString($this->view->text('syscheck_xhversion', $xhVersion)),
+            // @phpstan-ignore greaterOrEqual.alwaysTrue,ternary.elseUnreachable
             "class" => version_compare(substr(CMSIMPLE_XH_VERSION, 12), $xhVersion) >= 0 ? 'xh_success' : 'xh_fail',
         ];
         $folders = array();
