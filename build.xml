@@ -30,6 +30,8 @@
         </exec>
     </target>
 
+    <target name="check" description="runs all checks" depends="sniff,stan,unit-tests"/>
+
     <target name="coverage" description="generates coverage report">
         <exec executable="phpunit" passthru="true" checkreturn="true">
             <arg line="--configuration coverage.xml"/>
