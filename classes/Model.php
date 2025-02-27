@@ -38,6 +38,9 @@ class Model
      */
     private $defaultLang;
 
+    /** @var array<string> */
+    private $secondLanguages;
+
     /**
      * @var string
      */
@@ -68,6 +71,7 @@ class Model
 
     /**
      * @param string $defaultLang
+     * @param array<string> $secondLanguages
      * @param string $baseFolder
      * @param bool $excludeHidden
      * @param string $defaultChangefreq
@@ -75,6 +79,7 @@ class Model
      */
     public function __construct(
         $defaultLang,
+        array $secondLanguages,
         $baseFolder,
         PageDataRouter $pageDataRouter,
         Publisher $publisher,
@@ -83,6 +88,7 @@ class Model
         $defaultPriority
     ) {
         $this->defaultLang = $defaultLang;
+        $this->secondLanguages = $secondLanguages;
         $this->baseFolder = $baseFolder;
         $this->pageDataRouter = $pageDataRouter;
         $this->publisher = $publisher;
@@ -192,7 +198,7 @@ class Model
      */
     public function installedLanguages()
     {
-        $res = XH_secondLanguages();
+        $res = $this->secondLanguages;
         array_unshift($res, $this->defaultLang);
         return $res;
     }

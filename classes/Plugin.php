@@ -122,6 +122,7 @@ class Plugin
 
         return new Model(
             $cf['language']['default'],
+            XH_secondLanguages(),
             $pth['folder']['base'],
             $pd_router,
             $xh_publisher,

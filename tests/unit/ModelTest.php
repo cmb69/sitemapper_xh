@@ -57,7 +57,7 @@ class ModelTest extends TestCase
         $publisher = $this->createStub(Publisher::class);
         $publisher->method("isHidden")->willReturnMap([[0, false], [1, true], [2, true], [3, false], [4, true]]);
         $publisher->method("isPublished")->willReturnMap([[0, true], [1, true], [2, true], [3, false], [4, true]]);
-        $this->sitemapper = new Model('en', vfsStream::url('test/'), $pageDataRouter, $publisher, true, 'monthly', '0.5');
+        $this->sitemapper = new Model('en', ['de'], vfsStream::url('test/'), $pageDataRouter, $publisher, true, 'monthly', '0.5');
     }
 
     protected function setUpVirtualFileSystem()
