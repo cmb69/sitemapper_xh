@@ -103,7 +103,21 @@ class Plugin
      */
     public static function dispatchAfterPluginLoading()
     {
-        global $f, $cf, $xh_publisher, $plugin_cf;
+        global $f;
+
+        switch ($f) {
+            case 'sitemapper_index':
+                self::makeSitemapController()->sitemapIndex();
+                break;
+            case 'sitemapper_sitemap':
+                self::makeSitemapController()->languageSitemap();
+                break;
+        }
+    }
+
+    private static function makeSitemapController(): SitemapController
+    {
+        global $cf, $xh_publisher, $plugin_cf;
 
         $respond = function ($body) {
             header('HTTP/1.0 200 OK');
@@ -111,34 +125,16 @@ class Plugin
             echo $body;
             exit;
         };
-        switch ($f) {
-            case 'sitemapper_index':
-                $controller = new SitemapController(
-                    CMSIMPLE_URL,
-                    $cf["language"]["default"],
-                    $plugin_cf["sitemapper"],
-                    self::model(),
-                    new Pages(),
-                    $xh_publisher,
-                    self::view(),
-                    $respond
-                );
-                $controller->sitemapIndex();
-                break;
-            case 'sitemapper_sitemap':
-                $controller = new SitemapController(
-                    CMSIMPLE_URL,
-                    $cf["language"]["default"],
-                    $plugin_cf["sitemapper"],
-                    self::model(),
-                    new Pages(),
-                    $xh_publisher,
-                    self::view(),
-                    $respond
-                );
-                $controller->languageSitemap();
-                break;
-        }
+        return new SitemapController(
+            CMSIMPLE_URL,
+            $cf["language"]["default"],
+            $plugin_cf["sitemapper"],
+            self::model(),
+            new Pages(),
+            $xh_publisher,
+            self::view(),
+            $respond
+        );
     }
 
     /**
