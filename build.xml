@@ -21,16 +21,6 @@
         <exec executable="phpstan" passthru="true" checkreturn="true"/>
     </target>
 
-    <target name="mess" description="detects code flaws">
-        <exec executable="phpmd" passthru="true" checkreturn="true">
-            <arg line="index.php,classes,tests/unit ansi codesize,unusedcode --ignore-violations-on-exit"/>
-        </exec>
-    </target>
-
-    <target name="compat" description="checks PHP requirements">
-        <exec command="phpcompatinfo analyser:run classes" passthru="true" checkreturn="true"/>
-    </target>
-
     <target name="unit-tests" description="runs all unit tests">
         <exec executable="phpunit" passthru="true" checkreturn="true">
             <arg value="--bootstrap"/>
@@ -92,7 +82,6 @@
                 <exclude name="coverage.xml"/>
                 <exclude name="help/template.htm"/>
                 <exclude name="pax_global_header"/>
-                <exclude name="phpcompatinfo.json"/>
                 <exclude name="README*.md"/>
                 <exclude name="tests/**"/>
             </fileset>
