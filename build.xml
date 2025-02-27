@@ -81,7 +81,6 @@
                 <exclude name="composer.*"/>
                 <exclude name="coverage.xml"/>
                 <exclude name="help/template.htm"/>
-                <exclude name="pax_global_header"/>
                 <exclude name="README*.md"/>
                 <exclude name="tests/**"/>
             </fileset>
