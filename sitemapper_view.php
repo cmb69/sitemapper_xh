@@ -21,11 +21,8 @@
 
 use Sitemapper\Plugin;
 
-/**
- * @param array<string,string> $pageData
- * @return string
- */
-function sitemapper_view(array $pageData)
+/** @param array<string,string> $pageData */
+function sitemapper_view(array $pageData): string
 {
-    return Plugin::pageDataTab($pageData);
+    return Plugin::makePageDataController($pageData)->execute();
 }

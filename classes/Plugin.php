@@ -39,22 +39,18 @@ class Plugin
         );
     }
 
-    /**
-     * @param array<string,string> $pageData
-     * @return string
-     */
-    public static function pageDataTab(array $pageData)
+    /** @param array<string,string> $pageData */
+    public static function makePageDataController(array $pageData): PageDataController
     {
         global $sn, $su, $pth;
 
-        $controller = new PageDataController(
+        return new PageDataController(
             "$sn?$su",
             "{$pth['folder']['plugins']}sitemapper/images",
             $pageData,
             self::model(),
             self::view()
         );
-        return $controller->execute();
     }
 
     /**
