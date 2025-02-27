@@ -19,4 +19,24 @@
  * along with Sitemapper_XH.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-\Sitemapper\Plugin::run();
+use Sitemapper\Plugin;
+use XH\PageDataRouter;
+
+const SITEMAPPER_VERSION = "3.0-dev";
+
+/**
+ * @var PageDataRouter $pd_router
+ * @var array<string,array<string,string>> $cf
+ * @var string $sl
+ */
+
+$pd_router->add_interest('sitemapper_changefreq');
+$pd_router->add_interest('sitemapper_priority');
+
+if (isset($_GET['sitemapper_index']) && $sl == $cf['language']['default']) {
+    $f = 'sitemapper_index';
+} elseif (isset($_GET['sitemapper_sitemap'])) {
+    $f = 'sitemapper_sitemap';
+}
+
+XH_afterPluginLoading([Plugin::class, 'dispatchAfterPluginLoading']);

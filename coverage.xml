@@ -3,6 +3,9 @@
   <coverage includeUncoveredFiles="true">
     <include>
       <directory suffix=".php">classes</directory>
+      <file>admin.php</file>
+      <file>index.php</file>
+      <file>sitemapper_view.php</file>
     </include>
     <report>
       <html outputDirectory="./tests/coverage" lowUpperBound="35" highLowerBound="70"/>

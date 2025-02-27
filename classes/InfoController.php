@@ -70,7 +70,7 @@ class InfoController
     {
         $sitemaps = $this->sitemaps();
         $checks = $this->systemChecks();
-        $version = Plugin::VERSION;
+        $version = SITEMAPPER_VERSION;
         $bag = compact('sitemaps', 'checks', 'version');
         return $this->view->render('info', $bag);
     }

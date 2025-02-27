@@ -31,3 +31,5 @@ require_once './classes/PageDataController.php';
 require_once './classes/Plugin.php';
 require_once './classes/SitemapController.php';
 require_once './classes/View.php';
+
+const SITEMAPPER_VERSION = "3.0-dev";

@@ -25,59 +25,18 @@ use XH\Pages;
 
 class Plugin
 {
-    const VERSION = '3.0-dev';
-
-    /**
-     * @return void
-     */
-    public static function run()
+    public static function makeInfoController(): InfoController
     {
-        global $pth, $plugin_tx, $pd_router;
+        global $cf, $pth;
 
-        $pd_router->add_interest('sitemapper_changefreq');
-        $pd_router->add_interest('sitemapper_priority');
-        XH_afterPluginLoading(array(self::class, 'dispatchAfterPluginLoading'));
-        if (defined("XH_ADM") && XH_ADM) {
-            if (function_exists('XH_registerStandardPluginMenuItems')) {
-                XH_registerStandardPluginMenuItems(false);
-            }
-            $pd_router->add_tab(
-                $plugin_tx['sitemapper']['tab'],
-                $pth['folder']['plugins'] . 'sitemapper/sitemapper_view.php'
-            );
-        }
-        self::dispatch();
-    }
-
-    /**
-     * @return void
-     */
-    private static function dispatch()
-    {
-        global $admin, $o, $f, $sl, $cf, $pth;
-
-        if (defined("XH_ADM") && XH_ADM && XH_wantsPluginAdministration('sitemapper')) {
-            $o .= print_plugin_admin('off');
-            switch ($admin) {
-                case '':
-                    $controller = new InfoController(
-                        CMSIMPLE_ROOT,
-                        $cf['language']['default'],
-                        "{$pth['folder']['plugins']}sitemapper",
-                        CMSIMPLE_XH_VERSION,
-                        self::model(),
-                        self::view()
-                    );
-                    $o .= $controller->execute();
-                    break;
-                default:
-                    $o .= plugin_admin_common();
-            }
-        } elseif (isset($_GET['sitemapper_index']) && $sl == $cf['language']['default']) {
-            $f = 'sitemapper_index';
-        } elseif (isset($_GET['sitemapper_sitemap'])) {
-            $f = 'sitemapper_sitemap';
-        }
+        return new InfoController(
+            CMSIMPLE_ROOT,
+            $cf['language']['default'],
+            "{$pth['folder']['plugins']}sitemapper",
+            CMSIMPLE_XH_VERSION,
+            self::model(),
+            self::view()
+        );
     }
 
     /**

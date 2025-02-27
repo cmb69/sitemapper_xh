@@ -13,7 +13,9 @@
         <exec executable="phpcs" passthru="true" checkreturn="true">
             <arg value="--standard=PSR12"/>
             <arg line="--runtime-set ignore_warnings_on_exit true"/>
+            <arg file="admin.php"/>
             <arg file="index.php"/>
+            <arg file="sitemapper_view.php"/>
             <arg file="classes"/>
         </exec>
     </target>
