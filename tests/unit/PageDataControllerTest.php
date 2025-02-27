@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright 2021 Christoph M. Becker
+ * Copyright 2025 Christoph M. Becker
  *
  * This file is part of Sitemapper_XH.
  *
@@ -19,10 +19,27 @@
  * along with Sitemapper_XH.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-require_once './vendor/autoload.php';
-require_once '../../cmsimple/classes/PageDataRouter.php';
-require_once '../../cmsimple/classes/Publisher.php';
-require_once '../../cmsimple/functions.php';
-require_once './classes/Model.php';
-require_once './classes/PageDataController.php';
-require_once './classes/View.php';
+namespace Sitemapper;
+
+use ApprovalTests\Approvals;
+use PHPUnit\Framework\TestCase;
+
+class PageDataControllerTest extends TestCase
+{
+    public function testExecute(): void
+    {
+        $model = $this->createStub(Model::class);
+        $view = new View("./views/", XH_includeVar("./languages/en.php", "plugin_tx")["sitemapper"]);
+        $sut = new PageDataController(
+            "/?Start",
+            "./plugins/sitemapper/images",
+            [
+                "sitemapper_changefreq" => "monthly",
+                "sitemapper_priority" => "0.5",
+            ],
+            $model,
+            $view
+        );
+        Approvals::verifyHtml($sut->execute());
+    }
+}

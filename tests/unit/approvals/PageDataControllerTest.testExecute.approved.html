@@ -1,0 +1,35 @@
+<!-- Sitemapper: page data tab -->
+<form id="sitemapper" action="/?Start" method="post">
+    <p><strong>Sitemap</strong></p>
+    <p>
+        <a class="pl_tooltip" onclick="return false">
+            <img src="./plugins/sitemapper/images/help.png" alt="help">
+            <span>How frequently the page is likely to change. This value provides general information to search engines and may not correlate exactly to how often they crawl the page.</span>
+        </a>
+        <label for="sitemapper_changefreq"><span>Changefreq:</span></label>
+        <select id="sitemapper_changefreq" name="sitemapper_changefreq"
+                style="display: block">
+            <option value=""></option>
+            <option value="always">always</option>
+            <option value="hourly">hourly</option>
+            <option value="daily">daily</option>
+            <option value="weekly">weekly</option>
+            <option value="monthly" selected>monthly</option>
+            <option value="yearly">yearly</option>
+            <option value="never">never</option>
+        </select>
+    </p>
+    <p>
+        <a class="pl_tooltip" onclick="return false">
+            <img src="./plugins/sitemapper/images/help.png" alt="help">
+            <span>The priority of this URL relative to other URLs on your site. Valid values range from 0.0 to 1.0.</span>
+        </a>
+        <label for="sitemapper_priority"><span>Priority:</span></label>
+        <input type="text" id="sitemapper_priority" name="sitemapper_priority"
+               style="display: block"
+               value="0.5">
+    </p>
+    <p style="text-align: right">
+        <input type="submit" class="submit" name="save_page_data">
+    </p>
+</form>
