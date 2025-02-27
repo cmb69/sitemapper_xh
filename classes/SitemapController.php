@@ -21,18 +21,54 @@
 
 namespace Sitemapper;
 
+use XH\Pages;
+use XH\Publisher;
+
 class SitemapController
 {
+    /** @var string */
+    private $url;
+
+    /** @var string */
+    private $defaultLanguage;
+
+    /** @var array<string,string> */
+    private $conf;
+
     /** @var Model */
     private $model;
+
+    /** @var Pages */
+    private $pages;
+
+    /** @var Publisher */
+    private $publisher;
 
     /** @var View */
     private $view;
 
-    public function __construct(Model $model, View $view)
-    {
+    /** @var callable */
+    private $respond;
+
+    /** @param array<string,string> $conf */
+    public function __construct(
+        string $url,
+        string $defaultLanguage,
+        array $conf,
+        Model $model,
+        Pages $pages,
+        Publisher $publisher,
+        View $view,
+        callable $respond
+    ) {
+        $this->url = $url;
+        $this->defaultLanguage = $defaultLanguage;
+        $this->conf = $conf;
         $this->model = $model;
+        $this->pages = $pages;
+        $this->publisher = $publisher;
         $this->view = $view;
+        $this->respond = $respond;
     }
 
     /**
@@ -40,12 +76,10 @@ class SitemapController
      */
     public function sitemapIndex()
     {
-        global $cf;
-
         $sitemaps = array();
         foreach ($this->model->installedLanguages() as $lang) {
-            $base = CMSIMPLE_URL;
-            if ($lang != $cf['language']['default']) {
+            $base = $this->url;
+            if ($lang != $this->defaultLanguage) {
                 $base .= $lang . '/';
             }
             $sitemap = (object) [
@@ -54,7 +88,7 @@ class SitemapController
             ];
             $sitemaps[] = $sitemap;
         }
-        $this->respondWithSitemap(
+        ($this->respond)(
             '<?xml version="1.0" encoding="UTF-8"?>' . "\n"
             . $this->view->render('index', array('sitemaps' => $sitemaps))
         );
@@ -65,17 +99,15 @@ class SitemapController
      */
     public function languageSitemap()
     {
-        global $u, $cl, $plugin_cf, $xh_publisher;
-
-        $startpage = $xh_publisher->getFirstPublishedPage();
+        $startpage = $this->publisher->getFirstPublishedPage();
         $urls = array();
-        for ($i = 0; $i < $cl; $i++) {
+        for ($i = 0; $i < $this->pages->getCount(); $i++) {
             if (!$this->model->isPageExcluded($i)) {
-                $separator = $plugin_cf['sitemapper']['clean_urls'] ? '' : '?';
+                $separator = $this->conf['clean_urls'] ? '' : '?';
                 $priority = $this->model->pagePriority($i);
                 $url = (object) [
-                    'loc' => CMSIMPLE_URL
-                        . ($i == $startpage ? '' : ($separator . $u[$i])),
+                    'loc' => $this->url
+                        . ($i == $startpage ? '' : ($separator . $this->pages->url($i))),
                     'lastmod' => $this->model->pageLastMod($i),
                     'changefreq' => $this->model->pageChangefreq($i),
                     'priority' => $priority
@@ -83,21 +115,9 @@ class SitemapController
                 $urls[] = $url;
             }
         }
-        $this->respondWithSitemap(
+        ($this->respond)(
             '<?xml version="1.0" encoding="UTF-8"?>' . "\n"
             . $this->view->render('sitemap', array('urls' => $urls))
         );
-    }
-
-    /**
-     * @param string $body
-     * @return void
-     */
-    private function respondWithSitemap($body)
-    {
-        header('HTTP/1.0 200 OK');
-        header('Content-Type: application/xml; charset=utf-8');
-        echo $body;
-        exit;
     }
 }

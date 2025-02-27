@@ -21,6 +21,7 @@
 
 require_once './vendor/autoload.php';
 require_once '../../cmsimple/classes/PageDataRouter.php';
+require_once '../../cmsimple/classes/Pages.php';
 require_once '../../cmsimple/classes/Publisher.php';
 require_once '../../cmsimple/functions.php';
 require_once './classes/HtmlString.php';
@@ -28,4 +29,5 @@ require_once './classes/InfoController.php';
 require_once './classes/Model.php';
 require_once './classes/PageDataController.php';
 require_once './classes/Plugin.php';
+require_once './classes/SitemapController.php';
 require_once './classes/View.php';

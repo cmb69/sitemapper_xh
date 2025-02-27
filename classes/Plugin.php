@@ -21,6 +21,8 @@
 
 namespace Sitemapper;
 
+use XH\Pages;
+
 class Plugin
 {
     const VERSION = '3.0-dev';
@@ -101,15 +103,39 @@ class Plugin
      */
     public static function dispatchAfterPluginLoading()
     {
-        global $f;
+        global $f, $cf, $xh_publisher, $plugin_cf;
 
+        $respond = function ($body) {
+            header('HTTP/1.0 200 OK');
+            header('Content-Type: application/xml; charset=utf-8');
+            echo $body;
+            exit;
+        };
         switch ($f) {
             case 'sitemapper_index':
-                $controller = new SitemapController(self::model(), self::view());
+                $controller = new SitemapController(
+                    CMSIMPLE_URL,
+                    $cf["language"]["default"],
+                    $plugin_cf["sitemapper"],
+                    self::model(),
+                    new Pages(),
+                    $xh_publisher,
+                    self::view(),
+                    $respond
+                );
                 $controller->sitemapIndex();
                 break;
             case 'sitemapper_sitemap':
-                $controller = new SitemapController(self::model(), self::view());
+                $controller = new SitemapController(
+                    CMSIMPLE_URL,
+                    $cf["language"]["default"],
+                    $plugin_cf["sitemapper"],
+                    self::model(),
+                    new Pages(),
+                    $xh_publisher,
+                    self::view(),
+                    $respond
+                );
                 $controller->languageSitemap();
                 break;
         }

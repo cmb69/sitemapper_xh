@@ -9,6 +9,7 @@ parameters:
     - phpstan.bootstrap.php
   scanFiles:
     - ../../cmsimple/classes/PageDataRouter.php
+    - ../../cmsimple/classes/Pages.php
     - ../../cmsimple/classes/Publisher.php
     - ../../cmsimple/adminfuncs.php
     - ../../cmsimple/functions.php
