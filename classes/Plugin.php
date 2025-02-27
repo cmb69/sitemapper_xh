@@ -23,7 +23,7 @@ namespace Sitemapper;
 
 class Plugin
 {
-    const VERSION = '@SITEMAPPER_VERSION@';
+    const VERSION = '3.0-dev';
 
     /**
      * @return void
