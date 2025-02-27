@@ -23,7 +23,7 @@ jobs:
       - name: composer install
         run: cd cmsimplexh/plugins/sitemapper && composer install
       - name: phive install
-        run: cd cmsimplexh/plugins/sitemapper && phive --no-progress install --trust-gpg-keys CF1A108D0E7AE720,D5F0CB76E2DD74F8
+        run: cd cmsimplexh/plugins/sitemapper && phive --no-progress install --trust-gpg-keys A978220305CD5C32,CF1A108D0E7AE720,D5F0CB76E2DD74F8
       - name: phing sniff
         run: cd cmsimplexh/plugins/sitemapper && PATH=tools:vendor/bin:$PATH phing sniff
       - name: phing stan
