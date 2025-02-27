@@ -3,6 +3,7 @@
   <coverage includeUncoveredFiles="true">
     <include>
       <directory suffix=".php">classes</directory>
+      <directory suffix=".php">views</directory>
       <file>admin.php</file>
       <file>index.php</file>
       <file>sitemapper_view.php</file>
