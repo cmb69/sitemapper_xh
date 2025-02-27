@@ -3,7 +3,9 @@
 <project name="Sitemapper" default="help">
 
     <target name="help" description="lists available targets">
-        <exec command="phing -l" outputProperty="help"/>
+        <exec executable="phing" outputProperty="help">
+            <arg value="-l"/>
+        </exec>
         <echo>${help}</echo>
     </target>
 
@@ -30,8 +32,9 @@
     </target>
 
     <target name="coverage" description="generates coverage report">
-        <exec command="phpunit --configuration coverage.xml"
-              logoutput="true"/>
+        <exec executable="phpunit" passthru="true" checkreturn="true">
+            <arg line="--configuration coverage.xml"/>
+        </exec>
     </target>
 
     <target name="gen-help" description="builds help.htm from README.md">
@@ -61,7 +64,9 @@
 
     <target name="build">
         <fail unless="version" message="version is not defined!"/>
-        <exec command="git archive -o export.zip HEAD" checkreturn="true"/>
+        <exec executable="git" checkreturn="true">
+            <arg line="archive -o export.zip HEAD"/>
+        </exec>
         <unzip file="export.zip" todir="export"/>
         <delete file="export.zip"/>
         <move todir="dist">
