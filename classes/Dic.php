@@ -23,7 +23,7 @@ namespace Sitemapper;
 
 use XH\Pages;
 
-class Plugin
+class Dic
 {
     public static function makeInfoController(): InfoController
     {
@@ -39,15 +39,13 @@ class Plugin
         );
     }
 
-    /** @param array<string,string> $pageData */
-    public static function makePageDataController(array $pageData): PageDataController
+    public static function makePageDataController(): PageDataController
     {
         global $sn, $su, $pth;
 
         return new PageDataController(
             "$sn?$su",
             "{$pth['folder']['plugins']}sitemapper/images",
-            $pageData,
             self::model(),
             self::view()
         );

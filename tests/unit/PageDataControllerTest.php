@@ -33,13 +33,13 @@ class PageDataControllerTest extends TestCase
         $sut = new PageDataController(
             "/?Start",
             "./plugins/sitemapper/images",
-            [
-                "sitemapper_changefreq" => "monthly",
-                "sitemapper_priority" => "0.5",
-            ],
             $model,
             $view
         );
-        Approvals::verifyHtml($sut->execute());
+        $pd = [
+            "sitemapper_changefreq" => "monthly",
+            "sitemapper_priority" => "0.5",
+        ];
+        Approvals::verifyHtml($sut->execute($pd));
     }
 }

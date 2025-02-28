@@ -24,12 +24,15 @@ require_once '../../cmsimple/classes/PageDataRouter.php';
 require_once '../../cmsimple/classes/Pages.php';
 require_once '../../cmsimple/classes/Publisher.php';
 require_once '../../cmsimple/functions.php';
+require_once './classes/Dic.php';
 require_once './classes/HtmlString.php';
 require_once './classes/InfoController.php';
 require_once './classes/Model.php';
 require_once './classes/PageDataController.php';
-require_once './classes/Plugin.php';
 require_once './classes/SitemapController.php';
 require_once './classes/View.php';
 
+const CMSIMPLE_XH_VERSION = "CMSimple_XH 1.7.5";
+const CMSIMPLE_ROOT = "/";
+const CMSIMPLE_URL = "http://example.com/";
 const SITEMAPPER_VERSION = "3.0-dev";

@@ -29,9 +29,6 @@ class PageDataController
     /** @var string */
     private $imageDir;
 
-    /** @var array<string,string> */
-    private $pageData;
-
     /** @var Model */
     private $model;
 
@@ -41,21 +38,20 @@ class PageDataController
     /**
      * @param string $url
      * @param string $imageDir
-     * @param array<string,string> $pageData
      */
-    public function __construct($url, $imageDir, array $pageData, Model $model, View $view)
+    public function __construct($url, $imageDir, Model $model, View $view)
     {
         $this->url = $url;
         $this->imageDir = $imageDir;
-        $this->pageData = $pageData;
         $this->model = $model;
         $this->view = $view;
     }
 
     /**
+     * @param array<string,string> $pageData
      * @return string
      */
-    public function execute()
+    public function execute(array $pageData)
     {
         $action = $this->url;
         $helpIcon = "$this->imageDir/help.png";
@@ -65,10 +61,10 @@ class PageDataController
         foreach ($changefreqs as $changefreq) {
             $changefreqOptions[] = (object) [
                 "name" => $changefreq,
-                "selected" => $this->pageData['sitemapper_changefreq'] == $changefreq ? " selected" : "",
+                "selected" => $pageData['sitemapper_changefreq'] == $changefreq ? " selected" : "",
             ];
         }
-        $priority = $this->pageData['sitemapper_priority'];
+        $priority = $pageData['sitemapper_priority'];
         $bag = compact('action', 'helpIcon', 'changefreqOptions', 'priority');
         return $this->view->render('pdtab', $bag);
     }

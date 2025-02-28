@@ -19,10 +19,10 @@
  * along with Sitemapper_XH.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-use Sitemapper\Plugin;
+use Sitemapper\Dic;
 
 /** @param array<string,string> $pageData */
 function sitemapper_view(array $pageData): string
 {
-    return Plugin::makePageDataController($pageData)->execute();
+    return Dic::makePageDataController()->execute($pageData);
 }

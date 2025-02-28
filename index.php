@@ -19,7 +19,7 @@
  * along with Sitemapper_XH.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-use Sitemapper\Plugin;
+use Sitemapper\Dic;
 use XH\PageDataRouter;
 
 const SITEMAPPER_VERSION = "3.0-dev";
@@ -41,5 +41,5 @@ if (isset($_GET['sitemapper_index']) && $sl == $cf['language']['default']) {
 }
 
 XH_afterPluginLoading(function () use ($f) {
-    Plugin::makeSitemapController()->execute($f);
+    Dic::makeSitemapController()->execute($f);
 });
