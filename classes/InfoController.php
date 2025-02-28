@@ -21,8 +21,6 @@
 
 namespace Sitemapper;
 
-use stdClass;
-
 class InfoController
 {
     /** @var string */
@@ -76,18 +74,18 @@ class InfoController
     }
 
     /**
-     * @return array<int,stdClass>
+     * @return list<array{name:string,href:string}>
      */
     private function sitemaps()
     {
-        $sitemap = (object) [
+        $sitemap = [
             'name' => 'index',
             'href' => $this->root . '?sitemapper_index'
         ];
         $sitemaps = array($sitemap);
         foreach ($this->model->installedLanguages() as $lang) {
             $subdir = $lang != $this->defaultLanguage ? "$lang/" : '';
-            $sitemap = (object) [
+            $sitemap = [
                 'name' => $lang,
                 'href' => $this->root . $subdir . '?sitemapper_sitemap'
             ];
@@ -97,18 +95,18 @@ class InfoController
     }
 
     /**
-     * @return array<int,stdClass>
+     * @return list<array{label:HtmlString,class:string}>
      */
     private function systemChecks()
     {
         $phpVersion = '7.0.0';
         $xhVersion = '1.7.0';
         $checks = array();
-        $checks[] = (object) [
+        $checks[] = [
             "label" => new HtmlString($this->view->text('syscheck_phpversion', $phpVersion)),
             "class" => version_compare(PHP_VERSION, $phpVersion) >= 0 ? 'xh_success' : 'xh_fail',
         ];
-        $checks[] = (object) [
+        $checks[] = [
             "label" => new HtmlString($this->view->text('syscheck_xhversion', $xhVersion)),
             "class" => version_compare(substr($this->xhVersion, 12), $xhVersion) >= 0 ? 'xh_success' : 'xh_fail',
         ];
@@ -117,7 +115,7 @@ class InfoController
             $folders[] = "$this->pluginDir/$folder";
         }
         foreach ($folders as $folder) {
-            $checks[] = (object) [
+            $checks[] = [
                 "label" => new HtmlString($this->view->text('syscheck_writable', $folder)),
                 "class" => is_writable($folder) ? 'xh_success' : 'xh_warn',
             ];

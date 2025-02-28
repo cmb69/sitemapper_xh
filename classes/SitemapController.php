@@ -95,7 +95,7 @@ class SitemapController
             if ($lang != $this->defaultLanguage) {
                 $base .= $lang . '/';
             }
-            $sitemap = (object) [
+            $sitemap = [
                 'loc' => $base . '?sitemapper_sitemap',
                 'time' => $this->model->languageLastMod($lang)
             ];
@@ -118,7 +118,7 @@ class SitemapController
             if (!$this->model->isPageExcluded($i)) {
                 $separator = $this->conf['clean_urls'] ? '' : '?';
                 $priority = $this->model->pagePriority($i);
-                $url = (object) [
+                $url = [
                     'loc' => $this->url
                         . ($i == $startpage ? '' : ($separator . $this->pages->url($i))),
                     'lastmod' => $this->model->pageLastMod($i),

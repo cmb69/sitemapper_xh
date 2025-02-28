@@ -69,6 +69,14 @@ class View
      */
     private function doRender()
     {
+        array_walk_recursive($this->data, function (&$value) {
+            assert(is_null($value) || is_scalar($value) || $value instanceof HtmlString);
+            if (is_string($value)) {
+                $value = XH_hsc($value);
+            } elseif ($value instanceof HtmlString) {
+                $value = $value->value();
+            }
+        });
         extract($this->data);
         ob_start();
         include $this->template;
@@ -89,7 +97,7 @@ class View
      * @param mixed $value
      * @return string
      */
-    public function esc($value)
+    private function esc($value)
     {
         if ($value instanceof HtmlString) {
             return $value->value();

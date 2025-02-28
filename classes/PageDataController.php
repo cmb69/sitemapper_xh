@@ -59,7 +59,7 @@ class PageDataController
         array_unshift($changefreqs, '');
         $changefreqOptions = [];
         foreach ($changefreqs as $changefreq) {
-            $changefreqOptions[] = (object) [
+            $changefreqOptions[] = [
                 "name" => $changefreq,
                 "selected" => $pageData['sitemapper_changefreq'] == $changefreq ? " selected" : "",
             ];
