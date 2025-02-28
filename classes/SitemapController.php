@@ -84,9 +84,7 @@ class SitemapController
         }
     }
 
-    /**
-     * @return void
-     */
+    /** @return void */
     private function sitemapIndex()
     {
         $sitemaps = array();
@@ -107,9 +105,7 @@ class SitemapController
         );
     }
 
-    /**
-     * @return void
-     */
+    /** @return void */
     private function languageSitemap()
     {
         $startpage = $this->publisher->getFirstPublishedPage();

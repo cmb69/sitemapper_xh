@@ -35,11 +35,7 @@ class PageDataController
      /** @var View */
     private $view;
 
-    /**
-     * @param string $url
-     * @param string $imageDir
-     */
-    public function __construct($url, $imageDir, Model $model, View $view)
+    public function __construct(string $url, string $imageDir, Model $model, View $view)
     {
         $this->url = $url;
         $this->imageDir = $imageDir;
@@ -47,11 +43,8 @@ class PageDataController
         $this->view = $view;
     }
 
-    /**
-     * @param array<string,string> $pageData
-     * @return string
-     */
-    public function execute(array $pageData)
+    /** @param array<string,string> $pageData */
+    public function execute(array $pageData): string
     {
         $action = $this->url;
         $helpIcon = "$this->imageDir/help.png";

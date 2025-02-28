@@ -26,66 +26,45 @@ use XH\Publisher;
 
 class Model
 {
-    /**
-     * @var array<int,string>
-     */
+    /** @var list<string> */
     public $changefreqs = array(
         'always', 'hourly', 'daily', 'weekly', 'monthly', 'yearly', 'never'
     );
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $defaultLang;
 
-    /** @var array<string> */
+    /** @var list<string> */
     private $secondLanguages;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $baseFolder;
 
-    /**
-     * @var PageDataRouter
-     */
+    /** @var PageDataRouter */
     private $pageDataRouter;
 
     /** @var Publisher */
     private $publisher;
 
-    /**
-     * @var bool
-     */
+    /** @var bool */
     private $excludeHidden;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $defaultChangefreq;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $defaultPriority;
 
-    /**
-     * @param string $defaultLang
-     * @param array<string> $secondLanguages
-     * @param string $baseFolder
-     * @param bool $excludeHidden
-     * @param string $defaultChangefreq
-     * @param string $defaultPriority
-     */
+    /** @param list<string> $secondLanguages */
     public function __construct(
-        $defaultLang,
+        string $defaultLang,
         array $secondLanguages,
-        $baseFolder,
+        string $baseFolder,
         PageDataRouter $pageDataRouter,
         Publisher $publisher,
-        $excludeHidden,
-        $defaultChangefreq,
-        $defaultPriority
+        bool $excludeHidden,
+        string $defaultChangefreq,
+        string $defaultPriority
     ) {
         $this->defaultLang = $defaultLang;
         $this->secondLanguages = $secondLanguages;
@@ -97,20 +76,12 @@ class Model
         $this->defaultPriority = $defaultPriority;
     }
 
-    /**
-     * @param int $timestamp
-     * @return string
-     */
-    private function sitemapDate($timestamp)
+    private function sitemapDate(int $timestamp): string
     {
         return gmdate('Y-m-d\TH:i:s\Z', $timestamp);
     }
 
-    /**
-     * @param string $lang
-     * @return string
-     */
-    private function languageContentFolder($lang)
+    private function languageContentFolder(string $lang): string
     {
         $res = $this->baseFolder . 'content/';
         if ($lang != $this->defaultLang) {
@@ -119,49 +90,30 @@ class Model
         return $res;
     }
 
-    /**
-     * @param int $index
-     * @return bool
-     */
-    private function isPageHidden($index)
+    private function isPageHidden(int $index): bool
     {
         return $this->publisher->isHidden($index);
     }
 
-    /**
-     * @param int $index
-     * @return bool
-     */
-    private function isPagePublished($index)
+    private function isPagePublished(int $index): bool
     {
         return $this->publisher->isPublished($index);
     }
 
-    /**
-     * @param int $index
-     * @return bool
-     */
-    public function isPageExcluded($index)
+    public function isPageExcluded(int $index): bool
     {
         return !$this->isPagePublished($index)
             || $this->excludeHidden && $this->isPageHidden($index);
     }
 
-    /**
-     * @param int $index
-     * @return string|false
-     */
-    public function pageLastMod($index)
+    /** @return string|false */
+    public function pageLastMod(int $index)
     {
         $lastEdit = $this->pageDataRouter->find_page($index)['last_edit'];
         return !empty($lastEdit) ? $this->sitemapDate($lastEdit) : false;
     }
 
-    /**
-     * @param int $index
-     * @return string
-     */
-    public function pageChangefreq($index)
+    public function pageChangefreq(int $index): string
     {
         $pagedata = $this->pageDataRouter->find_page($index);
         return !empty($pagedata['sitemapper_changefreq'])
@@ -169,11 +121,7 @@ class Model
             : $this->defaultChangefreq;
     }
 
-    /**
-     * @param int $index
-     * @return float
-     */
-    public function pagePriority($index)
+    public function pagePriority(int $index): string
     {
         $pagedata = $this->pageDataRouter->find_page($index);
         return isset($pagedata['sitemapper_priority'])
@@ -182,21 +130,15 @@ class Model
             : $this->defaultPriority;
     }
 
-    /**
-     * @param string $lang
-     * @return string
-     */
-    public function languageLastMod($lang)
+    public function languageLastMod(string $lang): string
     {
         $contentFolder = $this->languageContentFolder($lang);
         $contentFile = $contentFolder . 'content.htm';
         return $this->sitemapDate((int) filemtime($contentFile));
     }
 
-    /**
-     * @return array<int,string>
-     */
-    public function installedLanguages()
+    /** @return list<string> */
+    public function installedLanguages(): array
     {
         $res = $this->secondLanguages;
         array_unshift($res, $this->defaultLang);

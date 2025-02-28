@@ -29,45 +29,28 @@ class View
     /** @var array<string,string> */
     private $lang;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $template;
 
-    /**
-     * @var array<string,mixed>
-     */
+    /** @var array<string,mixed> */
     private $data;
 
-    /**
-     * @param string $templateDir
-     * @param array<string,string> $lang
-     */
-    public function __construct($templateDir, array $lang)
+    /** @param array<string,string> $lang */
+    public function __construct(string $templateDir, array $lang)
     {
         $this->templateDir = $templateDir;
         $this->lang = $lang;
     }
 
-    /**
-     * Renders a template.
-     *
-     * @param string $template
-     * @param array<string,mixed>  $data
-     *
-     * @return string (X)HTML.
-     */
-    public function render($template, $data)
+    /** @param array<string,mixed>  $data */
+    public function render(string $template, array $data): string
     {
         $this->template = "$this->templateDir/$template.php";
         $this->data = $data;
         return $this->doRender();
     }
 
-    /**
-     * @return string
-     */
-    private function doRender()
+    private function doRender(): string
     {
         array_walk_recursive($this->data, function (&$value) {
             assert(is_null($value) || is_scalar($value) || $value instanceof HtmlString);
@@ -83,21 +66,14 @@ class View
         return (string) ob_get_clean();
     }
 
-    /**
-     * @param string $key
-     * @param mixed $args
-     * @return string
-     */
-    public function text($key, ...$args)
+    /** @param mixed $args */
+    public function text(string $key, ...$args): string
     {
         return $this->esc(vsprintf($this->lang[$key], $args));
     }
 
-    /**
-     * @param mixed $value
-     * @return string
-     */
-    private function esc($value)
+    /** @param mixed $value */
+    private function esc($value): string
     {
         if ($value instanceof HtmlString) {
             return $value->value();

@@ -41,14 +41,10 @@ class InfoController
     /** @var View */
     private $view;
 
-    /**
-     * @param string $defaultLanguage
-     * @param string $pluginDir
-     */
     public function __construct(
         string $root,
-        $defaultLanguage,
-        $pluginDir,
+        string $defaultLanguage,
+        string $pluginDir,
         string $xhVersion,
         Model $model,
         View $view
@@ -61,10 +57,7 @@ class InfoController
         $this->view = $view;
     }
 
-    /**
-     * @return string
-     */
-    public function execute()
+    public function execute(): string
     {
         $sitemaps = $this->sitemaps();
         $checks = $this->systemChecks();
@@ -73,10 +66,8 @@ class InfoController
         return $this->view->render('info', $bag);
     }
 
-    /**
-     * @return list<array{name:string,href:string}>
-     */
-    private function sitemaps()
+    /** @return list<array{name:string,href:string}> */
+    private function sitemaps(): array
     {
         $sitemap = [
             'name' => 'index',
@@ -94,10 +85,8 @@ class InfoController
         return $sitemaps;
     }
 
-    /**
-     * @return list<array{label:HtmlString,class:string}>
-     */
-    private function systemChecks()
+    /** @return list<array{label:HtmlString,class:string}> */
+    private function systemChecks(): array
     {
         $phpVersion = '7.0.0';
         $xhVersion = '1.7.0';
