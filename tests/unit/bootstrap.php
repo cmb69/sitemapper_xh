@@ -35,4 +35,4 @@ require_once './classes/View.php';
 const CMSIMPLE_XH_VERSION = "CMSimple_XH 1.7.5";
 const CMSIMPLE_ROOT = "/";
 const CMSIMPLE_URL = "http://example.com/";
-const SITEMAPPER_VERSION = "3.0";
+const SITEMAPPER_VERSION = "3.1-dev";
