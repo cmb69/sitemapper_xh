@@ -66,18 +66,18 @@ class View
         return (string) ob_get_clean();
     }
 
-    /** @param mixed $args */
+    /** @param scalar $args */
     public function text(string $key, ...$args): string
     {
         return $this->esc(vsprintf($this->lang[$key], $args));
     }
 
-    /** @param mixed $value */
+    /** @param scalar|HtmlString $value */
     private function esc($value): string
     {
         if ($value instanceof HtmlString) {
             return $value->value();
         }
-        return XH_hsc($value);
+        return XH_hsc((string) $value);
     }
 }
