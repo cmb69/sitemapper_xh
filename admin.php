@@ -22,6 +22,9 @@
 use Sitemapper\Dic;
 use XH\PageDataRouter;
 
+// phpcs:ignore
+if (!defined("CMSIMPLE_XH_VERSION")) {http_response_code(403); exit;}
+
 /**
  * @var PageDataRouter $pd_router
  * @var array<string,array<string,string>> $plugin_tx

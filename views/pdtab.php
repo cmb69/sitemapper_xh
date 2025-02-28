@@ -1,16 +1,16 @@
 <?php
 
+use Sitemapper\View;
+
+if (!defined("CMSIMPLE_XH_VERSION")) {http_response_code(403); exit;}
+
 /**
+ * @var View $this
  * @var string $action
  * @var string $helpIcon
  * @var array<int,stdClass> $changefreqOptions
  * @var string $priority
  */
-
-if (!isset($this)) {
-    header('HTTP/1.0 404 Not Found');
-    exit;
-}
 ?>
 <!-- Sitemapper: page data tab -->
 <form id="sitemapper" action="<?=$this->esc($action)?>" method="post">

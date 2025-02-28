@@ -22,6 +22,9 @@
 use Sitemapper\Dic;
 use XH\PageDataRouter;
 
+// phpcs:ignore
+if (!defined("CMSIMPLE_XH_VERSION")) {http_response_code(403); exit;}
+
 const SITEMAPPER_VERSION = "3.0-dev";
 
 /**

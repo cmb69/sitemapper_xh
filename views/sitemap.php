@@ -1,13 +1,13 @@
 <?php
 
+use Sitemapper\View;
+
+if (!defined("CMSIMPLE_XH_VERSION")) {http_response_code(403); exit;}
+
 /**
+ * @var View $this
  * @var array<int,stdClass> $urls
  */
-
-if (!isset($this)) {
-    header('HTTP/1.0 404 Not Found');
-    exit;
-}
 ?>
 <!-- Sitemapper_XH: sitemap -->
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"

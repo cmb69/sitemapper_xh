@@ -1,15 +1,15 @@
 <?php
 
+use Sitemapper\View;
+
+if (!defined("CMSIMPLE_XH_VERSION")) {http_response_code(403); exit;}
+
 /**
+ * @var View $this;
  * @var array<int,stdClass> $sitemaps
  * @var array<int,stdClass> $checks
  * @var string $version
  */
-
-if (!isset($this)) {
-    header('HTTP/1.0 404 Not Found');
-    exit;
-}
 ?>
 <h1>Sitemapper <?=$this->esc($version)?></h1>
 <h2><?=$this->text('sitemaps')?></h2>

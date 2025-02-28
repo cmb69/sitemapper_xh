@@ -19,7 +19,12 @@
  * along with Sitemapper_XH.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+// phpcs:disable PSR1.Files.SideEffects.FoundWithSymbols
+
 use Sitemapper\Dic;
+
+// phpcs:ignore
+if (!defined("CMSIMPLE_XH_VERSION")) {http_response_code(403); exit;}
 
 /** @param array<string,string> $pageData */
 function sitemapper_view(array $pageData): string
