@@ -53,24 +53,7 @@ class Plugin
         );
     }
 
-    /**
-     * @return void
-     */
-    public static function dispatchAfterPluginLoading()
-    {
-        global $f;
-
-        switch ($f) {
-            case 'sitemapper_index':
-                self::makeSitemapController()->sitemapIndex();
-                break;
-            case 'sitemapper_sitemap':
-                self::makeSitemapController()->languageSitemap();
-                break;
-        }
-    }
-
-    private static function makeSitemapController(): SitemapController
+    public static function makeSitemapController(): SitemapController
     {
         global $cf, $xh_publisher, $plugin_cf;
 

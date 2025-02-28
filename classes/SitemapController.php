@@ -71,10 +71,23 @@ class SitemapController
         $this->respond = $respond;
     }
 
+    /** @return void */
+    public function execute(string $f)
+    {
+        switch ($f) {
+            case "sitemapper_index":
+                $this->sitemapIndex();
+                break;
+            case "sitemapper_sitemap":
+                $this->languageSitemap();
+                break;
+        }
+    }
+
     /**
      * @return void
      */
-    public function sitemapIndex()
+    private function sitemapIndex()
     {
         $sitemaps = array();
         foreach ($this->model->installedLanguages() as $lang) {
@@ -97,7 +110,7 @@ class SitemapController
     /**
      * @return void
      */
-    public function languageSitemap()
+    private function languageSitemap()
     {
         $startpage = $this->publisher->getFirstPublishedPage();
         $urls = array();

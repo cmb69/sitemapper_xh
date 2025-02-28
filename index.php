@@ -28,6 +28,7 @@ const SITEMAPPER_VERSION = "3.0-dev";
  * @var PageDataRouter $pd_router
  * @var array<string,array<string,string>> $cf
  * @var string $sl
+ * @var string $f
  */
 
 $pd_router->add_interest('sitemapper_changefreq');
@@ -39,4 +40,6 @@ if (isset($_GET['sitemapper_index']) && $sl == $cf['language']['default']) {
     $f = 'sitemapper_sitemap';
 }
 
-XH_afterPluginLoading([Plugin::class, 'dispatchAfterPluginLoading']);
+XH_afterPluginLoading(function () use ($f) {
+    Plugin::makeSitemapController()->execute($f);
+});

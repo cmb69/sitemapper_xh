@@ -47,7 +47,7 @@ class SitemapControllerTest extends TestCase
                 Approvals::verifyHtml($body);
             }
         );
-        $sut->sitemapIndex();
+        $sut->execute("sitemapper_index");
     }
 
     public function testLanguageSitemap(): void
@@ -85,6 +85,6 @@ class SitemapControllerTest extends TestCase
                 Approvals::verifyHtml($body);
             }
         );
-        $sut->languageSitemap();
+        $sut->execute("sitemapper_sitemap");
     }
 }
