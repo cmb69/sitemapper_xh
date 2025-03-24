@@ -104,6 +104,11 @@ class InfoController
             "label" => $this->view->plain('syscheck_xhversion', $xhVersion),
             "class" => $success ? 'xh_success' : 'xh_fail',
         ];
+        $plibVersion = "1.4";
+        $checks[] = [
+            "label" => $this->view->plain("syscheck_plibversion", $plibVersion),
+            "class" => $this->systemChecker->checkPlugin("plib", $plibVersion) ? "xh_success" : "xh_fail",
+        ];
         $folders = array();
         foreach (array('config/', 'languages/') as $folder) {
             $folders[] = "$this->pluginDir/$folder";

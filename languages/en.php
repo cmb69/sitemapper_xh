@@ -6,6 +6,7 @@ $plugin_tx['sitemapper']['sitemaps']="Available Sitemaps";
 
 $plugin_tx['sitemapper']['syscheck_title']="System check";
 $plugin_tx['sitemapper']['syscheck_phpversion']="PHP version ≥ %s";
+$plugin_tx['sitemapper']['syscheck_plibversion']="Plib_XH version ≥ %s";
 $plugin_tx['sitemapper']['syscheck_xhversion']="CMSimple_XH version ≥ %s";
 $plugin_tx['sitemapper']['syscheck_writable']="'%s' writable";
 
