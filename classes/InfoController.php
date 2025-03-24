@@ -21,13 +21,14 @@
 
 namespace Sitemapper;
 
+use Plib\Request;
 use Plib\SystemChecker;
 use Plib\View;
 
 class InfoController
 {
     /** @var string */
-    private $root;
+    private $base;
 
     /** @var string */
     private $defaultLanguage;
@@ -45,14 +46,14 @@ class InfoController
     private $view;
 
     public function __construct(
-        string $root,
+        string $base,
         string $defaultLanguage,
         string $pluginDir,
         Model $model,
         SystemChecker $systemChecker,
         View $view
     ) {
-        $this->root = $root;
+        $this->base = $base;
         $this->defaultLanguage = $defaultLanguage;
         $this->pluginDir = $pluginDir;
         $this->model = $model;
@@ -60,9 +61,9 @@ class InfoController
         $this->view = $view;
     }
 
-    public function execute(): string
+    public function execute(Request $request): string
     {
-        $sitemaps = $this->sitemaps();
+        $sitemaps = $this->sitemaps($request);
         $checks = $this->systemChecks();
         $version = SITEMAPPER_VERSION;
         $bag = compact('sitemaps', 'checks', 'version');
@@ -70,18 +71,18 @@ class InfoController
     }
 
     /** @return list<array{name:string,href:string}> */
-    private function sitemaps(): array
+    private function sitemaps(Request $request): array
     {
         $sitemap = [
             'name' => 'index',
-            'href' => $this->root . '?sitemapper_index'
+            'href' => $request->url()->path($this->base)->page("sitemapper_index")->relative(),
         ];
         $sitemaps = array($sitemap);
         foreach ($this->model->installedLanguages() as $lang) {
             $subdir = $lang != $this->defaultLanguage ? "$lang/" : '';
             $sitemap = [
                 'name' => $lang,
-                'href' => $this->root . $subdir . '?sitemapper_sitemap'
+                'href' => $request->url()->path($this->base . $subdir)->page("sitemapper_sitemap")->relative(),
             ];
             $sitemaps[] = $sitemap;
         }

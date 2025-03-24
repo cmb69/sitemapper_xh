@@ -19,6 +19,7 @@
  * along with Sitemapper_XH.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+use Plib\Request;
 use Sitemapper\Dic;
 use XH\PageDataRouter;
 
@@ -44,7 +45,7 @@ if (XH_wantsPluginAdministration('sitemapper')) {
     $o .= print_plugin_admin('off');
     switch ($admin) {
         case '':
-            $o .= Dic::makeInfoController()->execute();
+            $o .= Dic::makeInfoController()->execute(Request::current());
             break;
         default:
             $o .= plugin_admin_common();

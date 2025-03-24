@@ -32,7 +32,7 @@ class Dic
         global $cf, $pth;
 
         return new InfoController(
-            CMSIMPLE_ROOT,
+            $pth["folder"]["base"],
             $cf['language']['default'],
             "{$pth['folder']['plugins']}sitemapper",
             self::model(),
@@ -43,10 +43,9 @@ class Dic
 
     public static function makePageDataController(): PageDataController
     {
-        global $sn, $su, $pth;
+        global $pth;
 
         return new PageDataController(
-            "$sn?$su",
             "{$pth['folder']['plugins']}sitemapper/images",
             self::model(),
             self::view()

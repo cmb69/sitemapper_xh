@@ -21,13 +21,11 @@
 
 namespace Sitemapper;
 
+use Plib\Request;
 use Plib\View;
 
 class PageDataController
 {
-    /** @var string */
-    private $url;
-
     /** @var string */
     private $imageDir;
 
@@ -37,18 +35,17 @@ class PageDataController
      /** @var View */
     private $view;
 
-    public function __construct(string $url, string $imageDir, Model $model, View $view)
+    public function __construct(string $imageDir, Model $model, View $view)
     {
-        $this->url = $url;
         $this->imageDir = $imageDir;
         $this->model = $model;
         $this->view = $view;
     }
 
     /** @param array<string,string> $pageData */
-    public function execute(array $pageData): string
+    public function execute(Request $request, array $pageData): string
     {
-        $action = $this->url;
+        $action = $request->url()->relative();
         $helpIcon = "$this->imageDir/help.png";
         $changefreqs = $this->model->changefreqs;
         array_unshift($changefreqs, '');

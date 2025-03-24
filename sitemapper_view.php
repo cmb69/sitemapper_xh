@@ -21,6 +21,7 @@
 
 // phpcs:disable PSR1.Files.SideEffects.FoundWithSymbols
 
+use Plib\Request;
 use Sitemapper\Dic;
 
 // phpcs:ignore
@@ -29,5 +30,5 @@ if (!defined("CMSIMPLE_XH_VERSION")) {http_response_code(403); exit;}
 /** @param array<string,string> $pageData */
 function sitemapper_view(array $pageData): string
 {
-    return Dic::makePageDataController()->execute($pageData);
+    return Dic::makePageDataController()->execute(Request::current(), $pageData);
 }
