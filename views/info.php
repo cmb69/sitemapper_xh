@@ -1,6 +1,6 @@
 <?php
 
-use Sitemapper\View;
+use Plib\View;
 
 if (!defined("CMSIMPLE_XH_VERSION")) {http_response_code(403); exit;}
 
@@ -12,17 +12,17 @@ if (!defined("CMSIMPLE_XH_VERSION")) {http_response_code(403); exit;}
  */
 ?>
 <div>
-  <h1>Sitemapper <?=$version?></h1>
+  <h1>Sitemapper <?=$this->esc($version)?></h1>
   <h2><?=$this->text('sitemaps')?></h2>
   <ul>
 <?foreach ($sitemaps as $sitemap):?>
     <li>
-      <a href="<?=$sitemap['href']?>" target="_blank"><?=$sitemap['name']?></a>
+      <a href="<?=$this->esc($sitemap['href'])?>" target="_blank"><?=$this->esc($sitemap['name'])?></a>
     </li>
 <?endforeach?>
   </ul>
   <h2><?=$this->text('syscheck_title')?></h2>
 <?foreach ($checks as $check):?>
-  <p class="<?=$check['class']?>"><?=$check['label']?></p>
+  <p class="<?=$this->esc($check['class'])?>"><?=$this->esc($check['label'])?></p>
 <?endforeach?>
 </div>

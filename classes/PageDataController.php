@@ -21,6 +21,8 @@
 
 namespace Sitemapper;
 
+use Plib\View;
+
 class PageDataController
 {
     /** @var string */

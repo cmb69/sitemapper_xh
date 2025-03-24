@@ -21,6 +21,8 @@
 
 namespace Sitemapper;
 
+use Plib\View;
+
 class InfoController
 {
     /** @var string */
@@ -85,18 +87,18 @@ class InfoController
         return $sitemaps;
     }
 
-    /** @return list<array{label:HtmlString,class:string}> */
+    /** @return list<array{label:string,class:string}> */
     private function systemChecks(): array
     {
         $phpVersion = '7.1.0';
         $xhVersion = '1.7.0';
         $checks = array();
         $checks[] = [
-            "label" => new HtmlString($this->view->text('syscheck_phpversion', $phpVersion)),
+            "label" => $this->view->plain('syscheck_phpversion', $phpVersion),
             "class" => version_compare(PHP_VERSION, $phpVersion) >= 0 ? 'xh_success' : 'xh_fail',
         ];
         $checks[] = [
-            "label" => new HtmlString($this->view->text('syscheck_xhversion', $xhVersion)),
+            "label" => $this->view->plain('syscheck_xhversion', $xhVersion),
             "class" => version_compare(substr($this->xhVersion, 12), $xhVersion) >= 0 ? 'xh_success' : 'xh_fail',
         ];
         $folders = array();
@@ -105,7 +107,7 @@ class InfoController
         }
         foreach ($folders as $folder) {
             $checks[] = [
-                "label" => new HtmlString($this->view->text('syscheck_writable', $folder)),
+                "label" => $this->view->plain('syscheck_writable', $folder),
                 "class" => is_writable($folder) ? 'xh_success' : 'xh_warn',
             ];
         }

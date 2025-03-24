@@ -1,6 +1,6 @@
 <?php
 
-use Sitemapper\View;
+use Plib\View;
 
 if (!defined("CMSIMPLE_XH_VERSION")) {http_response_code(403); exit;}
 
@@ -15,7 +15,7 @@ if (!defined("CMSIMPLE_XH_VERSION")) {http_response_code(403); exit;}
               xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <?foreach ($sitemaps as $sitemap):?>
   <sitemap>
-    <loc><?=$sitemap['loc']?></loc>
+    <loc><?=$this->esc($sitemap['loc'])?></loc>
     <lastmod><?=$sitemap['time']?></lastmod>
   </sitemap>
 <?endforeach?>

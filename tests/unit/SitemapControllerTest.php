@@ -23,6 +23,7 @@ namespace Sitemapper;
 
 use ApprovalTests\Approvals;
 use PHPUnit\Framework\TestCase;
+use Plib\View;
 use XH\Pages;
 use XH\Publisher;
 

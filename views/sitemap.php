@@ -1,6 +1,6 @@
 <?php
 
-use Sitemapper\View;
+use Plib\View;
 
 if (!defined("CMSIMPLE_XH_VERSION")) {http_response_code(403); exit;}
 
@@ -15,12 +15,12 @@ if (!defined("CMSIMPLE_XH_VERSION")) {http_response_code(403); exit;}
         xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <?foreach ($urls as $url):?>
   <url>
-    <loc><?=$url['loc']?></loc>
+    <loc><?=$this->esc($url['loc'])?></loc>
 <?  if ($url['lastmod']):?>
     <lastmod><?=$url['lastmod']?></lastmod>
 <?  endif?>
-    <changefreq><?=$url['changefreq']?></changefreq>
-    <priority><?=$url['priority']?></priority>
+    <changefreq><?=$this->esc($url['changefreq'])?></changefreq>
+    <priority><?=$this->esc($url['priority'])?></priority>
   </url>
 <?endforeach?>
 </urlset>

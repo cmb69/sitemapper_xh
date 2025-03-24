@@ -21,6 +21,7 @@
 
 namespace Sitemapper;
 
+use Plib\View;
 use XH\Pages;
 
 class Dic

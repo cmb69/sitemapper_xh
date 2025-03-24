@@ -14,3 +14,5 @@ parameters:
     - ../../cmsimple/classes/Publisher.php
     - ../../cmsimple/adminfuncs.php
     - ../../cmsimple/functions.php
+  scanDirectories:
+    - ../plib/classes
