@@ -23,8 +23,10 @@ use Plib\Request;
 use Sitemapper\Dic;
 use XH\PageDataRouter;
 
-// phpcs:ignore
-if (!defined("CMSIMPLE_XH_VERSION")) {http_response_code(403); exit;}
+if (!defined("CMSIMPLE_XH_VERSION")) {
+    http_response_code(403);
+    exit;
+}
 
 /**
  * @var PageDataRouter $pd_router
