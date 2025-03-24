@@ -88,7 +88,7 @@ class InfoController
     /** @return list<array{label:HtmlString,class:string}> */
     private function systemChecks(): array
     {
-        $phpVersion = '7.0.0';
+        $phpVersion = '7.1.0';
         $xhVersion = '1.7.0';
         $checks = array();
         $checks[] = [
