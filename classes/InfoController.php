@@ -63,11 +63,11 @@ class InfoController
 
     public function execute(Request $request): string
     {
-        $sitemaps = $this->sitemaps($request);
-        $checks = $this->systemChecks();
-        $version = SITEMAPPER_VERSION;
-        $bag = compact('sitemaps', 'checks', 'version');
-        return $this->view->render('info', $bag);
+        return $this->view->render('info', [
+            "sitemaps" => $this->sitemaps($request),
+            "checks" => $this->systemChecks(),
+            "version" => SITEMAPPER_VERSION,
+        ]);
     }
 
     /** @return list<array{name:string,href:string}> */

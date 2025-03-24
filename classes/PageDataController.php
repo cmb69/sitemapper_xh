@@ -45,8 +45,6 @@ class PageDataController
     /** @param array<string,string> $pageData */
     public function execute(Request $request, array $pageData): string
     {
-        $action = $request->url()->relative();
-        $helpIcon = "$this->imageDir/help.png";
         $changefreqs = $this->model->changefreqs;
         array_unshift($changefreqs, '');
         $changefreqOptions = [];
@@ -56,8 +54,11 @@ class PageDataController
                 "selected" => $pageData['sitemapper_changefreq'] == $changefreq ? " selected" : "",
             ];
         }
-        $priority = $pageData['sitemapper_priority'];
-        $bag = compact('action', 'helpIcon', 'changefreqOptions', 'priority');
-        return $this->view->render('pdtab', $bag);
+        return $this->view->render('pdtab', [
+            "action" => $request->url()->relative(),
+            "helpIcon" => "$this->imageDir/help.png",
+            "changefreqOptions" => $changefreqOptions,
+            "priority" => $pageData['sitemapper_priority'],
+        ]);
     }
 }
