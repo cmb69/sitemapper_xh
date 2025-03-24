@@ -8,9 +8,6 @@
       <file>index.php</file>
       <file>sitemapper_view.php</file>
     </include>
-    <report>
-      <html outputDirectory="./tests/coverage" lowUpperBound="50" highLowerBound="90"/>
-    </report>
   </coverage>
   <testsuites>
     <testsuite name="coverage">

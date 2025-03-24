@@ -26,8 +26,6 @@
 
     <target name="test" description="runs all developer tests">
         <exec executable="phpunit" passthru="true" checkreturn="true">
-            <arg value="--bootstrap"/>
-            <arg file="tests/bootstrap.php"/>
             <arg file="tests"/>
         </exec>
     </target>
@@ -36,7 +34,7 @@
 
     <target name="coverage" description="generates coverage report">
         <exec executable="phpunit" passthru="true" checkreturn="true">
-            <arg line="--configuration coverage.xml"/>
+            <arg line="--coverage-html coverage"/>
         </exec>
     </target>
 
@@ -87,10 +85,10 @@
                 <exclude name=".phive/**"/>
                 <exclude name="build.xml"/>
                 <exclude name="composer.*"/>
-                <exclude name="coverage.xml"/>
                 <exclude name="help/template.htm"/>
                 <exclude name="phpstan.bootstrap.php"/>
                 <exclude name="phpstan.neon"/>
+                <exclude name="phpunit.xml"/>
                 <exclude name="README*.md"/>
                 <exclude name="teplad.xml"/>
                 <exclude name="tests/**"/>
