@@ -19,6 +19,7 @@
  * along with Sitemapper_XH.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+use Plib\Request;
 use Sitemapper\Dic;
 use XH\PageDataRouter;
 
@@ -44,5 +45,5 @@ if (isset($_GET['sitemapper_index']) && $sl == $cf['language']['default']) {
 }
 
 XH_afterPluginLoading(function () use ($f) {
-    Dic::makeSitemapController()->execute($f)();
+    Dic::makeSitemapController()->execute(Request::current(), $f)();
 });

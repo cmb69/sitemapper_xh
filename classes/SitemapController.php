@@ -21,6 +21,7 @@
 
 namespace Sitemapper;
 
+use Plib\Request;
 use Plib\Response;
 use Plib\View;
 use XH\Pages;
@@ -29,13 +30,10 @@ use XH\Publisher;
 class SitemapController
 {
     /** @var string */
-    private $url;
+    private $base;
 
     /** @var string */
     private $defaultLanguage;
-
-    /** @var array<string,string> */
-    private $conf;
 
     /** @var Model */
     private $model;
@@ -49,46 +47,43 @@ class SitemapController
     /** @var View */
     private $view;
 
-    /** @param array<string,string> $conf */
     public function __construct(
-        string $url,
+        string $base,
         string $defaultLanguage,
-        array $conf,
         Model $model,
         Pages $pages,
         Publisher $publisher,
         View $view
     ) {
-        $this->url = $url;
+        $this->base = $base;
         $this->defaultLanguage = $defaultLanguage;
-        $this->conf = $conf;
         $this->model = $model;
         $this->pages = $pages;
         $this->publisher = $publisher;
         $this->view = $view;
     }
 
-    public function execute(string $f): Response
+    public function execute(Request $request, string $f): Response
     {
         switch ($f) {
             case "sitemapper_index":
-                return $this->sitemapIndex();
+                return $this->sitemapIndex($request);
             case "sitemapper_sitemap":
-                return $this->languageSitemap();
+                return $this->languageSitemap($request);
         }
         return Response::create();
     }
 
-    private function sitemapIndex(): Response
+    private function sitemapIndex(Request $request): Response
     {
         $sitemaps = array();
         foreach ($this->model->installedLanguages() as $lang) {
-            $base = $this->url;
+            $base = $this->base;
             if ($lang != $this->defaultLanguage) {
                 $base .= $lang . '/';
             }
             $sitemap = [
-                'loc' => $base . '?sitemapper_sitemap',
+                'loc' => $request->url()->path($base)->page("sitemapper_sitemap")->absolute(),
                 'time' => $this->model->languageLastMod($lang)
             ];
             $sitemaps[] = $sitemap;
@@ -98,17 +93,16 @@ class SitemapController
             ->withContentType("application/xml; charset=utf-8");
     }
 
-    private function languageSitemap(): Response
+    private function languageSitemap(Request $request): Response
     {
         $startpage = $this->publisher->getFirstPublishedPage();
         $urls = array();
         for ($i = 0; $i < $this->pages->getCount(); $i++) {
             if (!$this->model->isPageExcluded($i)) {
-                $separator = $this->conf['clean_urls'] ? '' : '?';
                 $priority = $this->model->pagePriority($i);
+                $page = ($i == $startpage ? '' : ($this->pages->url($i)));
                 $url = [
-                    'loc' => $this->url
-                        . ($i == $startpage ? '' : ($separator . $this->pages->url($i))),
+                    'loc' => $request->url()->page($page)->absolute(),
                     'lastmod' => $this->model->pageLastMod($i),
                     'changefreq' => $this->model->pageChangefreq($i),
                     'priority' => $priority

@@ -54,12 +54,11 @@ class Dic
 
     public static function makeSitemapController(): SitemapController
     {
-        global $cf, $xh_publisher, $plugin_cf;
+        global $cf, $pth, $xh_publisher;
 
         return new SitemapController(
-            CMSIMPLE_URL,
+            $pth["folder"]["base"],
             $cf["language"]["default"],
-            $plugin_cf["sitemapper"],
             self::model(),
             new Pages(),
             $xh_publisher,

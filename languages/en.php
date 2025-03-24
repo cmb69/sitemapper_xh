@@ -12,6 +12,5 @@ $plugin_tx['sitemapper']['syscheck_writable']="'%s' writable";
 $plugin_tx['sitemapper']['cf_changefreq']="How frequently the page is likely to change. This value provides general information to search engines and may not correlate exactly to how often they crawl the page.";
 $plugin_tx['sitemapper']['cf_priority']="The priority of this URL relative to other URLs on your site. Valid values range from 0.0 to 1.0.";
 $plugin_tx['sitemapper']['cf_ignore_hidden_pages']="Exclude hidden pages from the sitemap?";
-$plugin_tx['sitemapper']['cf_clean_urls']="Whether clean URLs should be used in the sitemap. This setting is only meant for CMSimple_XH clean URL mods!";
 
 ?>

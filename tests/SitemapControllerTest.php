@@ -23,6 +23,7 @@ namespace Sitemapper;
 
 use ApprovalTests\Approvals;
 use PHPUnit\Framework\TestCase;
+use Plib\FakeRequest;
 use Plib\View;
 use XH\Pages;
 use XH\Publisher;
@@ -37,15 +38,14 @@ class SitemapControllerTest extends TestCase
         $publisher = $this->createStub(Publisher::class);
         $view = new View("./views/", XH_includeVar("./languages/en.php", "plugin_tx")["sitemapper"]);
         $sut = new SitemapController(
-            "http://example.com/",
+            "./",
             "en",
-            XH_includeVar("./config/config.php", "plugin_cf")["sitemapper"],
             $model,
             $pages,
             $publisher,
             $view
         );
-        $response = $sut->execute("sitemapper_index");
+        $response = $sut->execute(new FakeRequest(), "sitemapper_index");
         $this->assertSame("application/xml; charset=utf-8", $response->contentType());
         Approvals::verifyHtml($response->output());
     }
@@ -74,15 +74,14 @@ class SitemapControllerTest extends TestCase
         $publisher = $this->createStub(Publisher::class);
         $view = new View("./views/", XH_includeVar("./languages/en.php", "plugin_tx")["sitemapper"]);
         $sut = new SitemapController(
-            "http://example.com/",
+            "./",
             "en",
-            XH_includeVar("./config/config.php", "plugin_cf")["sitemapper"],
             $model,
             $pages,
             $publisher,
             $view
         );
-        $response = $sut->execute("sitemapper_sitemap");
+        $response = $sut->execute(new FakeRequest(), "sitemapper_sitemap");
         $this->assertSame("application/xml; charset=utf-8", $response->contentType());
         Approvals::verifyHtml($response->output());
     }
