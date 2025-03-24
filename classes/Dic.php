@@ -100,6 +100,6 @@ class Dic
     {
         global $pth, $plugin_tx;
 
-        return new View("{$pth['folder']['plugins']}sitemapper/views", $plugin_tx["sitemapper"]);
+        return new View("{$pth['folder']['plugins']}sitemapper/views/", $plugin_tx["sitemapper"]);
     }
 }
