@@ -26,6 +26,7 @@ require_once '../../cmsimple/classes/Pages.php';
 require_once '../../cmsimple/classes/Publisher.php';
 require_once '../../cmsimple/functions.php';
 
+require_once '../plib/classes/Response.php';
 require_once '../plib/classes/SystemChecker.php';
 require_once '../plib/classes/View.php';
 require_once '../plib/classes/FakeSystemChecker.php';

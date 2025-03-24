@@ -57,12 +57,6 @@ class Dic
     {
         global $cf, $xh_publisher, $plugin_cf;
 
-        $respond = function ($body) {
-            header('HTTP/1.0 200 OK');
-            header('Content-Type: application/xml; charset=utf-8');
-            echo $body;
-            exit;
-        };
         return new SitemapController(
             CMSIMPLE_URL,
             $cf["language"]["default"],
@@ -70,8 +64,7 @@ class Dic
             self::model(),
             new Pages(),
             $xh_publisher,
-            self::view(),
-            $respond
+            self::view()
         );
     }
 

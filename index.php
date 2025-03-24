@@ -44,5 +44,5 @@ if (isset($_GET['sitemapper_index']) && $sl == $cf['language']['default']) {
 }
 
 XH_afterPluginLoading(function () use ($f) {
-    Dic::makeSitemapController()->execute($f);
+    Dic::makeSitemapController()->execute($f)();
 });

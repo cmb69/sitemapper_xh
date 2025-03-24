@@ -21,6 +21,7 @@
 
 namespace Sitemapper;
 
+use Plib\Response;
 use Plib\View;
 use XH\Pages;
 use XH\Publisher;
@@ -48,9 +49,6 @@ class SitemapController
     /** @var View */
     private $view;
 
-    /** @var callable */
-    private $respond;
-
     /** @param array<string,string> $conf */
     public function __construct(
         string $url,
@@ -59,8 +57,7 @@ class SitemapController
         Model $model,
         Pages $pages,
         Publisher $publisher,
-        View $view,
-        callable $respond
+        View $view
     ) {
         $this->url = $url;
         $this->defaultLanguage = $defaultLanguage;
@@ -69,24 +66,20 @@ class SitemapController
         $this->pages = $pages;
         $this->publisher = $publisher;
         $this->view = $view;
-        $this->respond = $respond;
     }
 
-    /** @return void */
-    public function execute(string $f)
+    public function execute(string $f): Response
     {
         switch ($f) {
             case "sitemapper_index":
-                $this->sitemapIndex();
-                break;
+                return $this->sitemapIndex();
             case "sitemapper_sitemap":
-                $this->languageSitemap();
-                break;
+                return $this->languageSitemap();
         }
+        return Response::create();
     }
 
-    /** @return void */
-    private function sitemapIndex()
+    private function sitemapIndex(): Response
     {
         $sitemaps = array();
         foreach ($this->model->installedLanguages() as $lang) {
@@ -100,14 +93,12 @@ class SitemapController
             ];
             $sitemaps[] = $sitemap;
         }
-        ($this->respond)(
-            '<?xml version="1.0" encoding="UTF-8"?>' . "\n"
-            . $this->view->render('index', array('sitemaps' => $sitemaps))
-        );
+        return Response::create('<?xml version="1.0" encoding="UTF-8"?>' . "\n"
+            . $this->view->render('index', array('sitemaps' => $sitemaps)))
+            ->withContentType("application/xml; charset=utf-8");
     }
 
-    /** @return void */
-    private function languageSitemap()
+    private function languageSitemap(): Response
     {
         $startpage = $this->publisher->getFirstPublishedPage();
         $urls = array();
@@ -125,9 +116,8 @@ class SitemapController
                 $urls[] = $url;
             }
         }
-        ($this->respond)(
-            '<?xml version="1.0" encoding="UTF-8"?>' . "\n"
-            . $this->view->render('sitemap', array('urls' => $urls))
-        );
+        return Response::create('<?xml version="1.0" encoding="UTF-8"?>' . "\n"
+            . $this->view->render('sitemap', array('urls' => $urls)))
+            ->withContentType("application/xml; charset=utf-8");
     }
 }

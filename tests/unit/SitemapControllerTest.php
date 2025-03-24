@@ -43,12 +43,11 @@ class SitemapControllerTest extends TestCase
             $model,
             $pages,
             $publisher,
-            $view,
-            function ($body) {
-                Approvals::verifyHtml($body);
-            }
+            $view
         );
-        $sut->execute("sitemapper_index");
+        $response = $sut->execute("sitemapper_index");
+        $this->assertSame("application/xml; charset=utf-8", $response->contentType());
+        Approvals::verifyHtml($response->output());
     }
 
     public function testLanguageSitemap(): void
@@ -81,11 +80,10 @@ class SitemapControllerTest extends TestCase
             $model,
             $pages,
             $publisher,
-            $view,
-            function ($body) {
-                Approvals::verifyHtml($body);
-            }
+            $view
         );
-        $sut->execute("sitemapper_sitemap");
+        $response = $sut->execute("sitemapper_sitemap");
+        $this->assertSame("application/xml; charset=utf-8", $response->contentType());
+        Approvals::verifyHtml($response->output());
     }
 }
