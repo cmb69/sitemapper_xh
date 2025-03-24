@@ -115,12 +115,12 @@ bestimmten Zweck*. Details finden Sie in der GNU General Public License.
 Sie sollten ein Exemplar der GNU General Public License zusammen mit
 Sitemapper\_XH erhalten haben. Falls nicht, siehe http://www.gnu.org/licenses/.
 
-© 2011-2025 Christoph M. Becker
+Copyright © Christoph M. Becker
 
-Tscheschiche Übersetzung © 2011-2012 Josef Němec  
-Polnische Übersetzung © 2012 Kamill Krzes  
-Slovakische Übersetzung © 2012 Dr. Martin Sereday  
-Estnische Übersetzung © 2013 Alo Tänavots
+Tscheschiche Übersetzung © Josef Němec<br>
+Polnische Übersetzung © Kamill Krzes<br>
+Slovakische Übersetzung © Dr. Martin Sereday<br>
+Estnische Übersetzung © Alo Tänavots
 
 ## Danksagung
 

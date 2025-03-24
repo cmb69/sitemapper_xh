@@ -108,12 +108,12 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Sitemapper\_XH.  If not, see http://www.gnu.org/licenses/.
 
-© 2011-2025 Christoph M. Becker
+Copyright © Christoph M. Becker
 
-Czech translation © 2011-2012 Josef Němec  
-Polish translation © 2012 Kamill Krzes  
-Slovak translation © 2012 Dr. Martin Sereday  
-Estonian translation © 2013 Alo Tänavots
+Czech translation © Josef Němec<br>
+Polish translation © Kamill Krzes<br>
+Slovak translation © Dr. Martin Sereday<br>
+Estonian translation © Alo Tänavots
 
 ## Credits
 
