@@ -24,15 +24,15 @@
         <exec executable="phpstan" passthru="true" checkreturn="true"/>
     </target>
 
-    <target name="unit-tests" description="runs all unit tests">
+    <target name="test" description="runs all developer tests">
         <exec executable="phpunit" passthru="true" checkreturn="true">
             <arg value="--bootstrap"/>
-            <arg file="tests/unit/bootstrap.php"/>
-            <arg file="tests/unit"/>
+            <arg file="tests/bootstrap.php"/>
+            <arg file="tests"/>
         </exec>
     </target>
 
-    <target name="check" description="runs all checks" depends="sniff,stan,unit-tests"/>
+    <target name="check" description="runs all checks" depends="sniff,stan,test"/>
 
     <target name="coverage" description="generates coverage report">
         <exec executable="phpunit" passthru="true" checkreturn="true">
