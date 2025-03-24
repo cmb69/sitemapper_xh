@@ -21,6 +21,7 @@
 
 namespace Sitemapper;
 
+use Plib\SystemChecker;
 use Plib\View;
 use XH\Pages;
 
@@ -34,8 +35,8 @@ class Dic
             CMSIMPLE_ROOT,
             $cf['language']['default'],
             "{$pth['folder']['plugins']}sitemapper",
-            CMSIMPLE_XH_VERSION,
             self::model(),
+            new SystemChecker(),
             self::view()
         );
     }

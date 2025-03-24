@@ -23,6 +23,7 @@ namespace Sitemapper;
 
 use ApprovalTests\Approvals;
 use PHPUnit\Framework\TestCase;
+use Plib\FakeSystemChecker;
 use Plib\View;
 
 class InfoControllerTest extends TestCase
@@ -36,8 +37,8 @@ class InfoControllerTest extends TestCase
             "/",
             "en",
             "./plugins/sitemapper",
-            "CMSimple_XH 1.8",
             $model,
+            new FakeSystemChecker(),
             $view
         );
         Approvals::verifyHtml($sut->execute());
