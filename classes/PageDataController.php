@@ -54,11 +54,20 @@ class PageDataController
                 "selected" => $pageData['sitemapper_changefreq'] == $changefreq ? " selected" : "",
             ];
         }
+        $includeOptions = [];
+        foreach (["", "yes", "no"] as $option) {
+            $includeOptions[] = [
+                "name" => $option,
+                "label" => $option !== "" ? "label_$option" : "label_empty",
+                "selected" => $pageData['sitemapper_include'] === $option ? " selected" : "",
+            ];
+        }
         return $this->view->render('pdtab', [
             "action" => $request->url()->relative(),
             "helpIcon" => "$this->imageDir/help.png",
             "changefreqOptions" => $changefreqOptions,
             "priority" => $pageData['sitemapper_priority'],
+            "includeOptions" => $includeOptions,
         ]);
     }
 }

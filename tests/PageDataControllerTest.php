@@ -21,6 +21,7 @@ class PageDataControllerTest extends TestCase
         $pd = [
             "sitemapper_changefreq" => "monthly",
             "sitemapper_priority" => "0.5",
+            "sitemapper_include" => "",
         ];
         Approvals::verifyHtml($sut->execute(new FakeRequest(["url" => "http://example.com/?Start"]), $pd));
     }

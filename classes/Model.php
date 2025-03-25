@@ -102,6 +102,14 @@ class Model
 
     public function isPageExcluded(int $index): bool
     {
+        $pagedata = $this->pageDataRouter->find_page($index);
+        $include = $pagedata['sitemapper_include'] ?? "";
+        if ($include === "include") {
+            return false;
+        }
+        if ($include === "exclude") {
+            return true;
+        }
         return !$this->isPagePublished($index)
             || $this->excludeHidden && $this->isPageHidden($index);
     }

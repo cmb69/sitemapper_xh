@@ -26,6 +26,18 @@
     <label for="sitemapper_priority"><span>Priority:</span></label>
     <input type="text" id="sitemapper_priority" name="sitemapper_priority" style="display: block" value="0.5">
   </p>
+  <p>
+    <a class="pl_tooltip" onclick="return false">
+      <img src="./plugins/sitemapper/images/help.png" alt="help">
+      <span>Whether the page should be included in the sitemap. Leave blank for the standard behavior for published and hidden pages. Choose “yes” or “no” to override the standard behavior for this page.</span>
+    </a>
+    <label for="sitemapper_include"><span>Include in sitemap:</span></label>
+    <select id="sitemapper_include" name="sitemapper_include" style="display: block">
+      <option value="" selected></option>
+      <option value="yes">yes</option>
+      <option value="no">no</option>
+    </select>
+  </p>
   <p style="text-align: right">
     <input type="submit" class="submit" name="save_page_data">
   </p>

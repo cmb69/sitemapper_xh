@@ -39,6 +39,7 @@ const SITEMAPPER_VERSION = "3.1-dev";
 
 $pd_router->add_interest('sitemapper_changefreq');
 $pd_router->add_interest('sitemapper_priority');
+$pd_router->add_interest('sitemapper_include');
 
 if (isset($_GET['sitemapper_index']) && $sl == $cf['language']['default']) {
     $f = 'sitemapper_index';

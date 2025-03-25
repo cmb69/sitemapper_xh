@@ -63,6 +63,7 @@ All published pages that are not hidden will be included in the
 Sitemaps. Additionally hidden pages will be included when `ignore hidden pages`
 is disabled. You can view the generated Sitemaps in the plugin administration
 under `Available Sitemaps`.
+This behavior can be overridden for individual pages in the page data tab.
 
 The simplest way to make the Sitemaps available to search engines is to put
 the following line to your `robots.txt`:

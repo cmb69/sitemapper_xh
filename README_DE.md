@@ -68,6 +68,7 @@ Alle veröffentlichten Seiten, die nicht versteckt sind, werden in den
 Sitemaps aufgeführt. Darüberhinaus werden verstecke Seiten aufgeführt, wenn
 `ignore hidden pages` deaktiviert ist. Sie können die erzeugten Sitemaps unter
 `Vorhandene Sitemaps` einsehen.
+Dieses Verhalten kann für einzelne Seiten im Page-Data-Tab übersteuert werden.
 
 Die einfachste Möglichkeit die Sitemaps Suchmaschinen zur Verfügung zu
 stellen, ist die folgende Zeile in Ihre `robots.txt` zu schreiben:

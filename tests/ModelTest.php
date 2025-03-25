@@ -27,16 +27,19 @@ class ModelTest extends TestCase
                 'last_edit' => '1366639458',
                 'linked_to_menu' => '0',
                 'sitemapper_changefreq' => 'daily',
-                'sitemapper_priority' => '0.3'
+                'sitemapper_priority' => '0.3',
+                'sitemapper_include' => 'include',
             ]],
             [2, [
                 'sitemapper_priority' => '1.0'
             ]],
             [3, ['published' => '0']],
-            [4, []],
+            [4, [
+                'sitemapper_include' => 'exclude',
+            ]],
         ]);
         $publisher = $this->createStub(Publisher::class);
-        $publisher->method("isHidden")->willReturnMap([[0, false], [1, true], [2, true], [3, false], [4, true]]);
+        $publisher->method("isHidden")->willReturnMap([[0, false], [1, true], [2, true], [3, false], [4, false]]);
         $publisher->method("isPublished")->willReturnMap([[0, true], [1, true], [2, true], [3, false], [4, true]]);
         $this->sitemapper = new Model('en', ['de'], vfsStream::url('test/'), $pageDataRouter, $publisher, true, 'monthly', '0.5');
     }
@@ -143,7 +146,7 @@ class ModelTest extends TestCase
     {
         return array(
             array(0, false),
-            array(1, true),
+            array(1, false),
             array(2, true),
             array(3, true),
             array(4, true)
