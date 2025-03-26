@@ -28,14 +28,14 @@ class ModelTest extends TestCase
                 'linked_to_menu' => '0',
                 'sitemapper_changefreq' => 'daily',
                 'sitemapper_priority' => '0.3',
-                'sitemapper_include' => 'include',
+                'sitemapper_include' => 'yes',
             ]],
             [2, [
                 'sitemapper_priority' => '1.0'
             ]],
             [3, ['published' => '0']],
             [4, [
-                'sitemapper_include' => 'exclude',
+                'sitemapper_include' => 'no',
             ]],
         ]);
         $publisher = $this->createStub(Publisher::class);

@@ -104,10 +104,10 @@ class Model
     {
         $pagedata = $this->pageDataRouter->find_page($index);
         $include = $pagedata['sitemapper_include'] ?? "";
-        if ($include === "include") {
+        if ($include === "yes") {
             return false;
         }
-        if ($include === "exclude") {
+        if ($include === "no") {
             return true;
         }
         return !$this->isPagePublished($index)
