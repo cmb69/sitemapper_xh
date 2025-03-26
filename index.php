@@ -28,7 +28,7 @@ if (!defined("CMSIMPLE_XH_VERSION")) {
     exit;
 }
 
-const SITEMAPPER_VERSION = "3.1";
+const SITEMAPPER_VERSION = "3.2";
 
 /**
  * @var PageDataRouter $pd_router
